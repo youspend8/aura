@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<title>Insert title here</title>
+
+	<script src="https://code.jquery.com/jquery-2.2.4.js"
+		integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+		crossorigin="anonymous">
+	</script>
+	
+	<style type="text/css">
+		@import url('http://fonts.googleapis.com/earlyaccess/hanna.css');
+		.progress {
+			font-family: 'Hanna', sans-serif;
+			font-size : 24px;
+			width: 600px;
+			height: 600px;
+			background-color: white;
+			position: absolute;
+			border: 2px solid red
+		}
+		.dictionary {
+			font-family: 'Hanna', sans-serif;
+			font-size : 24px;
+			left: 700px;
+			width: 600px;
+			height: 600px;
+			position: absolute; 
+			background-color : white;
+			border: 2px solid green;
+			background-color: white
+		}
+		.inputKeyword {
+			font-family: 'Hanna', sans-serif;
+			text-align : center;
+			padding : 10px 0;
+			top : 650px;
+			position: absolute; 
+			width: 1290px;
+			hegiht: 150px;
+			border : 2px solid black;
+		    vertical-align:middle;
+		    background-color : ivory;
+		}
+	</style>	
+
+	<script type="text/javascript">
+	
+		var keywordList = [];
+	
+		//입력한 keyword를  집어넣고
+		function dupliCheck (keyword) {
+		//keyword를 for문에 집어넣고
+			for (var i = 0; i < keywordList.length; i++) {
+				//거기서 중복 체크를 한다.
+				if (keywordList[i] == keyword) {
+					return false;
+				}
+			}
+			return true;
+		}
+		//	공백이 포함되어있는지 + 널 체크
+		function nullContainCheck(keyword) {
+			if (keyword.indexOf(' ') != -1 || keyword == ''){
+				return false;
+			}
+			return true;
+		}		
+		
+		//	한글만 있는지 (정규 표현식)
+		function koreanCheck(keyword) {
+			var check = /[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
+
+			if(!check.test("keyword.val()")== false){
+				return false;
+			}
+			return true;
+			
+		}
+		
+		//	상대방이 제시한 끝말과 맞는지
+		function lastCharMatchCheck() {
+		}
+		
+		$(document).ready(function() {
+			$('#input').on('click', function() {
+				koreanCheck(keyword);
+				
+				var keyword = $('#keyword').val(); 
+				$('.dictionary').text(" ");
+				//공벽이 없다
+				if(nullContainCheck(keyword) == true){
+					
+					//키워드 중복검사
+					if (dupliCheck(keyword) == true ) {
+						
+						if(koreanCheck(keyword)==true){
+							keywordList.push(keyword);
+							$('.progress').append(keyword+' >> ');	
+							$('#keyword').val('');
+						}else if(koreanCheck(keyword)==false){
+							alert("영어나 특수문자는 사용하실수없습니다.");
+							$('#keyword').val('');
+						}
+						
+						$.ajax({
+							url : 'getWord.do',
+							dataType : 'json',
+							type : 'get',
+							data : {
+								'keyword' : keyword
+							},
+							success : function(data){		
+								$('.dictionary').append("<br>"+"["+data.items[0].title+"]"+"<br>")
+												.append(data.items[0].description+"<br><br>");
+							}
+						});
+
+					//같은 값이 들어갈때 == 중복
+					}else if(dupliCheck(keyword) == false) {
+						alert('중복입니다.');
+						$('#keyword').val('');
+					}
+				// 공백이 존재할떼
+				}else if(nullContainCheck(keyword) == false){
+					alert('공백이존재합니다.');
+					$('#keyword').val('');
+				}
+			});
+		});
+	</script>
+
+</head>
+
+<body>
+		
+		<div class ="progress" style="overflow-y: scroll"><p></div>
+		<div class ="dictionary" style="overflow-y: scroll"><p></div>
+				
+		<div class ="inputKeyword">
+			사용자 입력 : <input type = "text" name ="keyword" id="keyword">
+			<button type="button" id ="input" class="btn btn-warning">입 력</button>
+		</div>
+</body>
+</html>

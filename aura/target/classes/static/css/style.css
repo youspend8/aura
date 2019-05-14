@@ -1,0 +1,420 @@
+
+li {
+    display: inline-block;
+}
+
+i {
+    font-size: 20px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.first_container .carousel-inner * {
+    height: 100%;
+}
+
+.first_recommand {
+    background-size: 700px 700px;
+    background-position: center;
+    height: 40%;
+
+    transition-property: background-size, background-position;
+    transition-duration: 500ms;
+}
+
+.first_recommand:hover{
+    background-size: 100% 100%;
+}
+
+.thema-flex {
+    height: 500px;
+}
+
+.recommand_box {
+    color: white;
+    
+    text-align: center;
+    font-size: 100%;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.7);
+    transition-property: background opacity;
+    transition-duration: 500ms;
+}
+
+.recommand_box:hover{
+    background: rgba(0, 0, 0, 0);
+    opacity: 0;
+}
+
+
+.pop-review-prev-button {
+    width: 5%;
+
+}
+
+.pop-review-next-button {
+    width: 5%;
+ 
+}
+
+#today_review .nav-link {
+    border-bottom: 5px solid orange;
+}
+
+#today_review .active {
+    border-bottom: 5px solid white;
+}
+
+.evnetPan {
+    height: 200px;
+}
+
+.first_recommand {
+    margin: 10px 10px 10px 10px;
+}
+
+
+
+.card {
+    margin: 2px;
+}
+
+
+.win {
+    width: 15%;
+    height: 100%;
+    margin: 0 ;
+    padding: 1%;
+    padding-left: 0;
+    padding-right: 1% ;
+}
+
+
+.card-jisung {
+    width: 100%;
+    display: inline-block;
+    flex-flow: wrap;
+    height: 90%;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 5%;
+    box-shadow: 0px 0px 5px 4px rgb(158, 154, 154);
+}
+
+.card-jisung i {
+	font-size: 11px;
+}
+
+.cardtitle {
+    width: 100%;
+    height: 21%;
+    background: white;
+    padding-left: 5%;
+    padding-top: 2%;
+    font-size: 80%;
+}
+
+.cardcontent {
+    width: 100%;
+    height: 0;
+    opacity: 0;
+    padding: 6%;
+    padding-top: 0;
+    padding-bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+
+    font-size: 50%;
+
+    overflow: hidden;
+
+    transition-duration: 500ms;
+
+}
+
+
+.cardpic {
+
+    width: 100%;
+    height: 79%;
+    bottom: 0;
+    background: green;
+}
+
+.cardpic>img {
+    width: 100%;
+    height: 100%;
+}
+
+.tl {
+    height: 270px;
+}
+
+.rank_section{
+    height: 180px;
+    margin-bottom: 6px;
+}
+
+
+/* 채훈  */
+
+.hospital-category {
+    position: absolute;
+    top: 100%;
+    z-index: 1;
+    background-color: white;
+    visibility: hidden;
+}
+
+.hospital-category > button {
+    font-size: 15px;
+}
+
+.general-category,
+.special-category {
+    position: absolute;
+    top: 100%;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    visibility: hidden;
+}
+
+.general-category > li > button,
+.special-category > li > button {
+    width: 100%;
+    font-size: 15px;
+}
+
+#background {
+	width: 100%;
+	height: 500px;
+	background-image: url('/img/main/full_background.jpg');
+	position: fixed;
+	top : 0;
+	z-index: 0;
+}
+
+#header {
+	height: 500px;
+	position: relative;
+	z-index: 1;
+	text-align: center;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+}
+
+.search_select {
+	width: 20%;
+	height: 50px;
+	border-bottom-left-radius: 400px;
+	border-top-left-radius: 400px;
+	border: 4px solid orange;
+	border-right: 0px;
+}
+
+.search_input {
+	height: 50px;
+	border-bottom-right-radius: 400px;
+	border-top-right-radius: 400px;
+	border: 4px solid orange;
+}
+
+.search_select > option {
+	width: 50%;
+}
+
+.navigation {
+	height: 50px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	background-color: orange;
+	padding: 0;
+	align-items: center;
+}
+
+.social_content {
+	width: 15%;
+	margin: 0;
+	display: flex;
+	flex-flow: row;
+	padding: 13px 0;
+}
+
+.social_content > li {
+	margin: 0;
+	display: flex;
+	align-items: center;
+	vertical-align: middle;
+	justify-content: center;
+	text-align: center;
+	font-size: 1rem;
+	font-weight: 800;
+}
+
+.navigation_brand_logo {
+	width: 60%;
+	padding: 0 5%;
+}
+
+.navigation_search_form {
+	width: 50%;
+}
+
+/* Choi */
+.scroll_top {
+    position: fixed;
+    visibility: hidden;
+    bottom: 3%;
+    right: 2%;
+    font-size: 3rem;
+    z-index: 10;
+}
+
+.board_search_title {
+    font-weight:bolder;
+    font-size: 30px;
+}
+
+.board_search_contents {
+    text-align: center;
+    font-weight:bold;
+    font-size: 20px;
+    color: rgb(153, 153, 153)
+}
+
+.board_list_title {
+    font-weight: bold;
+    display:inline-block;
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    .tl {
+        height: 600px;
+    }
+    .evnetPan {
+        height: 120px;
+    }
+    .first_container{
+        height: 350px;
+    }
+    header {
+        padding-bottom: 30px;
+    }
+    .thema-flex {
+        height: auto;
+    }
+    .first_recommand {
+        margin: 0 22px 0 22px;
+    }
+    .review_section {
+        height: 300px;
+    }
+    .win {
+        width: 30%;
+        height: 50%;
+        margin: 0 ;
+        padding: 1%;
+        padding-left: 0;
+        padding-right: 1%
+    }
+	.rank_section {
+	    height: 230px;
+	    margin-bottom: 0;
+	}
+}
+@media (min-width: 768px) {
+    .evnetPan {
+       height: 150px;
+    }
+
+    .thema-flex {
+        height: 800px;
+    }
+
+    .recommand_box {
+        font-size: 200%;
+    }
+
+    .first_recommand {
+        margin: 5px 15px 5px 15px;
+    }
+ 
+    .rank_section{
+        height: 150px;
+    }
+    .hospital-category {
+        width: 50%;
+    }
+    .general-category,
+    .special-category {
+        left: 50%;
+        width: 100%;
+    }
+}
+
+@media (max-width: 767.9px) {
+    .tl {
+        height: 1000px;
+    }
+    .win {
+        width: 46%;
+        height: 30%;
+        margin: 0 ;
+        padding: 1%;
+        padding-left: 0;
+        padding-right: 1%
+    }
+    .board_search_title {
+        font-size: 1.2rem;
+    }
+
+    .board_search_contents {
+        font-size: 1rem;
+    }
+    
+    .board_list_title {
+        margin-top:3%; 
+    }
+    
+    .board_filter {
+        font-size: 100%;
+    }
+    
+    .hospital-category {
+        width: 75%;
+        left: -40%;
+    }
+
+    .general-category,
+    .special-category {
+        left: 30%;
+        width: 130%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
