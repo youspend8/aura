@@ -1,0 +1,8 @@
+2019-05-06 16:07:51 [INFO ] [ReviewController.java.search] : search/채훈채훈/1/강남
+2019-05-06 16:07:54 [INFO ] [ReviewController.java.post] : read/채훈채훈/5
+2019-05-06 17:38:13 [INFO ] [ReviewController.java.search] : search/null/1/강남
+2019-05-06 17:38:20 [INFO ] [ReviewController.java.post] : read/null/5
+2019-05-06 17:38:37 [INFO ] [ReviewController.java.search] : search/채훈채훈/1/
+2019-05-06 17:38:41 [INFO ] [ReviewController.java.post] : read/채훈채훈/5
+2019-05-06 17:38:46 [INFO ] [ReviewController.java.post] : read/채훈채훈/2
+2019-05-06 17:39:22 [INFO ] [ReviewController.java.post] : read/채훈채훈/1

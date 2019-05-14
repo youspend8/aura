@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.bitcamp.aura.review.dao.ReviewMapper">
+	<insert id="insert" parameterType="java.util.HashMap">
+		<selectKey keyProperty="num" resultType="int" order="BEFORE">
+			SELECT REVIEW_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT 
+			ALL
+	    INTO REVIEW (
+			NUM, TITLE, CONTENTS, STARS, GOODS, BOOKMARK, SHARES, READ_COUNT, ADD_DATE, TYPE, COMMENTS
+		)
+	    VALUES (
+	    	#{num, jdbcType=NUMERIC},
+	    	#{title, jdbcType=VARCHAR},
+	    	#{contents, jdbcType=VARCHAR},
+	    	0,
+	    	0,
+	    	0,
+	    	0,
+	    	0,
+	    	#{addDate, jdbcType=VARCHAR},
+	    	#{type, jdbcType=NUMERIC},
+	    	0
+	    )
+	    <if test="type == 1 or type == 2">
+		    INTO PLACE_REVIEW (
+		    	NUM, ADDRESS1, TEL, SERVICE_TIME, WAITING_TIME, ADDRESS2, ADDRESS3, DETAIL_ADDR
+		    )
+		    VALUES (
+		    	#{num, jdbcType=NUMERIC},
+		    	#{address1, jdbcType=VARCHAR},
+		    	#{tel, jdbcType=VARCHAR},
+		    	#{serviceTime, jdbcType=VARCHAR},
+		    	#{waitingTime, jdbcType=VARCHAR},
+		    	#{address2, jdbcType=VARCHAR},
+		    	#{address3, jdbcType=VARCHAR},
+		    	#{detaileAddr, jdbcType=VARCHAR}
+		    )
+	    </if>
+	    <if test="type == 3">
+		    INTO PRODUCTOR_REVIEW (
+		    	NUM, RELEASE, PRICE, PRODUCTOR
+		    )
+		    VALUES (
+		    	#{num, jdbcType=NUMERIC},
+		    	#{release, jdbcType=VARCHAR},
+		    	#{price, jdbcType=VARCHAR},
+		    	#{productor, jdbcType=VARCHAR}
+		    )
+	    </if>
+	    <if test="type == 1">
+		    INTO RESTAURANT_REVIEW(
+		    	NUM, RESTAURANT_CATEGORY, RESTAURANT_DELIVERY, RESTAURANT_TAKEOUT, RESTAURANT_MENU
+		    )
+		    VALUES (
+		    	#{num, jdbcType=NUMERIC},
+		    	#{restaurantCategory, jdbcType=NUMERIC},
+		    	#{delivery, jdbcType=NUMERIC},
+		    	#{takeOut, jdbcType=NUMERIC},
+		    	#{menu, jdbcType=VARCHAR}
+		    )
+	    </if>
+	    <if test="type == 2">
+		    INTO HOSPITAL_REVIEW (
+		    	NUM, HOSPITAL_CATEGORY, MEDICAL_CATEGORY, SUB_MEDICAL_CATEGORY
+		    )
+		    VALUES (
+		    	#{num, jdbcType=NUMERIC},
+		    	#{hospitalCategory, jdbcType=NUMERIC},
+		    	#{medicalCategory, jdbcType=NUMERIC},
+		    	#{subMedicalCategory, jdbcType=VARCHAR}
+		    )
+	    </if>
+	    <if test="type == 3">
+		    INTO DIGITAL_REVIEW (
+		    	NUM, MODEL, SUB_CATEGORY1, SUB_CATEGORY2, SUB_CATEGORY3, OPTIONS
+		    )
+		    VALUES (
+		    	#{num, jdbcType=NUMERIC},
+		    	#{model, jdbcType=NUMERIC},
+		    	#{subCategory1, jdbcType=NUMERIC},
+		    	#{subCategory2, jdbcType=NUMERIC},
+		    	#{subCategory3, jdbcType=NUMERIC},
+		    	#{options, jdbcType=VARCHAR}
+		    )
+	    </if>
+		SELECT
+		    *
+		FROM
+		    DUAL
+	</insert>
+	
+	<update id="updateReview" parameterType="ReviewVO">
+		UPDATE
+			REVIEW
+		SET
+			TITLE = #{title},
+			CONTENTS = #{contents},
+			STARS = #{stars},
+			GOODS = #{goods}, 
+			BOOKMARK = ${bookmark},
+			SHARES = #{shares},
+			READ_COUNT = #{readCount},
+			TYPE = #{type},
+			COMMENTS = #{comments}
+		WHERE
+			NUM = #{num}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM
+			REVIEW
+		WHERE
+			NUM = #{num}
+	</delete>
+	
+	<select id="selectHospitalsByParams" parameterType="SearchParams" resultType="HospitalVo">
+		SELECT
+			*
+		FROM (
+			SELECT
+				ROWNUM rnum,
+				REVIEW.*
+			FROM (
+				SELECT
+				    REVIEW.NUM AS num,
+				    REVIEW.TITLE AS title,
+				    REVIEW.CONTENTS AS contents,
+				    NVL((
+					    SELECT
+					        AVG(COMMENT_SCORE)
+					    FROM
+					        USER_COMMENT
+					    WHERE
+					        USER_COMMENT.REVIEW_POST_NUM = REVIEW.NUM
+				    ), 0) AS stars,
+				    (
+					    SELECT
+					        COUNT(COMMENT_NUM)
+					    FROM
+					        USER_COMMENT
+					    WHERE
+					        USER_COMMENT.REVIEW_POST_NUM = REVIEW.NUM
+				    ) AS starCount,
+				    REVIEW.GOODS AS goods,
+				    REVIEW.BOOKMARK AS bookmark,
+				    REVIEW.SHARES AS shares,
+				    REVIEW.READ_COUNT AS readCount,
+				    REVIEW.ADD_DATE AS addDate,
+				    REVIEW.TYPE AS type,
+				    PLACE_REVIEW.ADDRESS1 AS address1,
+				    PLACE_REVIEW.ADDRESS2 AS address2,
+				    PLACE_REVIEW.ADDRESS3 AS address3,
+				    PLACE_REVIEW.DETAIL_ADDR AS addr,
+				    PLACE_REVIEW.TEL AS tel,
+				    PLACE_REVIEW.SERVICE_TIME AS serviceTime,
+				    PLACE_REVIEW.WAITING_TIME AS waitingTime,
+				    HOSPITAL_REVIEW.HOSPITAL_CATEGORY AS hospitalCategory,
+				    HOSPITAL_REVIEW.MEDICAL_CATEGORY AS medicalCategory,
+				    HOSPITAL_REVIEW.SUB_MEDICAL_CATEGORY AS subCategory
+				FROM 
+				    REVIEW
+		        INNER JOIN 
+		            PLACE_REVIEW
+		        ON
+		            REVIEW.NUM = PLACE_REVIEW.NUM
+		        INNER JOIN
+		            HOSPITAL_REVIEW
+		        ON
+		            PLACE_REVIEW.NUM = HOSPITAL_REVIEW.NUM
+		        INNER JOIN 
+		            HOSPITAL_CATEGORY
+		        ON
+		            HOSPITAL_REVIEW.HOSPITAL_CATEGORY = HOSPITAL_CATEGORY.CATEGORY_NUM
+		        INNER JOIN 
+		            MEDICAL_CATEGORY
+		        ON
+		            HOSPITAL_REVIEW.MEDICAL_CATEGORY = MEDICAL_CATEGORY.CATEGORY_NUM
+				WHERE
+					1 = 1
+				<if test="medCategory != null">
+					AND
+					<foreach collection="medCategory" item="category" open="(" close=")" separator="OR">
+						HOSPITAL_REVIEW.MEDICAL_CATEGORY = #{category.value}
+					</foreach>
+				</if>
+				<if test="hosLoc != null">
+					AND
+					<foreach collection="hosLoc" item="loc" open="(" close=")" separator="OR">
+						PLACE_REVIEW.ADDRESS1 LIKE '%'||#{loc, jdbcType=VARCHAR}||'%'
+						OR
+						PLACE_REVIEW.ADDRESS2 LIKE '%'||#{loc, jdbcType=VARCHAR}||'%'
+						OR
+						PLACE_REVIEW.ADDRESS3 LIKE '%'||#{loc, jdbcType=VARCHAR}||'%'
+					</foreach>
+				</if>
+		        <if test="keyword != null">
+			        AND
+			        	REVIEW.TITLE LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		        </if> 
+		        <if test="hospitalGroup != null and hospitalGroup.equals('score')">
+		   			ORDER BY stars DESC
+		        </if>
+		        <if test="hospitalGroup != null and hospitalGroup.equals('comments')">
+		   			ORDER BY starCount DESC
+		        </if>
+			) REVIEW
+		)
+		WHERE 
+			1 = 1
+			<if test="start == 0">
+				AND
+					rnum BETWEEN 1 AND 5
+			</if>
+			<if test="start != 0">
+				AND
+					rnum BETWEEN #{start} AND #{end}
+		    </if>
+	</select>
+	
+	<select id="selectDigitalsByParams" parameterType="SearchParams" resultType="DigitalVO">
+		SELECT
+			*
+		FROM (
+			SELECT
+				ROWNUM rnum,
+				REVIEW.*
+			FROM (
+				SELECT
+				    REVIEW.NUM AS num,
+				    REVIEW.TITLE AS title,
+				    REVIEW.CONTENTS AS contents,
+				    NVL((
+					    SELECT
+					        AVG(COMMENT_SCORE)
+					    FROM
+					        USER_COMMENT
+					    WHERE
+					        USER_COMMENT.REVIEW_POST_NUM = REVIEW.NUM
+				    ), 0) AS stars,
+				    (
+					    SELECT
+					        COUNT(COMMENT_NUM)
+					    FROM
+					        USER_COMMENT
+					    WHERE
+					        USER_COMMENT.REVIEW_POST_NUM = REVIEW.NUM
+				    ) AS starCount,
+				    REVIEW.GOODS AS goods,
+				    REVIEW.BOOKMARK AS bookmark,
+				    REVIEW.SHARES AS shares,
+				    REVIEW.READ_COUNT AS readCount,
+				    REVIEW.ADD_DATE AS addDate,
+				    REVIEW.TYPE AS type,
+				    PRODUCTOR_REVIEW.RELEASE AS release,
+				    PRODUCTOR_REVIEW.PRICE AS price,
+				    PRODUCTOR_REVIEW.PRODUCTOR AS productor,
+				    DIGITAL_REVIEW.MODEL AS model,
+				    DIGITAL_REVIEW.SUB_CATEGORY1 AS subCategory1,
+				    DIGITAL_REVIEW.SUB_CATEGORY2 AS subCategory2,
+				    DIGITAL_REVIEW.SUB_CATEGORY3 AS subCategory3,
+				    DIGITAL_REVIEW.OPTIONS AS options
+				FROM 
+				    REVIEW 
+		        INNER JOIN 
+		            PRODUCTOR_REVIEW
+		        ON
+		            REVIEW.NUM = PRODUCTOR_REVIEW.NUM
+		        INNER JOIN
+		            DIGITAL_REVIEW
+		        ON
+		            PRODUCTOR_REVIEW.NUM = DIGITAL_REVIEW.NUM
+				WHERE
+					1 = 1
+		        <if test="keyword != null">
+			        AND
+			        	REVIEW.TITLE LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		        </if>
+		        <if test="digitalGroup != null and digitalGroup.equals('score')">
+		   			ORDER BY stars DESC
+		        </if>
+		        <if test="digitalGroup != null and digitalGroup.equals('comments')">
+		   			ORDER BY starCount DESC
+		        </if>
+			) REVIEW
+		)
+		WHERE 
+			1 = 1
+			<if test="start == 0">
+				AND
+					rnum BETWEEN 1 AND 5
+			</if>
+			<if test="start != 0">
+				AND
+					rnum BETWEEN #{start} AND #{end}
+		    </if>
+	</select>
+	
+	<select id="selectRestaurantsByParams" parameterType="SearchParams" resultType="RestaurantVO">
+		SELECT
+			*
+		FROM (
+			SELECT
+				ROWNUM rnum,
+				REVIEW.*
+			FROM (
+				SELECT
+				    REVIEW.NUM AS num,
+				    REVIEW.TITLE AS title,
+				    REVIEW.CONTENTS AS contents,
+				    NVL((
+					    SELECT
+					        AVG(COMMENT_SCORE)
+					    FROM
+					        USER_COMMENT
+					    WHERE
+					        USER_COMMENT.REVIEW_POST_NUM = REVIEW.NUM
+				    ), 0) AS stars,
+				    (
+					    SELECT
+					        COUNT(COMMENT_NUM)
+					    FROM
+					        USER_COMMENT
+					    WHERE
+					        USER_COMMENT.REVIEW_POST_NUM = REVIEW.NUM
+				    ) AS starCount,
+				    REVIEW.GOODS AS goods,
+				    REVIEW.BOOKMARK AS bookmark,
+				    REVIEW.SHARES AS shares,
+				    REVIEW.READ_COUNT AS readCount,
+				    REVIEW.ADD_DATE AS addDate,
+				    REVIEW.TYPE AS type,
+				    PLACE_REVIEW.ADDRESS1 AS address1,
+				    PLACE_REVIEW.ADDRESS2 AS address2,
+				    PLACE_REVIEW.ADDRESS3 AS address3,
+				    PLACE_REVIEW.DETAIL_ADDR AS addr,
+				    PLACE_REVIEW.TEL AS tel,
+				    PLACE_REVIEW.SERVICE_TIME AS serviceTime,
+				    PLACE_REVIEW.WAITING_TIME AS waitingTime,
+				    RESTAURANT_REVIEW.RESTAURANT_CATEGORY AS category,
+				    RESTAURANT_REVIEW.RESTAURANT_DELIVERY AS delivery,
+				    RESTAURANT_REVIEW.RESTAURANT_TAKEOUT AS takeOut,
+				    RESTAURANT_REVIEW.RESTAURANT_MENU AS menu
+				FROM 
+				    REVIEW 
+		        INNER JOIN 
+		            PLACE_REVIEW
+		        ON
+		            REVIEW.NUM = PLACE_REVIEW.NUM
+		        INNER JOIN
+		            RESTAURANT_REVIEW
+		        ON
+		            PLACE_REVIEW.NUM = RESTAURANT_REVIEW.NUM
+		        INNER JOIN 
+		            RESTAURANT_CATEGORY
+		        ON
+		            RESTAURANT_REVIEW.RESTAURANT_CATEGORY = RESTAURANT_CATEGORY.CATEGORY_NUM
+				WHERE
+					1 = 1
+				<if test="restCategory != null">
+					AND
+					<foreach collection="restCategory" item="category" open="(" close=")" separator="OR">
+						RESTAURANT_REVIEW.RESTAURANT_CATEGORY = #{category.value}
+					</foreach>
+				</if>
+				<if test="restLoc != null">
+					AND
+					<foreach collection="restLoc" item="loc" open="(" close=")" separator="OR">
+						PLACE_REVIEW.ADDRESS1 LIKE '%'||#{loc, jdbcType=VARCHAR}||'%'
+						OR
+						PLACE_REVIEW.ADDRESS2 LIKE '%'||#{loc, jdbcType=VARCHAR}||'%'
+						OR
+						PLACE_REVIEW.ADDRESS3 LIKE '%'||#{loc, jdbcType=VARCHAR}||'%'
+					</foreach>
+				</if>
+		        <if test="keyword != null">
+			        AND
+			        	REVIEW.TITLE LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		        </if>
+		        <if test="restGroup != null and restGroup.equals('score')">
+		   			ORDER BY stars DESC
+		        </if>
+		        <if test="restGroup != null and restGroup.equals('comments')">
+		   			ORDER BY starCount DESC
+		        </if>
+			) REVIEW
+		)
+		WHERE 
+			1 = 1
+			<if test="start == 0">
+				AND
+					rnum BETWEEN 1 AND 5
+			</if>
+			<if test="start != 0">
+				AND
+					rnum BETWEEN #{start} AND #{end}
+		    </if>
+	</select>
+	
+	<select id="selectOneForUpdateByNum" parameterType="int" resultType="ReviewVO">
+		select 
+			NUM as num,
+			TITLE as title,
+			CONTENTS as contents,
+			STARS as stars,
+			GOODS as goods, 
+			BOOKMARK as bookmark,
+			SHARES as shares,
+			READ_COUNT as readCount,
+			ADD_DATE as addDate,
+			TYPE as type,
+			COMMENTS as comments 
+		FROM
+			REVIEW
+		WHERE
+			NUM = #{num}
+	</select>
+	
+	<select id="selectByNum" resultType="HashMap" parameterType="HashMap">
+		SELECT
+		    REVIEW.NUM AS num,
+		    REVIEW.TITLE AS title,
+		    REVIEW.CONTENTS AS contents,
+		    REVIEW.STARS AS stars,
+		    REVIEW.GOODS AS goods,
+		    REVIEW.BOOKMARK AS bookmark,
+		    REVIEW.SHARES AS shares,
+		    REVIEW.READ_COUNT AS readCount,
+		    REVIEW.ADD_DATE AS addDate,
+		    REVIEW.TYPE AS type,
+			<if test='type == 1'>
+			    PLACE_REVIEW.ADDRESS1 AS address1,
+			    PLACE_REVIEW.ADDRESS2 AS address2,
+			    PLACE_REVIEW.ADDRESS3 AS address3,
+			    PLACE_REVIEW.DETAIL_ADDR AS addr,
+			    PLACE_REVIEW.TEL AS tel,
+			    PLACE_REVIEW.SERVICE_TIME AS serviceTime,
+			    PLACE_REVIEW.WAITING_TIME AS waitingTime,
+			    RESTAURANT_REVIEW.RESTAURANT_CATEGORY AS category,
+			    RESTAURANT_REVIEW.RESTAURANT_DELIVERY AS delivery,
+			    RESTAURANT_REVIEW.RESTAURANT_TAKEOUT AS takeOut,
+			    RESTAURANT_REVIEW.RESTAURANT_MENU AS menu
+			</if>
+			<if test='type == 2'>
+			    PLACE_REVIEW.ADDRESS1 AS address1,
+			    PLACE_REVIEW.ADDRESS2 AS address2,
+			    PLACE_REVIEW.ADDRESS3 AS address3,
+			    PLACE_REVIEW.DETAIL_ADDR AS addr,
+			    PLACE_REVIEW.TEL AS tel,
+			    PLACE_REVIEW.SERVICE_TIME AS serviceTime,
+			    PLACE_REVIEW.WAITING_TIME AS waitingTime,
+			    HOSPITAL_REVIEW.NUM AS category,
+			    HOSPITAL_REVIEW.HOSPITAL_CATEGORY AS hospitalCategory,
+			    HOSPITAL_REVIEW.MEDICAL_CATEGORY AS medicalCategory,
+			    HOSPITAL_REVIEW.SUB_MEDICAL_CATEGORY AS subCategory
+			</if>
+			<if test='type == 3'>
+			    PRODUCTOR_REVIEW.PRICE AS price,
+			    PRODUCTOR_REVIEW.RELEASE AS release,
+			    PRODUCTOR_REVIEW.PRODUCTOR AS productor,
+			    DIGITAL_REVIEW.MODEL AS model,
+			    DIGITAL_REVIEW.SUB_CATEGORY1 AS subCategory1,
+			    DIGITAL_REVIEW.SUB_CATEGORY2 AS subCategory2,
+			    DIGITAL_REVIEW.SUB_CATEGORY3 AS subCategory3,
+			    DIGITAL_REVIEW.OPTIONS AS options
+			</if>
+		FROM 
+		    REVIEW
+			<if test='type == 1'>
+		        INNER JOIN 
+		            PLACE_REVIEW
+		        ON
+		            REVIEW.NUM = PLACE_REVIEW.NUM
+		        INNER JOIN
+		            RESTAURANT_REVIEW
+		        ON
+		            PLACE_REVIEW.NUM = RESTAURANT_REVIEW.NUM
+		        INNER JOIN 
+		            RESTAURANT_CATEGORY
+		        ON
+		            RESTAURANT_REVIEW.RESTAURANT_CATEGORY = RESTAURANT_CATEGORY.CATEGORY_NUM
+			</if>
+			<if test='type == 2'>
+		        INNER JOIN 
+		            PLACE_REVIEW
+		        ON
+		            REVIEW.NUM = PLACE_REVIEW.NUM
+		        INNER JOIN
+		            HOSPITAL_REVIEW
+		        ON
+		            PLACE_REVIEW.NUM = HOSPITAL_REVIEW.NUM
+		        INNER JOIN 
+		            HOSPITAL_CATEGORY
+		        ON
+		            HOSPITAL_REVIEW.HOSPITAL_CATEGORY = HOSPITAL_CATEGORY.CATEGORY_NUM
+		        INNER JOIN 
+		            MEDICAL_CATEGORY
+		        ON
+		            HOSPITAL_REVIEW.MEDICAL_CATEGORY = MEDICAL_CATEGORY.CATEGORY_NUM
+			</if>
+			<if test='type == 3'>
+		        INNER JOIN 
+		            PRODUCTOR_REVIEW
+		        ON
+		            REVIEW.NUM = PRODUCTOR_REVIEW.NUM
+		        INNER JOIN
+		            DIGITAL_REVIEW
+		        ON
+		            PRODUCTOR_REVIEW.NUM = DIGITAL_REVIEW.NUM
+			</if>
+		WHERE
+		    REVIEW.NUM = #{num}
+	</select>
+	<select id="selectAll" resultMap="selectAllMap">
+		SELECT
+		    REVIEW.NUM,
+		    REVIEW.TITLE,
+		    REVIEW.CONTENTS,
+		    REVIEW.STARS,
+		    REVIEW.GOODS,
+		    REVIEW.BOOKMARK,
+		    REVIEW.SHARES,
+		    REVIEW.READ_COUNT,
+		    REVIEW.ADD_DATE,
+		    REVIEW.TYPE
+		FROM 
+		    REVIEW
+		ORDER BY NUM
+	</select>
+	<resultMap type="ReviewVO" id="selectAllMap">
+		<id property="num" column="NUM" />
+		<result property="title" column="TITLE" />
+		<result property="contents" column="CONTENTS" />
+		<result property="stars" column="STARS" />
+		<result property="goods" column="GOODS" />
+		<result property="bookmark" column="BOOKMARK" />
+		<result property="shares" column="SHARES" />
+		<result property="readCount" column="READ_COUNT" />
+		<result property="addDate" column="ADD_DATE" />
+		<result property="type" column="TYPE" />
+	</resultMap>
+</mapper>
