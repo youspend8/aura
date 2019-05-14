@@ -169,12 +169,12 @@ public class ReviewController {
 		model.addAttribute("locationCate", new Location()	.locationList());
 		model.addAttribute("digitalCategory", digitalService.readAll());
 
-		Map<Integer, String> map = StreamSupport.stream(reviewListMapper.selectByNickname(nickname).spliterator(), true)
-										.filter(e -> e.getReviewType() == 2)
-										.collect(Collectors.toMap(ReviewListVO::getPostNum, ReviewListVO::getNickname));
-		model.addAttribute("reviewList", map);
-	
-		System.out.println(map);
+		if (nickname != null) {
+			Map<Integer, String> map = StreamSupport.stream(reviewListMapper.selectByNickname(nickname).spliterator(), true)
+											.filter(e -> e.getReviewType() == 2)
+											.collect(Collectors.toMap(ReviewListVO::getPostNum, ReviewListVO::getNickname));
+			model.addAttribute("reviewList", map);
+		}
 		return "/reviewList";
 	}
 	
