@@ -1,13 +1,12 @@
 package com.bitcamp.aura.manager.controller;
 
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bitcamp.aura.category.service.DigitalCategoryService;
 import com.bitcamp.aura.review.model.ReviewVO;
 import com.bitcamp.aura.review.service.ReviewService;
 import com.google.gson.Gson;
@@ -24,6 +24,8 @@ import com.google.gson.Gson;
 public class ReviewRestApi {
 	@Autowired
 	private ReviewService service;
+	@Autowired
+	private DigitalCategoryService digitalCateService;
 	
 	@RequestMapping(value="/list")
 	public String list() throws ParseException {
@@ -81,5 +83,14 @@ public class ReviewRestApi {
 		sb.append(gson.toJson(review));
 		System.out.println(sb.toString());
 		return sb.toString();
+	}
+	
+	@RequestMapping(value="/write")
+	public String writeForm() {
+		
+		return new Gson().toJson(Arrays.asList(
+				digitalCateService.readAllCategory1(),
+				digitalCateService.readAllCategory2(),
+				digitalCateService.readAllCategory3()));
 	}
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 	<jsp:include page="/WEB-INF/views/commons/header.jsp"></jsp:include>
 	<title>All Review</title>
@@ -81,385 +82,461 @@
   
   	<div id="background"></div>
 <div style="z-index: 1; background-color: white; position: relative;">
-  <div class="container">
-    <h5 class="pt-4 m-0 text-center text-danger" style="font-weight: bold;">Popular Review</h5>
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
-
-      <div class="carousel-inner">
-
-	<c:forEach var="i" begin="0" end="${reviewVo.size() / 6}">
-		<div class="carousel-item ${i == 0 ? 'active' : ''}">
-			<div class="d-flex flex-wrap w-100 justify-content-center tl">
-				<c:forEach var="j" begin="${i * 6}" end="${i * 6 + 5}">
-					<div class="win">
-						<div class="card-jisung">
-							<a href="/review/post?num=${reviewVo[j].num}&type=${reviewVo[j].type}">
-								<div class="cardtitle">
-									<span class="text-primary" style="font-size: 70%;">${reviewVo[j].title}</span>
-									<span class="text-dark" style="font-size: 70%;">${reviewVo[j].type}</span><br>
-									<i class="fas fa-star" style="color: red;"></i>
-									<i class="fas fa-star" style="color: red;"></i>
-									<i class="fas fa-star" style="color: red;"></i>
-									<i class="fas fa-star" style="color: red; "></i>
-									<i class="fas fa-star-half" style="color: red;"></i>
+	<div class="container">
+	    <h5 class="pt-4 m-0 text-center text-danger" style="font-weight: bold;">Popular Review</h5>
+	    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
+			<div class="carousel-inner">
+				<c:forEach var="i" begin="0" end="2">
+					<div class="carousel-item ${i == 0 ? 'active' : ''}">
+						<div class="d-flex flex-wrap w-100 justify-content-center tl">
+							<c:forEach var="j" begin="${i * 5}" end="${i * 5 + 4}">
+								<div class="win">
+									<div class="card-jisung">
+										<a href="/review/post?num=${popReview[j].num}&type=${popReview[j].type}">
+											<div class="cardtitle" style="background-color: #ffffff">
+												<div class="my-1 text-primary font-weight-bold" style="font-size: 130%;">
+													${popReview[j].title}
+<!-- 												    <span class="text-dark ml-1" style="font-size: 60%;"> -->
+<%-- 														<c:choose> --%>
+<%-- 															<c:when test="${popReview[j].type eq 1}"> --%>
+<!-- 																음식점 -->
+<%-- 															</c:when> --%>
+<%-- 															<c:when test="${popReview[j].type eq 2}"> --%>
+<!-- 																병원 -->
+<%-- 															</c:when> --%>
+<%-- 															<c:when test="${popReview[j].type eq 3}"> --%>
+<!-- 																전자제품 -->
+<%-- 															</c:when> --%>
+<%-- 														</c:choose> --%>
+<!-- 													</span> -->
+												</div>
+											    <span class="float-left font-weight-bolder text-dark">
+											    	<c:forEach var="i" begin="0" end="4">
+											    		<c:if test="${popReview[j].stars - i >= 1}">
+												    		<i style="color: rgb(255, 153, 0);" class="fas fa-star"></i>
+										    			</c:if>
+										    			<c:if test="${popReview[j].stars - i < 1 && popReview[j].stars - i > 0}">
+											    			<i style="color: rgb(255, 153, 0);" class="fas fa-star-half-alt"></i>
+											    		</c:if>
+											    		<c:if test="${popReview[j].stars - i <= 0}">
+												    		<i style="color: rgb(255, 153, 0);" class="far fa-star"></i>
+											    		</c:if>
+											    	</c:forEach>
+											    	<c:if test="${popReview[j].stars != 0}">
+											    		<fmt:formatNumber value="${popReview[j].stars}" pattern=".0" />
+											    	</c:if>
+											    	<c:if test="${popReview[j].stars == 0}">
+											    		<fmt:formatNumber value="${popReview[j].stars}" pattern="0" />
+											    	</c:if>
+											    </span>
+											    
+											    <span class="float-right text-dark font-weight-bold">
+												    <i class="fas fa-thumbs-up"></i>
+											    	${popReview[j].goods}
+											    </span>
+										    </div>
+										</a>
+										
+										<div class="cardcontent">
+											<div style="height: 87%; overflow: hidden; font-size: 150%">
+												${popReview[j].contents}
+											</div>
+											<a href="/review/post?num=${popReview[j].num}&type=${popReview[j].type}" style="padding-top: 4%; display: inline-block; font-size: 150%; height: 13%; overflow: hidden; float: right;">
+												자세히보기
+											</a>
+										</div>
+										
+										<div class="cardpic bg-white text-center">
+											<c:if test="${popReview[j].files.size() eq 0 }">
+												<img src="/img/NoImg.jpg" style="width: 50%;" />
+											</c:if>
+											<c:if test="${popReview[j].files.size() ne 0 }">
+												<img src="${popReview[j].files[0]}" />
+											</c:if>
+										</div>
+									</div>
 								</div>
-							</a>
-							
-							<div class="cardcontent">
-								<div style="height: 90%; overflow: hidden;">
-									${reviewVo[j].contents}
-								</div>
-									<a href="" style="display: inline-block; height: 10%; overflow: hidden; float: right;">
-									read more...
-								</a>
-							</div>
-							
-							<div class="cardpic bg-white text-center">
-								<c:if test="${reviewVo[j].files.size() eq 0 }">
-									<img src="/img/NoImg.jpg" style="width: 50%;" />
-								</c:if>
-								<c:if test="${reviewVo[j].files.size() ne 0 }">
-									<img src="${reviewVo[j].files[0]}" />
-								</c:if>
-							</div>
+							</c:forEach>
 						</div>
 					</div>
 				</c:forEach>
 			</div>
 		</div>
-	</c:forEach>
-			
-      <a class="carousel-control-prev pop-review-prev-button" href="#carouselExampleControls" role="button"
-        data-slide="prev">
-        <i class="fas fa-chevron-left" style="color: black"></i>
-      </a>
-      <a class="carousel-control-next pop-review-next-button" href="#carouselExampleControls" role="button"
-        data-slide="next">
-        <i class="fas fa-chevron-right " style="color: black"></i>
-      </a>
-      </div>
-    </div>
-  </div>
+		<div class="col-12 d-flex justify-content-center mb-4">
+			<a class="mr-3 text-center d-flex justify-content-center align-items-center" href="#carouselExampleControls" role="button" data-slide="prev"
+					style="background-color: orange; border-radius: 50%; width: 40px; height: 40px;">
+				<i class="fas fa-chevron-left" style="color: white"></i>
+			</a>
+			<a class="ml-3 text-center d-flex justify-content-center align-items-center" href="#carouselExampleControls" role="button" data-slide="next"
+					style="background-color: orange; border-radius: 50%; width: 40px; height: 40px;">
+				<i class="fas fa-chevron-right " style="color: white"></i>
+			</a>
+		</div>
+	</div>
 
-  <hr />
-  <!-- 인기리뷰끝 -->
+	<hr />
+	<!-- 인기리뷰끝 -->
   
-  <!-- 최신리뷰시작 -->
-  <div class="container ">
-    <h5 class="pt-4 m-0 text-center text-danger" style="font-weight: bold;">New Review</h5>
-      <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel" data-interval="false">
-        <div class="carousel-inner">
-			<c:forEach var="i" begin="0" end="${reviewVo.size() / 6}">
-				<div class="carousel-item ${i == 0 ? 'active' : ''}">
-					<div class="d-flex flex-wrap w-100 justify-content-center tl">
-						<c:forEach var="j" begin="${i * 6}" end="${i * 6 + 5}">
-							<div class="win">
-								<div class="card-jisung">
-									<a href="/review/post?num=${reviewVo[j].num}&type=${reviewVo[j].type}">
-										<div class="cardtitle">
-											<span class="text-primary" style="font-size: 70%;">${reviewVo[j].title}</span>
-											<span class="text-dark" style="font-size: 70%;">${reviewVo[j].type}</span><br>
-											<i class="fas fa-star" style="color: red;"></i>
-											<i class="fas fa-star" style="color: red;"></i>
-											<i class="fas fa-star" style="color: red;"></i>
-											<i class="fas fa-star" style="color: red; "></i>
-											<i class="fas fa-star-half" style="color: red;"></i>
-										</div>
-									</a>
-									
-									<div class="cardcontent">
-										<div style="height: 90%; overflow: hidden;">
-											${reviewVo[j].contents}
-										</div>
-											<a href="" style="display: inline-block; height: 10%; overflow: hidden; float: right;">
-											read more...
+	<!-- 최신리뷰시작 -->
+	<div class="container ">
+		<h5 class="pt-4 m-0 text-center text-danger" style="font-weight: bold;">New Review</h5>
+		<div id="carouselExampleControls2" class="carousel slide" data-ride="carousel" data-interval="false">
+			<div class="carousel-inner">
+				<c:forEach var="i" begin="0" end="2">
+					<div class="carousel-item ${i == 0 ? 'active' : ''}">
+						<div class="d-flex flex-wrap w-100 justify-content-center tl">
+							<c:forEach var="j" begin="${i * 5}" end="${i * 5 + 4}">
+								<div class="win">
+									<div class="card-jisung">
+										<a href="/review/post?num=${newReview[j].num}&type=${newReview[j].type}">
+											<div class="cardtitle" style="background-color: #ffffff">
+												<div class="my-1 text-primary font-weight-bold" style="font-size: 130%;">
+													${newReview[j].title}
+												</div>
+											    <span>
+											    	<c:forEach var="i" begin="0" end="4">
+											    		<c:if test="${newReview[j].stars - i >= 1}">
+												    		<i style="color: rgb(255, 153, 0);" class="fas fa-star"></i>
+										    			</c:if>
+										    			<c:if test="${newReview[j].stars - i < 1 && newReview[j].stars - i > 0}">
+											    			<i style="color: rgb(255, 153, 0);" class="fas fa-star-half-alt"></i>
+											    		</c:if>
+											    		<c:if test="${newReview[j].stars - i <= 0}">
+												    		<i style="color: rgb(255, 153, 0);" class="far fa-star"></i>
+											    		</c:if>
+											    	</c:forEach>
+											    </span>
+											    <span class="ml-1 font-weight-bolder text-dark">
+											    	<c:if test="${newReview[j].stars != 0}">
+											    		<fmt:formatNumber value="${newReview[j].stars}" pattern=".0" />
+											    	</c:if>
+											    	<c:if test="${newReview[j].stars == 0}">
+											    		<fmt:formatNumber value="${newReview[j].stars}" pattern="0" />
+											    	</c:if>
+											    </span>
+											    <span class="text-dark ml-1" style="font-size: 70%;">
+													<c:choose>
+														<c:when test="${newReview[j].type eq 1}">
+															음식점
+														</c:when>
+														<c:when test="${newReview[j].type eq 2}">
+															병원
+														</c:when>
+														<c:when test="${newReview[j].type eq 3}">
+															전자제품
+														</c:when>
+													</c:choose>
+												</span>
+											    <span class="float-right text-dark font-weight-bold">
+												    <i class="fas fa-thumbs-up"></i>
+											    	${newReview[j].goods}
+											    </span>
+											</div>
 										</a>
-									</div>
-									
-									<div class="cardpic bg-white text-center">
-										<c:if test="${reviewVo[j].files.size() eq 0 }">
-											<img src="/img/NoImg.jpg" style="width: 50%;" />
-										</c:if>
-										<c:if test="${reviewVo[j].files.size() ne 0 }">
-											<img src="${reviewVo[j].files[0]}" />
-										</c:if>
+											
+										<div class="cardcontent">
+											<div style="height: 87%; overflow: hidden; font-size: 150%">
+												${newReview[j].contents}
+											</div>
+											<a href="/review/post?num=${newReview[j].num}&type=${newReview[j].type}" style="padding-top: 4%; display: inline-block; font-size: 150%; height: 13%; overflow: hidden; float: right;">
+												자세히보기
+											</a>
+										</div>
+										
+										<div class="cardpic bg-white text-center">
+											<c:if test="${newReview[j].files.size() eq 0 }">
+												<img src="/img/NoImg.jpg" style="width: 50%;" />
+											</c:if>
+											<c:if test="${newReview[j].files.size() ne 0 }">
+												<img src="${newReview[j].files[0]}" />
+											</c:if>
+										</div>
 									</div>
 								</div>
-							</div>
-						</c:forEach>
+							</c:forEach>
+						</div>
 					</div>
-				</div>
-			</c:forEach>
+				</c:forEach>
+			</div>
 		</div>
-        <a class="carousel-control-prev pop-review-prev-button" href="#carouselExampleControls2" role="button"
-          data-slide="prev">
-          <i class="fas fa-chevron-left" style="color: black"></i>
-        </a>
-        <a class="carousel-control-next pop-review-next-button" href="#carouselExampleControls2" role="button"
-          data-slide="next">
-          <i class="fas fa-chevron-right " style="color: black"></i>
-        </a>
-      </div>
-    </div>
-  <hr />
+     
+		<div class="col-12 d-flex justify-content-center mb-4">
+			<a class="mr-3 text-center d-flex justify-content-center align-items-center" href="#carouselExampleControls2" role="button" data-slide="prev"
+					style="background-color: orange; border-radius: 50%; width: 40px; height: 40px;">
+				<i class="fas fa-chevron-left" style="color: white"></i>
+			</a>
+			<a class="ml-3 text-center d-flex justify-content-center align-items-center" href="#carouselExampleControls2" role="button" data-slide="next"
+					style="background-color: orange; border-radius: 50%; width: 40px; height: 40px;">
+				<i class="fas fa-chevron-right " style="color: white"></i>
+			</a>
+		</div>
+	</div>
+	<hr />
+	
+	<br>
 
-  <br>
-
-  <!-- 최신리뷰끝 -->
-
-  <!-- 추천 밑 테마 -->
-  <div class="container">
-
-    <div class="row justify-content-center">
-
-      <div class="col-11 col-md-11 col-lg-4 pl-5">
-        <div class="pb-4" style="font-weight: 900; padding-left: 1%">오늘의 All Review 추천</div>
-        <!-- Classic tabs -->
-        <div class="classic-tabs border-bottom">
-          <ul id="today_review" class="nav navbar bg-dark p-0 justify-content-start" id="myClassicTab">
-            <li class="nav-item col-4 text-center orange p-0">
-              <a class="nav-link today_item active waves-light show text-white" id="profile-tab-classic"
-                data-toggle="tab" href="#profile-classic">병원</a>
-            </li>
-            <li class="nav-item col-4 text-center orange p-0">
-              <a class="nav-link today_item waves-light text-white" id="follow-tab-classic" data-toggle="tab"
-                href="#follow-classic">맛집</a>
-            </li>
-            <li class="nav-item col-4 text-center orange p-0">
-              <a class="nav-link today_item waves-light text-white" id="contact-tab-classic" data-toggle="tab"
-                href="#contact-classic">전자기기</a>
-            </li>
-          </ul>
-          <div class="tab-content rounded-bottom" id="myClassicTabContent">
-            <div class="tab-pane active" id="profile-classic">
-
-              <ul class="row flex-wrap pl-2 pt-4">
-                <a href="#" style="color: black;" class="col-md-6 col-lg-12">
-                  <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;">
-                    <img class="mt-1" src="/img/추천/병원/아산병원.jpg" alt=""
-                      style="border-radius: 7px; width: 35%; height: 80%;">
-                    <div class="d-flex flex-wrap ">
-                      <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div>
-                      <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div>
-                    </div>
-
-                  </li>
-                </a>
-                <a href="#" style="color: black;" class="col-md-6 col-lg-12">
-                  <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;">
-                    <img class="mt-1" src="/img/추천/병원/차병원.jpg" alt=""
-                      style="border-radius: 7px; width: 35%; height: 100px;">
-                    <div class="d-flex flex-wrap ">
-                      <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div>
-                      <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div>
-                    </div>
-
-                  </li>
-                </a>
-                <a href="#" style="color: black;" class="col-md-6 col-lg-12">
-                  <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;">
-                    <img class="mt-1" src="/img/추천/병원/삼성병원.jpg" alt=""
-                      style="border-radius: 7px; width: 35%; height: 100px;">
-                    <div class="d-flex flex-wrap ">
-                      <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div>
-                      <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div>
-                    </div>
-
-                  </li>
-                </a>
-                <a href="#" style="color: black;" class="col-md-6 col-lg-12">
-                  <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;">
-                    <img class="mt-1" src="/img/추천/병원/건대병원.jpg" alt=""
-                      style="border-radius: 7px; width: 35%; height: 100px;">
-                    <div class="d-flex flex-wrap ">
-                      <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div>
-                      <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div>
-                    </div>
-
-                  </li>
-                </a>
-                <a href="#" style="color: black;" class="col-md-6 col-lg-12">
-                  <li class="col-11 d-flex" style="height: 120px;">
-                    <img class="mt-1" src="/img/추천/병원/가천길병원.jpg" alt=""
-                      style="border-radius: 7px; width: 35%; height: 100px;">
-                    <div class="d-flex flex-wrap ">
-                      <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div>
-                      <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div>
-                    </div>
-
-                  </li>
-                </a>
-
-              </ul>
-
-            </div>
-
-            <div class="tab-pane fade" id="follow-classic">
-              <ul class="row flex-wrap pl-2 pt-4">
-
-                <a href="#" style="color: black;" class="col-md-6 col-lg-12">
-                  <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;">
-                    <img class="mt-1" src="/img/추천/전자기기/노트북.jpg" alt=""
-                      style="border-radius: 7px; width: 35%; height: 100px;">
-                    <div class="d-flex flex-wrap ">
-                      <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div>
-                      <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div>
-                    </div>
-
-                  </li>
-                </a>
-                <a href="#" style="color: black;" class="col-md-6 col-lg-12">
-                  <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;">
-                    <img class="mt-1" src="img/추천/전자기기/맥북.jpg" alt=""
-                      style="border-radius: 7px; width: 35%; height: 100px;">
-                    <div class="d-flex flex-wrap ">
-                      <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div>
-                      <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div>
-                    </div>
-
-                  </li>
-                </a>
-                <a href="#" style="color: black;" class="col-md-6 col-lg-12">
-                  <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;">
-                    <img class="mt-1" src="img/추천/전자기기/아이폰.jpg" alt=""
-                      style="border-radius: 7px; width: 35%; height: 100px;">
-                    <div class="d-flex flex-wrap ">
-                      <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div>
-                      <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div>
-                    </div>
-
-                  </li>
-                </a>
-                <a href="#" style="color: black;" class="col-md-6 col-lg-12">
-                  <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;">
-                    <img class="mt-1" src="img/추천/전자기기/애플워치.jpg" alt=""
-                      style="border-radius: 7px; width: 35%; height: 100px;">
-                    <div class="d-flex flex-wrap ">
-                      <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div>
-                      <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div>
-                    </div>
-
-                  </li>
-                </a>
-                <a href="#" style="color: black;" class="col-md-6 col-lg-12">
-                  <li class="col-11 d-flex" style="height: 120px;">
-                    <img class="mt-1" src="img/추천/전자기기/이어팟.jpg" alt=""
-                      style="border-radius: 7px; width: 35%; height: 100px;">
-                    <div class="d-flex flex-wrap ">
-                      <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div>
-                      <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div>
-                    </div>
-
-                  </li>
-                </a>
-
-              </ul>
-            </div>
-            <div class="tab-pane fade" id="contact-classic">
-              <ul class="row flex-wrap pl-2 pt-4">
-
-                <a href="#" style="color: black;" class="col-md-6 col-lg-12">
-                  <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;">
-                    <img class="mt-1" src="img/event/이벤트2.jpg" alt=""
-                      style="border-radius: 7px; width: 35%; height: 100px;">
-                    <div class="d-flex flex-wrap ">
-                      <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div>
-                      <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div>
-                    </div>
-
-                  </li>
-                </a>
-                <a href="#" style="color: black;" class="col-md-6 col-lg-12">
-                  <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;">
-                    <img class="mt-1" src="img/event/이벤트2.jpg" alt=""
-                      style="border-radius: 7px; width: 35%; height: 100px;">
-                    <div class="d-flex flex-wrap ">
-                      <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div>
-                      <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div>
-                    </div>
-
-                  </li>
-                </a>
-                <a href="#" style="color: black;" class="col-md-6 col-lg-12">
-                  <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;">
-                    <img class="mt-1" src="img/event/이벤트2.jpg" alt=""
-                      style="border-radius: 7px; width: 35%; height: 100px;">
-                    <div class="d-flex flex-wrap ">
-                      <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div>
-                      <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div>
-                    </div>
-
-                  </li>
-                </a>
-                <a href="#" style="color: black;" class="col-md-6 col-lg-12">
-                  <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;">
-                    <img class="mt-1" src="img/event/이벤트2.jpg" alt=""
-                      style="border-radius: 7px; width: 35%; height: 100px;">
-                    <div class="d-flex flex-wrap ">
-                      <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div>
-                      <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div>
-                    </div>
-
-                  </li>
-                </a>
-                <a href="#" style="color: black;" class="col-md-6 col-lg-12">
-                  <li class="col-11 d-flex" style="height: 120px;">
-                    <img class="mt-1" src="img/event/이벤트2.jpg" alt=""
-                      style="border-radius: 7px; width: 35%; height: 100px;">
-                    <div class="d-flex flex-wrap ">
-                      <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div>
-                      <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div>
-                    </div>
-                  </li>
-                </a>
-              </ul>
-            </div>
-
-          </div>
-
-        </div>
-        <!-- Classic tabs -->
-
-      </div>
-
-      <div class="thema-flex col-md-12 col-12 col-lg-8 d-flex flex-row flex-wrap justify-content-center align-items-start">
-        <div class="col-11" style="font-weight: 800;">테마별 리뷰</div>
-        
-        <div class="first_recommand col-5 p-0" style="background-image: url('/img/테마별사진/img.jpg');">
-          <a href="#">
-            <div class="recommand_box justify-content-center align-items-center row m-0 h-100 w-100">
-              <div class="text">데이트추천 100</div>
-            </div>
-          </a>
-        </div>
+	<!-- 최신리뷰끝 -->
+	
+	<!-- 추천 밑 테마 -->
+	<div class="container d-flex justify-content-center">
 
 
-        <div class="first_recommand col-5 p-0" style="background-image: url('/img/테마별사진/img.jpg'); ">
-          <a href="#">
-            <div class="recommand_box justify-content-center align-items-center row m-0 h-100 w-100">
-              <div>멸치국수추천 베트스 100!!!!</div>
-            </div>
-          </a>
-        </div>
+<!--       <div class="col-11 col-md-11 col-lg-4 pl-5"> -->
+<!--         <div class="pb-4" style="font-weight: 900; padding-left: 1%">오늘의 All Review 추천</div> -->
+<!--         Classic tabs -->
+<!--         <div class="classic-tabs border-bottom"> -->
+<!--           <ul id="today_review" class="nav navbar bg-dark p-0 justify-content-start" id="myClassicTab"> -->
+<!--             <li class="nav-item col-4 text-center orange p-0"> -->
+<!--               <a class="nav-link today_item active waves-light show text-white" id="profile-tab-classic" -->
+<!--                 data-toggle="tab" href="#profile-classic">병원</a> -->
+<!--             </li> -->
+<!--             <li class="nav-item col-4 text-center orange p-0"> -->
+<!--               <a class="nav-link today_item waves-light text-white" id="follow-tab-classic" data-toggle="tab" -->
+<!--                 href="#follow-classic">맛집</a> -->
+<!--             </li> -->
+<!--             <li class="nav-item col-4 text-center orange p-0"> -->
+<!--               <a class="nav-link today_item waves-light text-white" id="contact-tab-classic" data-toggle="tab" -->
+<!--                 href="#contact-classic">전자기기</a> -->
+<!--             </li> -->
+<!--           </ul> -->
+<!--           <div class="tab-content rounded-bottom" id="myClassicTabContent"> -->
+<!--             <div class="tab-pane active" id="profile-classic"> -->
 
-        <div class="first_recommand col-5 p-0 " style="background-image: url('/img/테마별사진/새우회.png');">
-          <a href="#">
-            <div class="recommand_box justify-content-center align-items-center row m-0 h-100 w-100">
-              <div>얄루얄루!!!추천 100</div>
-            </div>
-          </a>
-        </div>
+<!--               <ul class="row flex-wrap pl-2 pt-4"> -->
+<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
+<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
+<!--                     <img class="mt-1" src="/img/추천/병원/아산병원.jpg" alt="" -->
+<!--                       style="border-radius: 7px; width: 35%; height: 80%;"> -->
+<!--                     <div class="d-flex flex-wrap "> -->
+<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
+<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
+<!--                     </div> -->
 
-        <div class="first_recommand col-5 p-0 " style="background-image: url('/img/테마별사진/커리.png');">
-          <a href="#">
-            <div class="recommand_box justify-content-center align-items-center row m-0 h-100 w-100">
-              <div>데이트추천 100 꺅@@@</div>
-            </div>
-          </a>
-        </div>
+<!--                   </li> -->
+<!--                 </a> -->
+<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
+<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
+<!--                     <img class="mt-1" src="/img/추천/병원/차병원.jpg" alt="" -->
+<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
+<!--                     <div class="d-flex flex-wrap "> -->
+<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
+<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
+<!--                     </div> -->
 
-      </div>
-    </div>
-  </div>
+<!--                   </li> -->
+<!--                 </a> -->
+<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
+<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
+<!--                     <img class="mt-1" src="/img/추천/병원/삼성병원.jpg" alt="" -->
+<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
+<!--                     <div class="d-flex flex-wrap "> -->
+<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
+<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
+<!--                     </div> -->
+
+<!--                   </li> -->
+<!--                 </a> -->
+<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
+<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
+<!--                     <img class="mt-1" src="/img/추천/병원/건대병원.jpg" alt="" -->
+<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
+<!--                     <div class="d-flex flex-wrap "> -->
+<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
+<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
+<!--                     </div> -->
+
+<!--                   </li> -->
+<!--                 </a> -->
+<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
+<!--                   <li class="col-11 d-flex" style="height: 120px;"> -->
+<!--                     <img class="mt-1" src="/img/추천/병원/가천길병원.jpg" alt="" -->
+<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
+<!--                     <div class="d-flex flex-wrap "> -->
+<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
+<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
+<!--                     </div> -->
+
+<!--                   </li> -->
+<!--                 </a> -->
+
+<!--               </ul> -->
+
+<!--             </div> -->
+
+<!--             <div class="tab-pane fade" id="follow-classic"> -->
+<!--               <ul class="row flex-wrap pl-2 pt-4"> -->
+
+<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
+<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
+<!--                     <img class="mt-1" src="/img/추천/전자기기/노트북.jpg" alt="" -->
+<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
+<!--                     <div class="d-flex flex-wrap "> -->
+<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
+<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
+<!--                     </div> -->
+
+<!--                   </li> -->
+<!--                 </a> -->
+<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
+<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
+<!--                     <img class="mt-1" src="img/추천/전자기기/맥북.jpg" alt="" -->
+<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
+<!--                     <div class="d-flex flex-wrap "> -->
+<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
+<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
+<!--                     </div> -->
+
+<!--                   </li> -->
+<!--                 </a> -->
+<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
+<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
+<!--                     <img class="mt-1" src="img/추천/전자기기/아이폰.jpg" alt="" -->
+<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
+<!--                     <div class="d-flex flex-wrap "> -->
+<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
+<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
+<!--                     </div> -->
+
+<!--                   </li> -->
+<!--                 </a> -->
+<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
+<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
+<!--                     <img class="mt-1" src="img/추천/전자기기/애플워치.jpg" alt="" -->
+<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
+<!--                     <div class="d-flex flex-wrap "> -->
+<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
+<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
+<!--                     </div> -->
+
+<!--                   </li> -->
+<!--                 </a> -->
+<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
+<!--                   <li class="col-11 d-flex" style="height: 120px;"> -->
+<!--                     <img class="mt-1" src="img/추천/전자기기/이어팟.jpg" alt="" -->
+<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
+<!--                     <div class="d-flex flex-wrap "> -->
+<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
+<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
+<!--                     </div> -->
+
+<!--                   </li> -->
+<!--                 </a> -->
+
+<!--               </ul> -->
+<!--             </div> -->
+<!--             <div class="tab-pane fade" id="contact-classic"> -->
+<!--               <ul class="row flex-wrap pl-2 pt-4"> -->
+
+<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
+<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
+<!--                     <img class="mt-1" src="img/event/이벤트2.jpg" alt="" -->
+<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
+<!--                     <div class="d-flex flex-wrap "> -->
+<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
+<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
+<!--                     </div> -->
+
+<!--                   </li> -->
+<!--                 </a> -->
+<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
+<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
+<!--                     <img class="mt-1" src="img/event/이벤트2.jpg" alt="" -->
+<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
+<!--                     <div class="d-flex flex-wrap "> -->
+<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
+<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
+<!--                     </div> -->
+
+<!--                   </li> -->
+<!--                 </a> -->
+<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
+<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
+<!--                     <img class="mt-1" src="img/event/이벤트2.jpg" alt="" -->
+<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
+<!--                     <div class="d-flex flex-wrap "> -->
+<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
+<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
+<!--                     </div> -->
+
+<!--                   </li> -->
+<!--                 </a> -->
+<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
+<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
+<!--                     <img class="mt-1" src="img/event/이벤트2.jpg" alt="" -->
+<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
+<!--                     <div class="d-flex flex-wrap "> -->
+<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
+<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
+<!--                     </div> -->
+
+<!--                   </li> -->
+<!--                 </a> -->
+<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
+<!--                   <li class="col-11 d-flex" style="height: 120px;"> -->
+<!--                     <img class="mt-1" src="img/event/이벤트2.jpg" alt="" -->
+<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
+<!--                     <div class="d-flex flex-wrap "> -->
+<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
+<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
+<!--                     </div> -->
+<!--                   </li> -->
+<!--                 </a> -->
+<!--               </ul> -->
+<!--             </div> -->
+
+<!--           </div> -->
+
+<!--         </div> -->
+<!--         Classic tabs -->
+
+<!--       </div> -->
+
+		<div class="thema-flex col-12 d-flex flex-row flex-wrap justify-content-center align-items-start">
+			<h5 class="w-100 pt-2 m-0 text-center text-danger" style="font-weight: bold;">All Review Recommend</h5>
+			
+			<div class="first_recommand m-2 p-0" style="width: 30%; background-image: url('/img/테마별사진/img.jpg');">
+				<a href="#" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
+					<b class="mb-3" style="font-size: 150%">냉면맛집 TOP 20</b>
+					"더운여름엔 냉면"
+				</a>
+			</div>
+			
+			
+			<div class="first_recommand m-2 p-0" style="width: 30%; background-image: url('/img/테마별사진/img.jpg');">
+				<a href="#" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
+					<b class="mb-3" style="font-size: 150%">신논현역 맛집 TOP 20</b>
+					비트캠프 주변 맛집
+				</a>
+			</div>
+			
+			<div class="first_recommand m-2 p-0 " style="width: 30%; background-image: url('/img/테마별사진/새우회.png');">
+				<a href="#" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
+					<b class="mb-3" style="font-size: 150%">커피숍 TOP 5</b>
+					요즘 인기있는 커피숍 핫플레이스
+				</a>
+			</div>
+			
+			<div class="first_recommand m-2 p-0 " style="width: 30%; background-image: url('/img/테마별사진/커리.png');">
+				<a href="#" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
+					<b class="mb-3" style="font-size: 150%">이어폰 TOP 5</b>
+					"필수 아이템 무선이어폰"
+				</a>
+			</div>
+			
+			<div class="first_recommand m-2 p-0" style="width: 30%; background-image: url('/img/테마별사진/커리.png');">
+				<a href="#" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
+					<b class="mb-3" style="font-size: 150%">성형외과 TOP 10</b>
+					"나는야 호빵맨"
+				</a>
+			</div>
+			
+			<div class="first_recommand m-2 p-0 " style="width: 30%; background-image: url('/img/테마별사진/커리.png');">
+				<a href="#" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
+					<b class="mb-3" style="font-size: 150%">제주도 맛집 TOP 10</b>
+					"제주도 여행가서 가볼만한 음식점"
+				</a>
+			</div>
+		</div>
+	</div>
 </div>
-  <jsp:include page="/WEB-INF/views/commons/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/commons/footer.jsp"></jsp:include>

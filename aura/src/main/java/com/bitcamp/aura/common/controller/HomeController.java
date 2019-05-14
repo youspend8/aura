@@ -25,7 +25,8 @@ public class HomeController {
 	@RequestMapping(value="/main")
 	public String main(Model model) {
 
-		model.addAttribute("reviewVo", reviewService.searchAll());
+		model.addAttribute("popReview", reviewService.searchPopular());
+		model.addAttribute("newReview", reviewService.searchNew());
 		return "main";
 	}
 	

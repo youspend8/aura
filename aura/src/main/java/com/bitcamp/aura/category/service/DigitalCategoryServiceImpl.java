@@ -40,4 +40,28 @@ public class DigitalCategoryServiceImpl implements DigitalCategoryService {
 		return Arrays.asList(cate1, cate2, cate3);
 	}
 
+	@Override
+	public List<DigitalCategory1> readAllCategory1() {
+		// TODO Auto-generated method stub
+		return StreamSupport.stream(repo1.findAll().spliterator(), true)
+				.sorted((c1, c2) -> c1.getNum() > c2.getNum() ? 1 : -1)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<DigitalCategory2> readAllCategory2() {
+		// TODO Auto-generated method stub
+		return StreamSupport.stream(repo2.findAll().spliterator(), true)
+				.sorted((c1, c2) -> c1.getNum() > c2.getNum() ? 1 : -1)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<DigitalCategory3> readAllCategory3() {
+		// TODO Auto-generated method stub
+		return StreamSupport.stream(repo3.findAll().spliterator(), true)
+				.sorted((c1, c2) -> c1.getNum() > c2.getNum() ? 1 : -1)
+				.collect(Collectors.toList());
+	}
+
 }

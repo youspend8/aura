@@ -515,12 +515,19 @@
 		WHERE
 		    REVIEW.NUM = #{num}
 	</select>
-	<select id="selectAll" resultMap="selectAllMap">
+	<select id="selectAll" parameterType="HashMap" resultMap="selectAllMap">
 		SELECT
 		    REVIEW.NUM,
 		    REVIEW.TITLE,
 		    REVIEW.CONTENTS,
-		    REVIEW.STARS,
+		    NVL((
+			    SELECT
+			        AVG(COMMENT_SCORE)
+			    FROM
+			        USER_COMMENT
+			    WHERE
+			        USER_COMMENT.REVIEW_POST_NUM = REVIEW.NUM
+		    ), 0) AS STARS,
 		    REVIEW.GOODS,
 		    REVIEW.BOOKMARK,
 		    REVIEW.SHARES,
@@ -529,7 +536,12 @@
 		    REVIEW.TYPE
 		FROM 
 		    REVIEW
-		ORDER BY NUM
+		<if test="order != null and order.equals('pop')">
+			ORDER BY STARS DESC
+		</if>
+		<if test="order != null and order.equals('new')">
+			ORDER BY NUM DESC
+		</if>
 	</select>
 	<resultMap type="ReviewVO" id="selectAllMap">
 		<id property="num" column="NUM" />

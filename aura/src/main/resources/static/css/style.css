@@ -34,7 +34,6 @@ a:hover {
 
 .recommand_box {
     color: white;
-    
     text-align: center;
     font-size: 100%;
     opacity: 1;
@@ -51,12 +50,11 @@ a:hover {
 
 .pop-review-prev-button {
     width: 5%;
-
+    left: 0%;
 }
 
 .pop-review-next-button {
     width: 5%;
- 
 }
 
 #today_review .nav-link {
@@ -71,19 +69,13 @@ a:hover {
     height: 200px;
 }
 
-.first_recommand {
-    margin: 10px 10px 10px 10px;
-}
-
-
-
 .card {
     margin: 2px;
 }
 
 
 .win {
-    width: 15%;
+    width: 20%;
     height: 100%;
     margin: 0 ;
     padding: 1%;
@@ -100,7 +92,8 @@ a:hover {
     border-radius: 5px;
     overflow: hidden;
     margin: 5%;
-    box-shadow: 0px 0px 5px 4px rgb(158, 154, 154);
+    background-color: #e5e5e5;
+/*     box-shadow: 0px 0px 5px 4px rgb(158, 154, 154); */
 }
 
 .card-jisung i {
@@ -149,7 +142,7 @@ a:hover {
 }
 
 .tl {
-    height: 270px;
+    height: 350px;
 }
 
 .rank_section{
@@ -304,6 +297,9 @@ a:hover {
     .tl {
         height: 600px;
     }
+    .first_recommand {
+    	width: 45%;
+    }
     .evnetPan {
         height: 120px;
     }
@@ -316,15 +312,12 @@ a:hover {
     .thema-flex {
         height: auto;
     }
-    .first_recommand {
-        margin: 0 22px 0 22px;
-    }
     .review_section {
         height: 300px;
     }
     .win {
         width: 30%;
-        height: 50%;
+        height: 60%;
         margin: 0 ;
         padding: 1%;
         padding-left: 0;
@@ -345,13 +338,12 @@ a:hover {
     }
 
     .recommand_box {
-        font-size: 200%;
+        font-size: 150%;
+    }
+    .first_recommand {
+    	width: 45%;
     }
 
-    .first_recommand {
-        margin: 5px 15px 5px 15px;
-    }
- 
     .rank_section{
         height: 150px;
     }
@@ -369,9 +361,14 @@ a:hover {
     .tl {
         height: 1000px;
     }
+    
+    .first_recommand {
+    	width: 95%;
+    }
+    
     .win {
         width: 46%;
-        height: 30%;
+        height: 38%;
         margin: 0 ;
         padding: 1%;
         padding-left: 0;

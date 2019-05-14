@@ -103,11 +103,21 @@
 								    		</c:forEach>
 										</span>
 									</c:if>
-									<fmt:parseDate value="${review.addDate}" var="addDate" pattern="yyyy-MM-dd" />
-									<c:if test="${addDate.month + 1 == 5}">
-										<span class="badge badge-pill align-middle ml-1" style="font-size: 12px; background-color: red">
-											NEW
-										</span>
+									<c:if test="${type eq 1 || type eq 2}">
+										<fmt:parseDate value="${review.addDate}" var="addDate" pattern="yyyy-MM-dd" />
+										<c:if test="${addDate.month + 1 == 5}">
+											<span class="badge badge-pill align-middle ml-1" style="font-size: 12px; background-color: red">
+												NEW
+											</span>
+										</c:if>
+									</c:if>
+									<c:if test="${type eq 3}">
+										<fmt:parseDate value="${review.release}" var="relase" pattern="yyyy-MM-dd" />
+										<c:if test="${relase.month + 1 == 5}">
+											<span class="badge badge-pill align-middle ml-1" style="font-size: 12px; background-color: red">
+												NEW
+											</span>
+										</c:if>
 									</c:if>
 						    	</h5>
 						    </a>
@@ -128,21 +138,6 @@
 								</button>
 						    </form>
 						</div>
-						
-							
-						
-<%-- 									<c:choose> --%>
-<%-- 									<c:when test ="${flag eq true}"> --%>
-<!-- 									<i class="fas fa-star" style ="color: #f9ca24"></i> -->
-<%-- 									</c:when> --%>
-<%-- 									<c:otherwise> --%>
-<!-- 									<i class="fas fa-star"></i> -->
-<%-- 									</c:otherwise> --%>
-<%-- 									</c:choose> --%>
-	
-<!-- 검색 후 즐겨찾기 부분	-->
-			
-
 						
 						<div class="my-1">
 						    <span>
@@ -189,7 +184,7 @@
 						</c:if>
 						<c:if test="${type eq 3}">
 							<div class="my-2" style="font-weight:bolder">
-								<span>카테고리 : </span> 
+								<span class="font-weight-bold">분류 : </span> 
 								<span>${digitalCategory[0][review.subCategory1].name}</span> 
 								<span>-</span> 
 								<span>${digitalCategory[1][review.subCategory2].name}</span> 
@@ -197,15 +192,19 @@
 								<span>${digitalCategory[2][review.subCategory3].name}</span> 
 							</div>
 							<div class="my-2" style="font-weight:bolder">
-								<span>제조사 : </span> 
+								<span class="font-weight-bold">제조사 </span> 
 								<span>${review.productor}</span> 
 							</div>
 							<div class="my-2" style="font-weight:bolder">
-								<span>출시일 : </span> 
-								<span>${review.release}</span> 
+								<fmt:parseDate value="${review.release}" var="relase" pattern="yyyy-MM-dd" />
+								<span class="font-weight-bold">출시일 : </span> 
+								<span>
+									<fmt:formatDate value="${relase}" pattern="yyyy-MM-dd"/>
+								</span>
+								
 							</div>
 							<div class="my-2" style="font-weight:bolder">
-								<span>모델명 : </span> 
+								<span class="font-weight-bold">모델명 : </span> 
 								<span>${review.model}</span> 
 							</div>
 						</c:if>

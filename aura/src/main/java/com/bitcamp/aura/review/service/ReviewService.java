@@ -15,7 +15,9 @@ public interface ReviewService {
 	public List<ReviewVO> search(SearchParams params);
 	public List<HashMap<String, Object>> searchAddress(SearchParams params);
 	public HashMap<String, Object> searchByNum(HashMap<String, Object> params);
-	public List<ReviewVO> searchAll();
 	public ReviewVO searchOne(int num);
+	public List<ReviewVO> searchAll();
+	public List<ReviewVO> searchPopular();
+	public List<ReviewVO> searchNew();
 	public <T> List<T> setSearchFile(List<T> list);
 }

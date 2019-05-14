@@ -111,7 +111,25 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<ReviewVO> searchAll() {
 		// TODO Auto-generated method stub
-		return setSearchFile(mapper.selectAll());
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("order", "new");
+		return setSearchFile(mapper.selectAll(params));
+	}
+
+	@Override
+	public List<ReviewVO> searchPopular() {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("order", "pop");
+		return setSearchFile(mapper.selectAll(params));
+	}
+
+	@Override
+	public List<ReviewVO> searchNew() {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("order", "new");
+		return setSearchFile(mapper.selectAll(params));
 	}
 
 	@Override

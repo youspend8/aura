@@ -180,23 +180,25 @@
 					</div>
 				</div>
 			</c:if>
-			<div class="col-12 d-flex flex-row p-0 my-1">
-				<i class="col-1 pt-1 far fa-comment-alt"></i> 
-				<div class="col-11 pl-1 font-weight-bold review-explanation-2">
-					<c:forEach var="option" items="${options}" varStatus="num">
-						<c:if test="${option.key ne ''}">
-							<div class="col-12 p-0 d-flex">
-								<div class="col-3 p-0 m-0">
-									${option.key}
+			<c:if test="${type eq 3}">
+				<div class="col-12 d-flex flex-row p-0 my-1">
+					<i class="col-1 pt-1 far fa-comment-alt"></i> 
+					<div class="col-11 pl-1 font-weight-bold review-explanation-2">
+						<c:forEach var="option" items="${options}" varStatus="num">
+							<c:if test="${option.key ne ''}">
+								<div class="col-12 p-0 d-flex">
+									<div class="col-3 p-0 m-0">
+										${option.key}
+									</div>
+									<div class="col-9 p-0 m-0">
+										${option.value}
+									</div>
 								</div>
-								<div class="col-9 p-0 m-0">
-									${option.value}
-								</div>
-							</div>
-						</c:if>
-					</c:forEach>
+							</c:if>
+						</c:forEach>
+					</div>
 				</div>
-			</div>
+			</c:if>
 		</div>
 	</div>
 	
