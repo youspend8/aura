@@ -494,44 +494,44 @@
 		<div class="thema-flex col-12 d-flex flex-row flex-wrap justify-content-center align-items-start">
 			<h5 class="w-100 pt-2 m-0 text-center text-danger" style="font-weight: bold;">All Review Recommend</h5>
 			
-			<div class="first_recommand m-2 p-0" style="width: 30%; background-image: url('/img/테마별사진/img.jpg');">
-				<a href="#" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
+			<div class="first_recommand m-2 p-0" style="background-image: url('/img/테마별사진/img.jpg');">
+				<a href="/review/search?type=1&keyword=냉면" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
 					<b class="mb-3" style="font-size: 150%">냉면맛집 TOP 20</b>
 					"더운여름엔 냉면"
 				</a>
 			</div>
 			
 			
-			<div class="first_recommand m-2 p-0" style="width: 30%; background-image: url('/img/테마별사진/img.jpg');">
-				<a href="#" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
+			<div class="first_recommand m-2 p-0" style="background-image: url('/img/테마별사진/img.jpg');">
+				<a href="/review/search?type=1&restGroup=score&restLoc=논현동&restLoc=역삼" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
 					<b class="mb-3" style="font-size: 150%">신논현역 맛집 TOP 20</b>
 					비트캠프 주변 맛집
 				</a>
 			</div>
 			
-			<div class="first_recommand m-2 p-0 " style="width: 30%; background-image: url('/img/테마별사진/새우회.png');">
-				<a href="#" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
+			<div class="first_recommand m-2 p-0 " style="background-image: url('/img/테마별사진/새우회.png');">
+				<a href="/review/search?type=1&restGroup=score&restCategory=6" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
 					<b class="mb-3" style="font-size: 150%">커피숍 TOP 5</b>
 					요즘 인기있는 커피숍 핫플레이스
 				</a>
 			</div>
 			
-			<div class="first_recommand m-2 p-0 " style="width: 30%; background-image: url('/img/테마별사진/커리.png');">
-				<a href="#" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
+			<div class="first_recommand m-2 p-0 " style="background-image: url('/img/테마별사진/커리.png');">
+				<a onclick="alert('준비중입니다')" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100 text-white">
 					<b class="mb-3" style="font-size: 150%">이어폰 TOP 5</b>
 					"필수 아이템 무선이어폰"
 				</a>
 			</div>
 			
-			<div class="first_recommand m-2 p-0" style="width: 30%; background-image: url('/img/테마별사진/커리.png');">
-				<a href="#" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
+			<div class="first_recommand m-2 p-0" style="background-image: url('/img/테마별사진/커리.png');">
+				<a onclick="alert('준비중입니다')" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100 text-white">
 					<b class="mb-3" style="font-size: 150%">성형외과 TOP 10</b>
 					"나는야 호빵맨"
 				</a>
 			</div>
 			
-			<div class="first_recommand m-2 p-0 " style="width: 30%; background-image: url('/img/테마별사진/커리.png');">
-				<a href="#" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
+			<div class="first_recommand m-2 p-0 " style="background-image: url('/img/테마별사진/커리.png');">
+				<a onclick="alert('준비중입니다')" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100 text-white">
 					<b class="mb-3" style="font-size: 150%">제주도 맛집 TOP 10</b>
 					"제주도 여행가서 가볼만한 음식점"
 				</a>
