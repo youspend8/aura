@@ -94,9 +94,10 @@ public class CommentServicelmpl implements CommentService {
 	}
 	
 	@Override
-	public String delete_Comment() {
-		// TODO Auto-generated method stub
-		return null;
+	public int delete_Comment(int num) {
+		commentMapper.deleteFile(num);
+		
+		return commentMapper.delete(num);
 	}
 
 	@Override
@@ -128,6 +129,7 @@ public class CommentServicelmpl implements CommentService {
 
 	@Override
 	public List<CommentVO> selectAllByNum(int postNum) {
+		System.out.println(postNum);
 		ArrayList<CommentVO> list = (ArrayList<CommentVO>) commentMapper.selectAllByNum(postNum);
 
 		return list;

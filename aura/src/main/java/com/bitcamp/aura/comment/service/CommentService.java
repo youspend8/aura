@@ -10,7 +10,7 @@ import com.bitcamp.aura.comment.model.CommentVO;
 
 public interface CommentService {
 	public String insert_Comment(MultipartHttpServletRequest comment);
-	public String delete_Comment();
+	public int delete_Comment(int num);
 	public void update (CommentVO comment,int type);
 	public String selectAll_Comment();
 	public List<CommentVO> more_Comment(HashMap<String, Object> params);

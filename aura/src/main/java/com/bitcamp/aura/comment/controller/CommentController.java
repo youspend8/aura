@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bitcamp.aura.comment.model.CommentVO;
 import com.bitcamp.aura.comment.service.CommentService;
+import com.google.gson.Gson;
 
 @Controller
 @RequestMapping(value="/comment")
@@ -48,7 +49,6 @@ public class CommentController {
 	@ResponseBody
 	public String write(MultipartHttpServletRequest multipartFiles) throws IOException {
 		String result = commentService.insert_Comment(multipartFiles);
-		
 		return result;
 	}
 	
@@ -57,5 +57,22 @@ public class CommentController {
 	public List<CommentVO> commentMore(@RequestParam HashMap<String, Object> params){
 		return commentService.more_Comment(params);
 	}
+	
+	@RequestMapping(value="delete")
+	@ResponseBody
+	public boolean delete(int num) {
+		
+		commentService.delete_Comment(num);
+		return true;
+	}
 
+	@RequestMapping(value="/info")
+	@ResponseBody
+	public String info(
+			@RequestParam("num") int num) {
+		CommentVO comment = commentService.selectOne(num);
+		comment.setFiles(commentService.selectFilesByNum(num));
+		
+		return new Gson().toJson(comment);
+	}
 }
