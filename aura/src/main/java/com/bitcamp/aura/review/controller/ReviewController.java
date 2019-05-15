@@ -23,6 +23,7 @@ import com.bitcamp.aura.category.service.DigitalCategoryService;
 import com.bitcamp.aura.category.service.HospitalCategoryService;
 import com.bitcamp.aura.category.service.MedicalCategoryService;
 import com.bitcamp.aura.category.service.RestaurantCategoryService;
+import com.bitcamp.aura.comment.model.CommentFileVO;
 import com.bitcamp.aura.comment.model.CommentVO;
 import com.bitcamp.aura.comment.service.CommentServicelmpl;
 import com.bitcamp.aura.review.model.ReviewVO;
@@ -110,7 +111,9 @@ public class ReviewController {
 //					.stream()
 //					.map(i -> i.getComment_File())
 //					.collect(Collectors.toList()));
-			item.setFiles(commentService.selectFilesByNum(item.getComment_Num()));
+			List<CommentFileVO> files = commentService.selectFilesByNum(item.getComment_Num());
+			item.setFiles(files);
+			item.setStrFiles(new Gson().toJson(files));
 		});
 		
 		boolean isShare = false;

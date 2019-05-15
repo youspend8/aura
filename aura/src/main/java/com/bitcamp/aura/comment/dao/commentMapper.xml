@@ -80,6 +80,7 @@
 				TEMP.*
 			FROM (
 				SELECT
+					USER_COMMENT.REVIEW_POST_NUM AS review_Post_Num,
 					USER_COMMENT.COMMENT_NUM AS comment_Num,
 					USER_COMMENT.NICKNAME AS nickname,
 					USER_COMMENT.COMMENT_CONTENTS AS comment_Contents,
@@ -92,6 +93,8 @@
 					USER_ACCOUNT
 				ON
 					USER_COMMENT.NICKNAME = USER_ACCOUNT.NICKNAME
+                WHERE
+                    USER_COMMENT.REVIEW_POST_NUM = ${postNum}
 				ORDER BY USER_COMMENT.COMMENT_NUM DESC
 			) TEMP
 		) RESULT

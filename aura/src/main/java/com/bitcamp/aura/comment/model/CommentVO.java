@@ -27,4 +27,5 @@ public class CommentVO {
     private int comment_Num;
     private String profile;
     private List<CommentFileVO> files;
+    private String strFiles;
 }
