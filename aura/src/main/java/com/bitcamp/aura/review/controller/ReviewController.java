@@ -166,7 +166,7 @@ public class ReviewController {
 		model.addAttribute("restCategory", restCateService.readAll());
 		model.addAttribute("hosCategory", hospitalService.readAll());
 		model.addAttribute("medCategory", medCateService.readAll());
-		model.addAttribute("locationCate", new Location()	.locationList());
+		model.addAttribute("locationCate", new Location().locationList());
 		model.addAttribute("digitalCategory", digitalService.readAll());
 
 		if (nickname != null) {
@@ -180,10 +180,24 @@ public class ReviewController {
 	
 	@GetMapping(value="/search/more")
 	@ResponseBody
-	public List<ReviewVO> searchMore(
+	public HashMap<String, Object> searchMore(
 			@ModelAttribute SearchParams params) {
+		HashMap<String, Object> result = new HashMap<>();
+		result.put("data", service.search(params));
+		result.put("type", params.getType());
+		result.put("keyword", params.getKeyword());
 		
-		return service.search(params);
+		if (params.getType() == 1) {
+			result.put("restCategory", restCateService.readAll());
+			
+		} else if (params.getType() == 2) {
+			result.put("medCategory", medCateService.readAll());
+			result.put("hosCategory", hospitalService.readAll());
+			
+		} else if (params.getType() == 3) {
+			result.put("digitalCategory", digitalService.readAll());
+		}
+		return result;
 	}
 	
 	@RequestMapping(value="/search/address")
