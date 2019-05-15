@@ -51,12 +51,20 @@
 			COMMENT_NUM = #{comment_Num, jdbcType=NUMERIC}
 	</update>
 	
-	<delete id="delete" parameterType="String">
+	<delete id="delete" parameterType="int">
 		DELETE FROM
 			USER_COMMENT
 		WHERE
-			COMMENT_NUM = #{comment_num, jdbcType=NUMERIC}
+			COMMENT_NUM = #{comment_Num, jdbcType=NUMERIC}
 	</delete>
+	
+	<delete id="deleteFile" parameterType="int">
+		DELETE FROM
+			COMMENT_FILE
+		WHERE
+			COMMENT_NUM = #{comment_Num, jdbcType=NUMERIC}
+	</delete>
+	
 	<select id="selectOne" parameterType="int" resultType="CommentVO">
 		SELECT
 			*
