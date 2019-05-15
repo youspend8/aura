@@ -634,7 +634,32 @@
 					<input type="hidden" value="" name="">
 					<input type="hidden" value="" name="">
 						
-						<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0">삭제</button>
+						<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0"  data-toggle="modal" data-target="#delete" >삭제</button>
+						
+						
+						<!-- Modal -->
+						<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="top:30%" aria-hidden="true">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content text-center">
+					      		<div class="modal-body text-center">
+							      <div class="text-center mb-3">
+						        	<button type="button" class="close justify-content-end" data-dismiss="modal">
+						         	 	<span aria-hidden="true">&times;</span>
+						       		</button>
+						        	<h5 class="modal-title font-weight-bold" id="exampleModalLabel">삭 제</h5>
+							      </div>
+							      <div class="my-5">
+					     		 	 정말 삭제 하시겟습니까?
+							      </div>
+									<div class="d-flex justify-content-end">
+								        <button type="button" class="btn btn-danger data-delete" onclick="comment_delete(${commentList.comment_Num })">삭제</button>
+								        <button type="button" class="btn gray delete-cancel" data-dismiss="modal" value="0">취소</button>
+									</div>
+					      		</div>
+						    </div>
+						  </div>
+						</div>
+						
 				   </div>
 				</c:if>
 			</div>
@@ -643,16 +668,37 @@
 	
 		</div>
 	
-		
+		${commentList.comment_Num }
 	
 	</c:forEach>
-	
-	
 </div>
 	
-	
-	
 	<script type="text/javascript">
+	//동훈이 짱
+	
+	function comment_delete(num){
+		alert(num);
+		$.ajax({
+			url : '/comment/delete',
+			data: {
+				num : num
+			},
+			type: 'POST',
+			datatype :'text',
+			success : function(data) {
+				window.location.href=window.location.href 
+			}
+		})
+	}
+			
+	
+	
+	
+	
+	
+	
+	
+	
 		
 			function addComma(num) {
 				 var regexp = /\B(?=(\d{3})+(?!\d))/g;
@@ -1151,9 +1197,32 @@ $('#review_more').on('click', function(){
 				}
 				
 				if (item.nickname == $('#session_nickname').text()){
-					comment_delete = '<div id="session_Comment" class="w-50 d-flex mt-5 justify-content-center">' +
-					'<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0">삭제</button>' +
-					   '</div>';
+					console.log(item.comment_Num);
+					comment_delete =
+					'<div id="session_Comment" class="w-50 d-flex mt-5 justify-content-center">' +
+						'<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0"  data-toggle="modal" data-target="#delete">삭제</button>' +
+				   	'</div>' +
+				   	'<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="top:30%" aria-hidden="true">' +
+					 '<div class="modal-dialog" role="document">' +
+					    '<div class="modal-content text-center">' +
+				      		'<div class="modal-body text-center">' +
+						      '<div class="text-center mb-3">' +
+					        	'<button type="button" class="close justify-content-end" data-dismiss="modal">' +
+					         	 	'<span aria-hidden="true">&times;</span>' +
+					       		'</button>' +
+					        	'<h5 class="modal-title font-weight-bold" id="exampleModalLabel">삭 제</h5>' +
+						      '</div>' +
+						     ' <div class="my-5">' +
+				     		 	 '정말 삭제 하시겟습니까?' +
+						      '</div>' +
+								'<div class="d-flex justify-content-end">' +
+							        '<button type="button" class="btn btn-danger data-delete" value="1" onclick="comment_delete(' + item.comment_Num + ')">삭제</button>' +
+							       ' <button type="button" class="btn gray delete-cancel" data-dismiss="modal" value="0">취소</button>' +
+								'</div>' +
+				      		'</div>' +
+					    '</div>' +
+					 '</div>' +
+					'</div>';
 				}
 				
 				var reviewComment = 
