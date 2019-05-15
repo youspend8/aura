@@ -292,6 +292,9 @@ a:hover {
     display:inline-block;
 }
 
+.first_recommand {
+	width: 30%;
+}
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
     .tl {
@@ -332,16 +335,14 @@ a:hover {
     .evnetPan {
        height: 150px;
     }
-
     .thema-flex {
         height: 800px;
     }
-
     .recommand_box {
         font-size: 150%;
     }
     .first_recommand {
-    	width: 45%;
+    	width: 30%;
     }
 
     .rank_section{
@@ -358,12 +359,16 @@ a:hover {
 }
 
 @media (max-width: 767.9px) {
+    .thema-flex {
+        height: 800px;
+    }
     .tl {
         height: 1000px;
     }
     
     .first_recommand {
-    	width: 95%;
+    	width: 45%;
+    	height: 200px;
     }
     
     .win {

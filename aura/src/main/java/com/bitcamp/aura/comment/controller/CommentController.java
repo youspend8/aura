@@ -57,5 +57,13 @@ public class CommentController {
 	public List<CommentVO> commentMore(@RequestParam HashMap<String, Object> params){
 		return commentService.more_Comment(params);
 	}
+	
+	@RequestMapping(value="delete")
+	@ResponseBody
+	public boolean delete(int num) {
+		
+		commentService.delete_Comment(num);
+		return true;
+	}
 
 }

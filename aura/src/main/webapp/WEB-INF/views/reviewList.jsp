@@ -40,7 +40,7 @@
 				</div>
 			</div>
 	
-			<c:if test="type == 1 || type == 2">
+			<c:if test="${type == 1 || type == 2}">
 				<!-- 지도 -->
 				<div class="col-12">
 					<div id="map" class="w-100" style="height:400px;"></div>
@@ -441,7 +441,7 @@
 							'</div>'
 							document.getElementById('content').innerHTML += list;
 						});
-						if (type == 1 && type == 2) {
+						if (type == 1 || type == 2) {
 							getReviewAddr(start);
 						}
 					}
@@ -451,7 +451,7 @@
 				})
 			});
 
-			if (type == 1 && type == 2) {
+			if (type == 1 || type == 2) {
 				getReviewAddr(0);
 			}
 		});
