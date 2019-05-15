@@ -129,6 +129,7 @@ public class CommentServicelmpl implements CommentService {
 
 	@Override
 	public List<CommentVO> selectAllByNum(int postNum) {
+		System.out.println(postNum);
 		ArrayList<CommentVO> list = (ArrayList<CommentVO>) commentMapper.selectAllByNum(postNum);
 
 		return list;

@@ -174,7 +174,7 @@
 				<c:when test="${nickname ne null}">	          	
 					<li class="w-100">
 						<a href="#" class="fas fa-user-alt text-dark text-center user_icon" data-target="#fullHeightModalRight" data-toggle="modal">
-							<span class="user_nickname d-md-inline-block d-none">${nickname}님</span>
+							<span id="session_nickname" class="user_nickname d-md-inline-block d-none">${nickname}</span>
 						</a>
 					</li>
 				</c:when>

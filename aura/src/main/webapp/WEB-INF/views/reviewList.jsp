@@ -254,10 +254,10 @@
 	<script>
 		var nickname = "${nickname}";
 		var flag = false;
-		$('.favostar').submit(function(e) {
-			e.preventDefault();
-			
-			if(nickname != ""){ //닉네임이 null이 아닌 경우
+		document.addEventListener('submit', function(e) {
+			if (e.target.className === 'favostar') {
+				e.preventDefault();
+				if(nickname != ""){ //닉네임이 null이 아닌 경우
 					if(e.target[1].children[0].style.color == '' || 
 					   e.target[1].children[0].style.color === 'rgb(0, 0, 0)') {//검정
 						e.target[1].children[0].style.color = '#f9ca24';
@@ -299,11 +299,11 @@
 								}
 							})							
 				    }								
-			}else{
-				alert("회원만 이용 가능합니다. 로그인 해주세요");
+				} else {
+					alert("회원만 이용 가능합니다. 로그인 해주세요");
+				}
 			}
-			
-		})
+		});
 	</script>		
 	
 
@@ -373,7 +373,14 @@
 						start: start,
 						end: start + 4
 					},
-					success: function(data) {
+					success: function(result) {
+						var data = result.data;
+						var digitalCategory = result.digitalCategory;
+						var restCategory = result.restCategory;
+						var hosCategory = result.hosCategory;
+						var medCategory = result.medCategory;
+						
+						console.log(result)
 						if (data.length == 0) {
 							$('#review_more').text('더 이상 불러올 리뷰글이 없습니다.');
 						}
@@ -384,6 +391,16 @@
 									      '<img src="' + file + '" style="width:100%; height: 250px;">' +
 									    '</div>	'
 						  	});
+						  	var starIcons = '';
+							for (var i = 0; i < 5; i++) {
+								if (item.stars - i >= 1) {
+						    		starIcons += '<i style="color: rgb(255, 153, 0);" class="fas fa-star"></i>';
+								} else if (item.stars - i < 1 && item.stars - i > 0) {
+									starIcons += '<i style="color: rgb(255, 153, 0);" class="fas fa-star-half-alt"></i>'
+								} else {
+									starIcons += '<i style="color: rgb(255, 153, 0);" class="far fa-star"></i>'
+								}
+							}
 							var list = 
 							'<div class="d-flex flex-wrap" style="margin: 3% 0 3% 0;" >' +
 								'<div class="col-md-6 col-12">' +
@@ -410,33 +427,90 @@
 								'<div class="col-md-6 col-12">' +
 									'<div>' +
 									    '<a href="/review/post?num=' + item.num + '&type=' + item.type + '" class="text-dark">' +
-									    	'<h5 class="board_list_title mb-1">' + item.title + '</h5>' +
+									    	'<h5 class="board_list_title mb-1">' + 
+									    		item.title +
+									    		(
+									    			item.type == 1 ?
+									    			'<span style="color: gray; font-size: 12px;"> ' +
+									    				restCategory[item.category].name + 
+									    			'</span>'
+									    			: 
+									    			item.type == 2 ?
+									    			'<span style="color: gray; font-size: 12px;"> ' +
+								    					hosCategory[item.hospitalCategory].name + 
+									    			'</span>'
+									    			: ''
+									    		) +
+									    		(
+									    			item.type == 1 || item.type == 2 ?
+													' <span class="badge badge-pill align-middle ml-1" style="font-size: 12px; background-color: red">' +
+														'NEW' +
+													'</span>' : ''
+									    		) +
+									    	'</h5>' +
 									    '</a>' +
-									    '<span style="float:right; font-size:2rem;">' +
-									      '<a style="color:rgb(0, 102, 255)"><i class="far fa-star"></i></a>' +
-									    '</span>' +
+									    '<form style="float:right; font-size:2rem;" class="favostar">' +
+											'<a style="color:rgb(33, 37, 41)"></a>' +
+											'<input type="hidden" name="postNum" value="' + item.num + '">' +
+											'<button class="p-0 m-0" type="submit" style="border: none; background-color: white">' +
+									    		'<i class="fas fa-star"></i>' +
+									    	'</button>' +
+										'</form>' +
 									'</div>' +
 									'<div class="my-1">' +
-									    '<span><i style="color: rgb(255, 153, 0);" class="fas fa-star"></i><i style="color: rgb(255, 153, 0);" class="fas fa-star"></i><i style="color: rgb(255, 153, 0);" class="fas fa-star"></i><i style="color: rgb(255, 153, 0);" class="fas fa-star-half-alt"></i><i style="color: rgb(255, 153, 0);" class="far fa-star"></i></span> <span style="font-weight:bolder">300</span><span style="font-size:90%;"> reviews</span>' +
+										'<span>' +
+											starIcons +
+										'</span>' +
+										'<span style="font-weight:bolder"> ' +
+											(
+												item.stars != 0 ? item.stars.toFixed(1) : item.stars.toFixed(0)
+											) +
+										'</span>' +
+
+									    '<span class="ml-2" style="font-size:80%;">' +
+									    	item.starCount +
+									    	" Reviews" +
+									    '</span>' +
 									'</div>' +
-									'<div class="my-1 align-middle">' +
-									    '<i class="fas fa-heart"></i>' +
-									    '<span> ' + categoryList[item.category] + '</span>' +
-									'</div>' +
-									'<div class="my-2" style="font-weight:bolder">' +
-										'<i class="fas fa-phone"></i>' +
-										'<span>' + item.tel + '</span>' +
-									'</div>' +
-									'<div class="my-2" style="font-weight:bolder">' +
-										'<i class="fas fa-location-arrow"></i>' +
-										'<span>' + item.addr + '</span>' +
-									'</div>' +
-									'<div class="my-2" style="font-weight:bolder;">' +
-										'<i class="fas fa-clipboard-list"></i>' +
-										'<div>' +
-											item.contents +
+									(
+										item.type == 1 || item.type == 2 ?
+										'<div class="my-2" style="font-weight:bolder">' +
+											'<i class="fas fa-phone"></i>' +
+											'<span> ' + item.tel + '</span>' +
 										'</div>' +
-									'</div>' +
+										'<div class="my-2" style="font-weight:bolder">' +
+											'<i class="fas fa-location-arrow"></i>' +
+											'<span> ' + item.addr + '</span>' +
+										'</div>' +
+										'<div class="my-2" style="font-weight:bolder;">' +
+											'<i class="fas fa-clipboard-list mr-1"></i>' +
+											'<span> ' +
+												item.contents +
+											'</span>' +
+										'</div>' :
+										'<div class="my-2" style="font-weight:bolder">' +
+											'<span class="font-weight-bold">분류 : </span>' +
+											'<span>' + digitalCategory[0][item.subCategory1].name + '</span>' + 
+											'<span> - </span>' +
+											'<span>' + digitalCategory[1][item.subCategory2].name + '</span>' + 
+											'<span> - </span>' + 
+											'<span>' + digitalCategory[2][item.subCategory3].name + '</span>' + 
+										'</div>' +
+										'<div class="my-2" style="font-weight:bolder">' +
+											'<span class="font-weight-bold">제조사 </span>' +
+											'<span>' + (item.productor == null ? '' : item.productor) + '</span>' +
+										'</div>' +
+										'<div class="my-2" style="font-weight:bolder">' +
+											'<span class="font-weight-bold">출시일 : </span>' + 
+											'<span>' +
+												item.release.substring(0, 11) +
+											'</span>' +
+										'</div>' +
+										'<div class="my-2" style="font-weight:bolder">' +
+											'<span class="font-weight-bold">모델명 : </span>' + 
+											'<span>' + item.model + '</span>' +
+										'</div>'
+									) +
 								'</div>' +
 							'</div>'
 							document.getElementById('content').innerHTML += list;
