@@ -634,11 +634,11 @@
 					<input type="hidden" value="" name="">
 					<input type="hidden" value="" name="">
 						
-						<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0"  data-toggle="modal" data-target="#delete" >삭제</button>
+						<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0"  data-toggle="modal" data-target="#delete_${commentList.comment_Num }" >삭제</button>
 						
 						
 						<!-- Modal -->
-						<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="top:30%" aria-hidden="true">
+						<div class="modal fade" id="delete_${commentList.comment_Num }" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="top:30%" aria-hidden="true">
 						  <div class="modal-dialog" role="document">
 						    <div class="modal-content text-center">
 					      		<div class="modal-body text-center">
@@ -668,8 +668,6 @@
 	
 		</div>
 	
-		${commentList.comment_Num }
-	
 	</c:forEach>
 </div>
 	
@@ -677,7 +675,6 @@
 	//동훈이 짱
 	
 	function comment_delete(num){
-		alert(num);
 		$.ajax({
 			url : '/comment/delete',
 			data: {
@@ -1200,9 +1197,9 @@ $('#review_more').on('click', function(){
 					console.log(item.comment_Num);
 					comment_delete =
 					'<div id="session_Comment" class="w-50 d-flex mt-5 justify-content-center">' +
-						'<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0"  data-toggle="modal" data-target="#delete">삭제</button>' +
+						'<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0"  data-toggle="modal" data-target="#delete_' + item.comment_Num + '">삭제</button>' +
 				   	'</div>' +
-				   	'<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="top:30%" aria-hidden="true">' +
+				   	'<div class="modal fade" id="delete_' + item.comment_Num + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="top:30%" aria-hidden="true">' +
 					 '<div class="modal-dialog" role="document">' +
 					    '<div class="modal-content text-center">' +
 				      		'<div class="modal-body text-center">' +
