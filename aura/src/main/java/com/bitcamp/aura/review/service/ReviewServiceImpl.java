@@ -142,7 +142,6 @@ public class ReviewServiceImpl implements ReviewService {
 					.collect(Collectors.toList());
 			((ReviewVO) review).setFiles(files);
 		});
-		
 		return list;
 	}
 

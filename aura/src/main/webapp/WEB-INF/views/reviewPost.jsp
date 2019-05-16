@@ -74,7 +74,7 @@
 
 				<c:choose>
 					<c:when test="${reviewInfo.isShare }">
-						<i class="fas fa-share-alt" id="aa" value="${nickname}" style="color: green" data-toggle="modal" data-target="#basicExampleModal"></i>
+						<i class="fas fa-share-alt" id="aa" value="${nickname}" style="color: #27ae60" data-toggle="modal" data-target="#basicExampleModal"></i>
 					</c:when>
 					<c:otherwise>
 						<i class="fas fa-share-alt" id="aa" value="${nickname}" data-toggle="modal" data-target="#basicExampleModal"></i>
@@ -84,7 +84,7 @@
 				<a id="share" >
 					<c:choose>
 						<c:when test="${reviewInfo.isStar }">
-						    <i class="fas fa-star mx-4" id="bb" value="${nickname}" style="color: yellow" onclick="doReview(2)"></i>
+						    <i class="fas fa-star mx-4" id="bb" value="${nickname}" style="color: #f9ca24" onclick="doReview(2)"></i>
 						</c:when>
 						<c:otherwise>
 							<i class="fas fa-star mx-4" id="bb" value="${nickname}" onclick="doReview(2)"></i>
@@ -95,7 +95,7 @@
 				<a id="share" onclick="doReview(3)">
 					<c:choose>
 						<c:when test="${reviewInfo.isLike }">
-						    <i class="fas fa-thumbs-up" id="cc" value="${nickname}" style="color: blue"></i>
+						    <i class="fas fa-thumbs-up" id="cc" value="${nickname}" style="color: #3498db"></i>
 						</c:when>
 						<c:otherwise>
 							<i class="fas fa-thumbs-up" id="cc" value="${nickname}"></i>
@@ -216,7 +216,7 @@
 
 
 <!-- 컨텐트 영역 -->
-<div class="container d-flex flex-wrap">
+<div id="contents_area" class="container d-flex flex-wrap">
 
 	<!-- 댓글 작성 양식 -->
 	<div id="write_form" class="col-12 flex-column align-items-center">
@@ -552,143 +552,140 @@
 <!-- 		</div> -->
 
 		<!-- strat -->
-		${userComments}
-		<br>
-	<c:forEach var="commentList" items="${commentList }" varStatus="status" end="4">
-		<div class="col-12 my-3 d-md-flex d-none flex-wrap fade show active" id="home_${commentList.comment_Num }">
-		
-		
-			<div
-				class=" col-2 d-flex flex-column justify-content-center align-items-center"
-				style="width: 100%;">
-				
-				<div class="p-0">
-				<c:choose>
-					<c:when test="${commentList.profile ne null }">
-						<img class="rounded-circle" src=${commentList.profile } style="height: 75px;">
-					</c:when>
-					<c:otherwise>
-						<img class="rounded-circle" src="https://ssl.pstatic.net/static/pwe/address/img_profile.png" style="height: 75px;">
-					</c:otherwise>
-				</c:choose>
-				</div>
-
-				<div class="w-100 text-center" style="margin-top: 0px">${commentList.nickname }${commentList.comment_Num }</div>
-				
-					
-				<div class="p-0 d-flex justify-content-center">
-					<c:forEach begin="1" end="${commentList.comment_Score }">
-						<i class="fas fa-star" style="font-size: 20px; color: rgb(255, 153, 0);"></i>
-					</c:forEach>
-					<c:forEach begin="1" end="${5-commentList.comment_Score }">
-						<i class="far fa-star" style="font-size: 20px; color: rgb(255, 153, 0);"></i>
-					</c:forEach>
-				</div>
-				
-			</div>
-			
-			<div class="col-2 d-flex justify-content-center align-items-center p-0">
-				<!-- 유저들이 올린리뷰 후기 사진0-->
-				<c:if test="${commentList.files[0] ne null }">
-					<div id="carouselExampleFade-${status.index }" class="carousel slide carousel-fade"
-						data-ride="carousel">
-						<div class="carousel-inner" style="width:168px; height:123px;">
-								<div class="carousel-item active sample_image">
-									<img class="d-block user-review-img" style="width:168px; height:123px;"
-											src="${commentList.files[0].comment_File}">
-								</div>
 	
-								<c:forEach var="files" items="${commentList.files }" begin="1">
-									<c:if test="${files ne null}">
-										<div class="carousel-item big sample_image">
-											<img class="d-block user-review-img" style="width:168px; height:123px;" 
-														src="${files.comment_File}">
-										</div>
-									</c:if>
-								</c:forEach>
-						</div>
-						
-						<a class="user-photo-button-left carousel-control-prev"
-							href="#carouselExampleFade-${status.index }" role="button" data-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="sr-only">Previous</span>
-						</a>
-						<a class="user-photo-button-right carousel-control-next"
-							href="#carouselExampleFade-${status.index }" role="button" data-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="sr-only">Next</span>
-						</a>
+		<c:forEach var="commentList" items="${commentList }" varStatus="status" end="4">
+			<div class="col-12 my-3 d-md-flex d-none flex-wrap fade show active" id="home_${commentList.comment_Num }">
+			
+			
+				<div
+					class=" col-2 d-flex flex-column justify-content-center align-items-center"
+					style="width: 100%;">
+					
+					<div class="p-0">
+					<c:choose>
+						<c:when test="${commentList.profile ne null }">
+							<img class="rounded-circle" src=${commentList.profile } style="height: 75px;">
+						</c:when>
+						<c:otherwise>
+							<img class="rounded-circle" src="https://ssl.pstatic.net/static/pwe/address/img_profile.png" style="height: 75px;">
+						</c:otherwise>
+					</c:choose>
 					</div>
-				</c:if>
-				<!-- 유저들이 올린리뷰 후기 사진0 End-->
-			</div>
-
-			<div class="col-6 d-flex flex-wrap flex-row align-items-center">
-				<div class>${commentList.comment_Contents }
-				 </div>
+	
+					<div class="w-100 text-center" style="margin-top: 0px">${commentList.nickname }</div>
+					
+						
+					<div class="p-0 d-flex justify-content-center">
+						<c:forEach begin="1" end="${commentList.comment_Score }">
+							<i class="fas fa-star" style="font-size: 20px; color: rgb(255, 153, 0);"></i>
+						</c:forEach>
+						<c:forEach begin="1" end="${5-commentList.comment_Score }">
+							<i class="far fa-star" style="font-size: 20px; color: rgb(255, 153, 0);"></i>
+						</c:forEach>
+					</div>
+					
+				</div>
 				
-			</div>
-			
-			<div class="d-flex col-2 flex-column align-items-center justify-content-center ">
-				<a class="heartCl" commentNum="${commentList.comment_Num}">
-					<i class="fas fa-heart "  style="font-size: 40px" ></i>
-				</a>
-				<p value="${commentList.comment_Like }" nickname="${nickname}">
-			
-					<fmt:formatNumber value="${commentList.comment_Like }" pattern="#,###"/>
-					
-				</p>
-				<c:if test="${nickname eq commentList.nickname}">
-					<div id="session_Comment" class="w-50 d-flex mt-5 justify-content-between">
-					<input type="hidden" value="" name="">
-					<input type="hidden" value="" name="">
-					
-						<button id="update_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0"
-							onclick='update_Area(${commentList.comment_Num }, "${commentList.comment_Contents}", "${commentList.files}")'>수정</button>
-							
-						
-						<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0"  data-toggle="modal" data-target="#delete" >삭제</button>
-						
-						
-						<!-- Modal -->
-						<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="top:30%" aria-hidden="true">
-						  <div class="modal-dialog" role="document">
-						    <div class="modal-content text-center">
-					      		<div class="modal-body text-center">
-							      <div class="text-center mb-3">
-						        	<button type="button" class="close justify-content-end" data-dismiss="modal">
-						         	 	<span aria-hidden="true">&times;</span>
-						       		</button>
-						        	<h5 class="modal-title font-weight-bold" id="exampleModalLabel">삭 제</h5>
-							      </div>
-							      <div class="my-5">
-					     		 	 정말 삭제 하시겟습니까?
-							      </div>
-									<div class="d-flex justify-content-end">
-								        <button type="button" class="btn btn-danger data-delete" value="1" onclick="test5(${commentList.comment_Num })">삭제</button>
-								        <button type="button" class="btn gray delete-cancel" data-dismiss="modal" value="0">취소</button>
+				<div class="col-2 d-flex justify-content-center align-items-center p-0">
+					<!-- 유저들이 올린리뷰 후기 사진0-->
+					<c:if test="${commentList.files[0] ne null }">
+						<div id="carouselExampleFade-${status.index }" class="carousel slide carousel-fade"
+							data-ride="carousel">
+							<div class="carousel-inner" style="width:168px; height:123px;">
+									<div class="carousel-item active sample_image">
+										<img class="d-block user-review-img" style="width:168px; height:123px;"
+												src="${commentList.files[0].comment_File}">
 									</div>
-					      		</div>
-						    </div>
-						  </div>
+		
+									<c:forEach var="files" items="${commentList.files }" begin="1">
+										<c:if test="${files ne null}">
+											<div class="carousel-item big sample_image">
+												<img class="d-block user-review-img" style="width:168px; height:123px;" 
+															src="${files.comment_File}">
+											</div>
+										</c:if>
+									</c:forEach>
+							</div>
+							
+							<a class="user-photo-button-left carousel-control-prev"
+								href="#carouselExampleFade-${status.index }" role="button" data-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="sr-only">Previous</span>
+							</a>
+							<a class="user-photo-button-right carousel-control-next"
+								href="#carouselExampleFade-${status.index }" role="button" data-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="sr-only">Next</span>
+							</a>
 						</div>
-				   </div>
-				</c:if>
-			</div>
+					</c:if>
+					<!-- 유저들이 올린리뷰 후기 사진0 End-->
+				</div>
+	
+				<div class="col-6 d-flex flex-wrap flex-row align-items-center">
+					<div class>${commentList.comment_Contents }
+					 </div>
+					
+				</div>
+				
+				<div class="d-flex col-2 flex-column align-items-center justify-content-center ">
+					<a class="heartCl" commentNum="${commentList.comment_Num}">
+						<i class="fas fa-heart "  style="font-size: 40px" ></i>
+					</a>
+					<p value="${commentList.comment_Like }" nickname="${nickname}">
+				
+						<fmt:formatNumber value="${commentList.comment_Like }" pattern="#,###"/>
+						
+					</p>
+					<c:if test="${nickname eq commentList.nickname}">
+						<div id="session_Comment" class="w-50 d-flex mt-5 justify-content-center">
+						<input type="hidden" value="" name="">
+						<input type="hidden" value="" name="">
+							
+							<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0"  data-toggle="modal" data-target="#delete_${commentList.comment_Num }" >삭제</button>
+							
+							
+							<!-- Modal -->
+							<div class="modal fade" id="delete_${commentList.comment_Num }" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="top:30%" aria-hidden="true">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content text-center">
+						      		<div class="modal-body text-center">
+								      <div class="text-center mb-3">
+							        	<button type="button" class="close justify-content-end" data-dismiss="modal">
+							         	 	<span aria-hidden="true">&times;</span>
+							       		</button>
+							        	<h5 class="modal-title font-weight-bold" id="exampleModalLabel">삭 제</h5>
+								      </div>
+								      <div class="my-5">
+						     		 	 정말 삭제 하시겟습니까?
+								      </div>
+										<div class="d-flex justify-content-end">
+									        <button type="button" class="btn btn-danger data-delete" onclick="comment_delete(${commentList.comment_Num })">삭제</button>
+									        <button type="button" class="btn gray delete-cancel" data-dismiss="modal" value="0">취소</button>
+										</div>
+						      		</div>
+							    </div>
+							  </div>
+							</div>
+							
+					   </div>
+					</c:if>
+				</div>
+				
 			
 		
-	
-		</div>
-	
-		<div class="container d-flex flex-wrap" id="update_area_${commentList.comment_Num }">
-		</div>
-	</c:forEach>
+			</div>
+		
+		</c:forEach>
+		
+	<c:if test="${commentList.size() eq 0}">
+		<div class="col-12 d-flex justify-content-center p-5">첫 리뷰를 작성해주세요 !</div>
+	</c:if>
 </div>
 	
 	<script type="text/javascript">
 	//동훈이 짱
-
-	function test5(num){
+	function comment_delete(num){
 		$.ajax({
 			url : '/comment/delete',
 			data: {
@@ -706,13 +703,15 @@
 
 
 <div class="my-3 col-12" style="border-bottom: rgb(217, 217, 217) solid 1px;"></div>
+<c:if test="${commentList.size() > 5 }">
 <div id="review_more" class="d-flex col-12 justify-content-center align-items-center bg-white py-3 my-5">
     <a id="more_button" class="text-center" style="text-decoration: none">
         <img src="/img/more.png" style="width: 20%; border-radius: 100%; border: 1px solid gray">
-        <span class="ml-2 text-dark">검색결과 더보기</span>
+        <span class="ml-2 text-dark">리뷰 더 보기</span>
     </a>
     <div id="bar" style="display: none;"></div>
 </div>
+</c:if>
 
 
 
@@ -720,18 +719,23 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=53d46cec9bd19a0835b7c8bc8150a448&libraries=services"></script>
 <script type="text/javascript">
 
-	var test2 = $('.heartCl')
-	var userComments=${userComments}
-		
-	for(var i=0;i<test2.length;i++){
-		var commentNum = $(test2[i]).attr('commentNum');
-		for(var j =0 ; j<userComments.length;j++){
-			if(commentNum==userComments[j].COMMENT_NUM){
-				test2[i].style.color='rgb(255, 0, 0)'
-				break;
+var nickname ='${nickname}';
+var test2 = $('.heartCl')
+var userCommentsStr = '${userComments}';
+
+ 	if(userCommentsStr != ''){
+ 		var userComments = JSON.parse(userCommentsStr);
+ 		
+		for(var i=0;i<test2.length;i++){
+			var commentNum = $(test2[i]).attr('commentNum');
+			for(var j =0 ; j<userComments.length;j++){
+				if(commentNum==userComments[j].COMMENT_NUM){
+					test2[i].style.color='rgb(255, 0, 0)'
+					break;
+				}
 			}
 		}
-	}
+ 	}
 
 	function addComma(num) {
 		 var regexp = /\B(?=(\d{3})+(?!\d))/g;
@@ -907,17 +911,17 @@ var flag2=true;
 					}else{
 						if($(this).attr('id')=='aa'){
 						
-							$(this).css("color","green")
+							$(this).css("color","#27ae60")
 							
 						}
 						if($(this).attr('id')=='bb'){
 							
-							$(this).css("color","yellow")
+							$(this).css("color","#f9ca24") // 노랑
 						
 						}
 						if($(this).attr('id')=='cc'){
 							
-							$(this).css("color","blue")
+							$(this).css("color","#3498db")
 						
 						}
 					}
@@ -1077,29 +1081,148 @@ var flag2=true;
 
 		
     </script>
-    
+	<script type="text/javascript" src="/js/radialprogress.js"></script>
 <script>
-var start = 6;
+var more_start = 6;
 
 var bar = new RadialProgress(document.getElementById("bar"),{indeterminate:true,colorBg:"white",colorFg:"red",thick:5});
 
 $('#review_more').on('click', function(){
 	$('#bar').show();
 	$('#more_button').hide();
-// 	start += 5;
 	
 	$.ajax({
 		url: '/comment/more',
 		type: 'get',
 		dataType: 'json',
 		data: {
-			start: start,
-			end: start + 4
+			postNum: '${reviewInfo.NUM}',
+			start: more_start,
+			end: more_start + 4
 		},
-		success: function(data){
+		success: function(data) {
 			console.log(data);
 			if (data.length == 0){
-				$('#review_more').text('더 이상 불러올 댓글이 없습니다.');
+				$('#review_more').text('더 이상 불러올 리뷰가 없습니다.');
+			};
+			
+			data.forEach((item, index) => {
+				var more_files = '';
+				var reviewFiles = '';
+				
+				if (item.files.length == 0) {
+					more_files ='<div class="carousel-item active sample_image">' +
+									'<img class="d-block user-review-img" style="width:168px; height:123px; src="">' +
+								'</div>'
+				} else {
+					item.files.forEach((item, index) => {
+						more_files+='<div class="carousel-item' + (index == 0 ? ' active' : '') + ' sample_image">' +
+										'<img class="d-block user-review-img" style="width:168px; height:123px;" src="' + item.comment_File + '">' +
+									'</div>'
+						
+					})
+					reviewFiles += '<div id="carouselExampleFade-' + item.comment_Num + '" class="carousel slide carousel-fade" data-ride="carousel">'
+								+ '<div class="carousel-inner" style="width:168px; height:123px;">'
+									+ more_files
+								+ '</div>'
+							
+								+ '<a class="user-photo-button-left carousel-control-prev" href="#carouselExampleFade-' + item.comment_Num + '" role="button" data-slide="prev">'
+									+ '<span class="carousel-control-prev-icon" aria-hidden="true"></span>'
+									+ '<span class="sr-only">Previous</span>'
+								+ '</a>'
+								+ '<a class="user-photo-button-right carousel-control-next" href="#carouselExampleFade-' + item.comment_Num + '" role="button" data-slide="next">'
+									+ '<span class="carousel-control-next-icon" aria-hidden="true"></span>'
+									+ '<span class="sr-only">Next</span>'
+								+ '</a>'
+							+ '</div>';
+				}
+				
+				var profile = '';
+				var score = '';
+				var comment_delete = '';
+				
+				if (item.profile == null){
+					profile = 'https://ssl.pstatic.net/static/pwe/address/img_profile.png';
+				} else {
+					profile = item.profile;
+				}
+				
+				for (var i = 0; i < 5; i++){
+					if (i < item.comment_Score){
+						score += '<i class="fas fa-star" style="font-size: 20px; color: rgb(255, 153, 0);"></i>';
+					} else {
+						score += '<i class="far fa-star" style="font-size: 20px; color: rgb(255, 153, 0);"></i>';
+					}
+				}
+				
+				if (item.nickname == $('#session_nickname').text()){
+					console.log(item.comment_Num);
+					comment_delete =
+					'<div id="session_Comment" class="w-50 d-flex mt-5 justify-content-center">' +
+						'<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0"  data-toggle="modal" data-target="#delete_' + item.comment_Num + '">삭제</button>' +
+				   	'</div>' +
+				   	'<div class="modal fade" id="delete_' + item.comment_Num + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="top:30%" aria-hidden="true">' +
+					 '<div class="modal-dialog" role="document">' +
+					    '<div class="modal-content text-center">' +
+				      		'<div class="modal-body text-center">' +
+						      '<div class="text-center mb-3">' +
+					        	'<button type="button" class="close justify-content-end" data-dismiss="modal">' +
+					         	 	'<span aria-hidden="true">&times;</span>' +
+					       		'</button>' +
+					        	'<h5 class="modal-title font-weight-bold" id="exampleModalLabel">삭 제</h5>' +
+						      '</div>' +
+						     ' <div class="my-5">' +
+				     		 	 '정말 삭제 하시겟습니까?' +
+						      '</div>' +
+								'<div class="d-flex justify-content-end">' +
+							        '<button type="button" class="btn btn-danger data-delete" value="1" onclick="comment_delete(' + item.comment_Num + ')">삭제</button>' +
+							       ' <button type="button" class="btn gray delete-cancel" data-dismiss="modal" value="0">취소</button>' +
+								'</div>' +
+				      		'</div>' +
+					    '</div>' +
+					 '</div>' +
+					'</div>';
+				}
+				
+				var reviewComment = 
+					'<div class="col-12 my-3 d-md-flex d-none flex-wrap fade show active" id="home_' + item.comment_Num + '">' +
+						'<div class=" col-2 d-flex flex-column justify-content-center align-items-center" style="width: 100%;">' +
+							'<div class="p-0">' +
+								'<img class="rounded-circle" src="' + profile + '" style="height: 75px;">' +
+							'</div>' +
+							'<div class="w-100 text-center" style="margin-top: 0px">' + item.nickname + '</div>' +
+							'<div class="p-0 d-flex justify-content-center">' +
+									score +
+							'</div>' +
+						'</div>' +
+						'<div class="col-2 d-flex justify-content-center align-items-center p-0">' +
+							reviewFiles +
+						'</div>' +
+						'<div class="col-6 d-flex flex-wrap flex-row align-items-center">' +
+							'<div class>' + item.comment_Contents + '</div>' +
+						'</div>' +
+						'<div class="d-flex col-2 flex-column align-items-center justify-content-center">' +
+							'<a class="heartCl" commentNum="' + item.comment_Num + '">' +
+								'<i class="fas fa-heart" style="font-size: 40px" ></i>' +
+							'</a>' +
+							'<p value="' + item.comment_Like + '" nickname="' + item.nickname + '">' +
+							
+							
+							
+							'</p>' +
+								comment_delete
+						'</div>' +
+					'</div>';
+							
+					document.getElementById('contents_area').innerHTML += reviewComment;
+				
+			});
+		 	more_start += 5;
+		 	$('#bar').hide();
+		 	if (data.length < 5){
+				$('#review_more').text('더 이상 불러올 리뷰가 없습니다.');
+			}else {
+				$('#more_button').show();
 			};
 			
 		},
@@ -1107,178 +1230,9 @@ $('#review_more').on('click', function(){
 			alert(request.status);
 			alert(request.responseText);
 		}
-		
-		});
-		
-		
-		
+	
 	});
-	
-function update_Area(num, contents, files) {
-	if ($('#update_form').css('display') != null){
-		return alert('이미 수정중인 댓글이 있습니다.');
-	};
-	var update_Tag =
-		'<div id="update_form" class="col-12 flex-column align-items-center" style="display:none; height:0px;">'
-		 + '<button id="update_write_cancel" type="button" class="btn btn-light d-none d-md-block text-center w-100 m-0" onclick="update_Form_Cancel(this)">'
-		 +	'댓글 작성창 접기 <i class="fas fa-arrow-up"></i>'
-		 + '</button>'
-		 + '<div class="col-md-9 col-12 p-0 flex-column mt-5">'
-		 + '<form id="updateForm" method="post" enctype="multipart/form-data">'
-				+ '<input id="review_post_num" name="review_post_num" value=' + num + ' style="display: none;">'
-				+ '<input id="grade" name="grade" value="0" style="display: none;">'
-				
-				+ '<textarea rows="6" class="form-control px-2" id="comment" name="comment" autofocus>' + contents + '</textarea>'
-				+ '<div class="d-flex flex-wrap justify-content-between mt-3">'
-				+	'<div class="star-box d-flex align-items-center">'
-					
-						+ '<a class="far fa-star" id="star1" style="font-size: 30px; color: rgb(255, 153, 0);"></a>'
-						+ '<a class="far fa-star" id="star2" style="font-size: 30px; color: rgb(255, 153, 0);"></a>'
-						+ '<a class="far fa-star" id="star3" style="font-size: 30px; color: rgb(255, 153, 0);"></a>'
-						+ '<a class="far fa-star" id="star4" style="font-size: 30px; color: rgb(255, 153, 0);"></a>'
-						+ '<a class="far fa-star" id="star5" style="font-size: 30px; color: rgb(255, 153, 0);"></a>'
-					+ '</div>'
-					+ '<input type="button" class="btn btn-warning" value="수정하기" onclick="update_Submit();">'
-				
-				+ '</div>'
-				+ '<div id="update_comment_image" class="d-flex col-12 p-0 my-3">'
-					+ '<div class="mr-2" style="width: 20%;">'
-						+ '<label for="update_comment_file" class="filebox">'
-							+ '<a>'
-								+ '<img src="/img/addfile.png" id="update_img22" class="w-100" style="border: 2px dotted #b8bcc4">'
-								+ '<input type="file" id="update_comment_file" name="update_comment_file" accept="image/*">'
-							+ '</a>'
-						+ '</label>'
-					+ '</div>'
-					
-				+ '</div>'
-			+ '</form>'
-			
-		+ '</div>'
-	+ '</div>';
-	$('#update_area_' + num).append(update_Tag);
-	update_Form();
-};
-
-function update_Submit(){
-	alert('업데이트 완료 !');
-}
-
-var update_files = new Array();
-var update_previewIndex = 0;
-var update_deleteIndex = 0;
-var update_test = 0;
-var update_j = 0;
-
-function update_addPreview(input) {
-	
-	image_Exists : if (input[0].files) {
-		
-        //파일 선택이 여러개였을 시의 대응
-        for (var fileIndex = 0; fileIndex < input[0].files.length; fileIndex++) {
-            var file = input[0].files[fileIndex];
-            var reader = new FileReader();
-            
-            if (files.length >= 4){
-				alert('최대 4개까지 이미지를 등록 할 수 있습니다.');
-				break image_Exists;
-			}
-            
-            for (var i = 0; i < test; i++){
-            	if (files[i].name == input[0].files[fileIndex].name){
-            		alert(input[0].files[fileIndex].name + ' 는 이미 업로드된 이미지입니다.');
-            		break image_Exists;
-            	}
-            };
-            
-            update_files[test] = file;
-            update_reader.readAsDataURL(file);
-            update_test++;
-            
-            reader.onload = function(img) {
-            	var imgNum = update_previewIndex++;
-            	var deleteNum = update_deleteIndex++;
-            	
-        		if (files[i].name != null) {
-        			$("#update_comment_image")
-                    .append(
-                            "<div class=\"preview-box mr-2 view overlay\" style=\"width:20%;\" value=\"" + deleteNum +"\">"
-                                    + "<img class=\"thumbnail w-100 img-fluid\" style=\"height:159.13px;\" src=\"" + img.target.result + "\"\/>"
-                                    + "<div class=\"mask flex-center waves-effect waves-light rgba-red-strong\" style=\"height:159.13px;\">"
-                                    + "<a style=\"font-size:19px; display:flex; justify-content: center; align-items: center\" class=\"white-text w-100 h-100\" id=\"" + deleteNum + "\"  value=\"" + files[imgNum].name + "\" onclick=\"deletePreview(this)\">"
-                                    + "삭제" + "</a>" + "</div>" + "</div>");
-        		}
-            	
-            };
-        }
-    } else
-        alert('invalid file input'); // 첨부클릭 후 취소시의 대응책 세우지 않았음
-}
-
-$('#update_comment_file').change(function() {
-	update_addPreview($(this));
 });
-
-function deletePreview(obj) {	// 미리보기 사진 삭제
-var deleteNum = obj.attributes['id'].value;
-var imgId = obj.attributes['value'].value;
-
-for (var i in files){
-	if(files[i].name == imgId){
-		files.splice(i, 1);
-		test--;
-		previewIndex--;
-	}
-};
-
-$("#comment_image .preview-box[value=" + deleteNum + "]").remove();
-}
-
-
-
-function fileSubmit(){ // 멀티파트 파일 업로더
-	
-	 if($('#grade').val() == 0){
-     	return alert('별점을 주세요');
-     };
-	
-	var comment = $('#comment').val();
-	var formData = new FormData($('#commentForm')[0]);
-	
-	for (var index = 0; index < Object.keys(files).length; index++){
-        formData.append('files',files[index]);
-	};
-	
-	if (comment == "") {
-		alert('내용을 입력해주세요.');
-	} else {
-		$.ajax({
-	            url : "/comment/write",
-				type : "post",
-				data : formData,
-				processData : false,
-				contentType : false,
-				
-				success: function(data){
-					if (data != ""){
-					alert(data);
-					return;
-					}
-					
-					$('#comment').val('');
-					$('#grade').val('0')
-					location.reload();
-				},
-				error : function(error) {
-					alert("파일업로드 실패");
-					console.log(error);
-					console.log(error.status);
-				}
-	        });
-	}
-}
-
-
 </script>
     
 <script>
@@ -1370,6 +1324,8 @@ function fileSubmit(){ // 멀티파트 파일 업로더
     	if (comment == "") {
     		alert('내용을 입력해주세요.');
     	} else {
+    		$('#comment').val().replace(/\n/g, "<br>");
+    		
     		$.ajax({
    	            url : "/comment/write",
    				type : "post",

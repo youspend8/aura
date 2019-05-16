@@ -30,25 +30,25 @@ public class ReviewRestApi {
 	@RequestMapping(value="/list")
 	public String list() throws ParseException {
 		List<ReviewVO> review = service.searchAll();
-		StringBuilder sb = new StringBuilder();
-		sb.append("[");
-		for (int i = 0; i < review.size(); i++) {
-			sb.append("{\"num\": \"" + review.get(i).getNum() + "\",");
-			sb.append("\"category\": \"" + review.get(i).getType() + "\",");
-			sb.append("\"title\": \"" + review.get(i).getTitle() + "\",");
-			sb.append("\"addDate\": \"" + review.get(i).getAddDate() + "\",");
-			sb.append("\"goods\": \"" + review.get(i).getGoods() + "\",");
-			sb.append("\"bookmark\": \"" + review.get(i).getBookmark() + "\",");
-			sb.append("\"comments\": \"" + 0 + "\",");
-			if (i != review.size() - 1) {
-				sb.append("\"readCount\": \"" + review.get(i).getReadCount() + "\"},");
-			} else {
-				sb.append("\"readCount\": \"" + review.get(i).getReadCount() + "\"}");
-			}
-		}
-		sb.append("]");
-		return sb.toString();
-//		return new Gson().toJson(review);
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("[");
+//		for (int i = 0; i < review.size(); i++) {
+//			sb.append("{\"num\": \"" + review.get(i).getNum() + "\",");
+//			sb.append("\"category\": \"" + review.get(i).getType() + "\",");
+//			sb.append("\"title\": \"" + review.get(i).getTitle() + "\",");
+//			sb.append("\"addDate\": \"" + review.get(i).getAddDate() + "\",");
+//			sb.append("\"goods\": \"" + review.get(i).getGoods() + "\",");
+//			sb.append("\"bookmark\": \"" + review.get(i).getBookmark() + "\",");
+//			sb.append("\"comments\": \"" + 0 + "\",");
+//			if (i != review.size() - 1) {
+//				sb.append("\"readCount\": \"" + review.get(i).getReadCount() + "\"},");
+//			} else {
+//				sb.append("\"readCount\": \"" + review.get(i).getReadCount() + "\"}");
+//			}
+//		}
+//		sb.append("]");
+//		return sb.toString();
+		return new Gson().toJson(review);
 	}
 	
 	@PostMapping(value="/")

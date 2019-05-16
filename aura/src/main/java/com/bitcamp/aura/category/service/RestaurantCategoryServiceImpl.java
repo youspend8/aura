@@ -61,6 +61,7 @@ public class RestaurantCategoryServiceImpl implements RestaurantCategoryService 
 	public List<RestaurantCategoryVO> readAll() {
 		// TODO Auto-generated method stub
 		return StreamSupport.stream(repo.findAll().spliterator(), true)
+				.sorted((e1, e2) -> e1.getNum() > e2.getNum() ? 1 : -1)
 				.collect(Collectors.toList());
 	}
 

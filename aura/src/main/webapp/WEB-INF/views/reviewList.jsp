@@ -14,19 +14,17 @@
 			<div class="col-12 py-4">
 				<div class="board_search_title  d-flex justify-content-between">
 					<span>
-						<c:if test="${keyword == ''}">
-							<c:choose>
-								<c:when test="${type == 1}">
-									맛집
-								</c:when>
-								<c:when test="${type == 2}">
-									병원
-								</c:when>
-								<c:when test="${type == 3}">
-									전자제품
-								</c:when>
-							</c:choose>
-						</c:if>
+						<c:choose>
+							<c:when test="${type == 1}">
+								음식점
+							</c:when>
+							<c:when test="${type == 2}">
+								병원
+							</c:when>
+							<c:when test="${type == 3}">
+								전자제품
+							</c:when>
+						</c:choose>
 						<c:if test="${keyword != ''}">
 							'${keyword}'
 						</c:if>
@@ -39,7 +37,14 @@
 				
 				</div>
 			</div>
-	
+	    	<!-- 게시글의 사진 및 내용 -->
+	    	<c:if test="${list.size() == 0}">
+				<div class="d-flex col-12 justify-content-center align-items-center bg-white py-3 my-5">
+					리뷰글이 없습니다.
+				</div>
+	    	</c:if>
+	    	
+	    	<c:if test="${list.size() != 0}">
 			<c:if test="${type == 1 || type == 2}">
 				<!-- 지도 -->
 				<div class="col-12">
@@ -48,9 +53,6 @@
 				<div class="my-2" style="border-bottom: rgb(217, 217, 217) solid 1px;">
 				</div>
 			</c:if>
-			
-	      
-	    	<!-- 게시글의 사진 및 내용 -->
 		   	<c:forEach items="${list}" var="review" varStatus="i">
 				<div class="d-flex flex-wrap" style="margin: 3% 0 3% 0;" >
 					<div class="col-md-6 col-12">
@@ -211,30 +213,36 @@
 					</div>
 				</div>
 			</c:forEach>
+	    	</c:if>
 		</div>
 		<div class="my-3" style="border-bottom: rgb(217, 217, 217) solid 1px;"></div>
-		<div class="text-right">
-			<span class="badge badge-pill align-middle ml-1" style="font-size: 12px; background-color: red">
-				NEW
-			</span>
-			<c:if test="${type eq 1 || type == 2}">
-				<span style="font-size: 12px;">
-					: 이번달 신규 등록 지점
+		<c:if test="${list.size() == 0}">
+			<div style="height: 100px;"></div>
+		</c:if>
+		<c:if test="${list.size() != 0}">
+			<div class="text-right">
+				<span class="badge badge-pill align-middle ml-1" style="font-size: 12px; background-color: red">
+					NEW
 				</span>
-			</c:if>
-			<c:if test="${type eq 3}">
-				<span style="font-size: 12px;">
-					: 이번달 신규 출시 제품
-				</span>
-			</c:if>
-		</div>
-		<div id="review_more" class="d-flex col-12 justify-content-center align-items-center bg-white py-3 my-5">
-		    <a id="more_button" class="text-center" style="text-decoration: none">
-		        <img src="/img/more.png" style="width: 20%; border-radius: 100%; border: 1px solid gray">
-		        <span class="ml-2 text-dark">검색결과 더보기</span>
-		    </a>
-			<div id="bar" style="display: none;"></div>
-		</div>
+				<c:if test="${type eq 1 || type == 2}">
+					<span style="font-size: 12px;">
+						: 이번달 신규 등록 지점
+					</span>
+				</c:if>
+				<c:if test="${type eq 3}">
+					<span style="font-size: 12px;">
+						: 이번달 신규 출시 제품
+					</span>
+				</c:if>
+			</div>
+			<div id="review_more" class="d-flex col-12 justify-content-center align-items-center bg-white py-3 my-5">
+			    <a id="more_button" class="text-center" style="text-decoration: none">
+			        <img src="/img/more.png" style="width: 20%; border-radius: 100%; border: 1px solid gray">
+			        <span class="ml-2 text-dark">검색결과 더보기</span>
+			    </a>
+				<div id="bar" style="display: none;"></div>
+			</div>
+		</c:if>
 	</div>
   
 	<a href="#" id="scroll_top" class="text-dark">
@@ -254,10 +262,10 @@
 	<script>
 		var nickname = "${nickname}";
 		var flag = false;
-		$('.favostar').submit(function(e) {
-			e.preventDefault();
-			
-			if(nickname != ""){ //닉네임이 null이 아닌 경우
+		document.addEventListener('submit', function(e) {
+			if (e.target.className === 'favostar') {
+				e.preventDefault();
+				if(nickname != ""){ //닉네임이 null이 아닌 경우
 					if(e.target[1].children[0].style.color == '' || 
 					   e.target[1].children[0].style.color === 'rgb(0, 0, 0)') {//검정
 						e.target[1].children[0].style.color = '#f9ca24';
@@ -299,11 +307,11 @@
 								}
 							})							
 				    }								
-			}else{
-				alert("회원만 이용 가능합니다. 로그인 해주세요");
+				} else {
+					alert("회원만 이용 가능합니다. 로그인 해주세요");
+				}
 			}
-			
-		})
+		});
 	</script>		
 	
 
@@ -363,17 +371,64 @@
 				$('#bar').show();
 				$('#more_button').hide();
 				start += 5;
+				var params = JSON.parse('${params}');
+				
+				var restLoc = '';
+				var restCategory = '';
+				var hosLoc = '';
+				var medCategory = '';
+				var digiCategory3 = '';
+				
+				if (params.restLoc != null) {
+					params.restLoc.forEach((item, index) => {
+						restLoc += 'restLoc=' + item + '&';
+					})
+				}
+				if (params.restCategory != null) {
+					params.restCategory.forEach((item, index) => {
+						restCategory += 'restCategory=' + item + '&';
+					})
+				}
+				if (params.hosLoc != null) {
+					params.hosLoc.forEach((item, index) => {
+						hosLoc += 'hosLoc=' + item + '&';
+					})
+				}
+				if (params.medCategory != null) {
+					params.medCategory.forEach((item, index) => {
+						medCategory += 'medCategory=' + item + '&';
+					})
+				}
+				if (params.digiCategory3 != null) {
+					params.digiCategory3.forEach((item, index) => {
+						digiCategory3 += 'digiCategory3=' + item + '&';
+					})
+				}
+				
+				console.log(params)
 				$.ajax({
-					url: '/review/search/more',
+					url: '/review/search/more?' + digiCategory3 + restLoc + hosLoc + medCategory + restCategory,
 					type: 'get',
 					dataType: 'json',
 					data: {
 						type: '${type}',
 						keyword: '${keyword}',
+						digitalGroup: params.digitalGroup,
+						digiCategory1: params.digiCategory1,
+						digiCategory2: params.digiCategory2,
+						hospitalGroup: params.hospitalGroup,
+						restGroup: params.restGroup,
 						start: start,
 						end: start + 4
 					},
-					success: function(data) {
+					success: function(result) {
+						var data = result.data;
+						var digitalCategory = result.digitalCategory;
+						var restCategory = result.restCategory;
+						var hosCategory = result.hosCategory;
+						var medCategory = result.medCategory;
+						
+						console.log(result)
 						if (data.length == 0) {
 							$('#review_more').text('더 이상 불러올 리뷰글이 없습니다.');
 						}
@@ -384,6 +439,16 @@
 									      '<img src="' + file + '" style="width:100%; height: 250px;">' +
 									    '</div>	'
 						  	});
+						  	var starIcons = '';
+							for (var i = 0; i < 5; i++) {
+								if (item.stars - i >= 1) {
+						    		starIcons += '<i style="color: rgb(255, 153, 0);" class="fas fa-star"></i>';
+								} else if (item.stars - i < 1 && item.stars - i > 0) {
+									starIcons += '<i style="color: rgb(255, 153, 0);" class="fas fa-star-half-alt"></i>'
+								} else {
+									starIcons += '<i style="color: rgb(255, 153, 0);" class="far fa-star"></i>'
+								}
+							}
 							var list = 
 							'<div class="d-flex flex-wrap" style="margin: 3% 0 3% 0;" >' +
 								'<div class="col-md-6 col-12">' +
@@ -410,33 +475,90 @@
 								'<div class="col-md-6 col-12">' +
 									'<div>' +
 									    '<a href="/review/post?num=' + item.num + '&type=' + item.type + '" class="text-dark">' +
-									    	'<h5 class="board_list_title mb-1">' + item.title + '</h5>' +
+									    	'<h5 class="board_list_title mb-1">' + 
+									    		item.title +
+									    		(
+									    			item.type == 1 ?
+									    			'<span style="color: gray; font-size: 12px;"> ' +
+									    				restCategory[item.category].name + 
+									    			'</span>'
+									    			: 
+									    			item.type == 2 ?
+									    			'<span style="color: gray; font-size: 12px;"> ' +
+								    					hosCategory[item.hospitalCategory].name + 
+									    			'</span>'
+									    			: ''
+									    		) +
+									    		(
+									    			item.type == 1 || item.type == 2 ?
+													' <span class="badge badge-pill align-middle ml-1" style="font-size: 12px; background-color: red">' +
+														'NEW' +
+													'</span>' : ''
+									    		) +
+									    	'</h5>' +
 									    '</a>' +
-									    '<span style="float:right; font-size:2rem;">' +
-									      '<a style="color:rgb(0, 102, 255)"><i class="far fa-star"></i></a>' +
-									    '</span>' +
+									    '<form style="float:right; font-size:2rem;" class="favostar">' +
+											'<a style="color:rgb(33, 37, 41)"></a>' +
+											'<input type="hidden" name="postNum" value="' + item.num + '">' +
+											'<button class="p-0 m-0" type="submit" style="border: none; background-color: white">' +
+									    		'<i class="fas fa-star"></i>' +
+									    	'</button>' +
+										'</form>' +
 									'</div>' +
 									'<div class="my-1">' +
-									    '<span><i style="color: rgb(255, 153, 0);" class="fas fa-star"></i><i style="color: rgb(255, 153, 0);" class="fas fa-star"></i><i style="color: rgb(255, 153, 0);" class="fas fa-star"></i><i style="color: rgb(255, 153, 0);" class="fas fa-star-half-alt"></i><i style="color: rgb(255, 153, 0);" class="far fa-star"></i></span> <span style="font-weight:bolder">300</span><span style="font-size:90%;"> reviews</span>' +
+										'<span>' +
+											starIcons +
+										'</span>' +
+										'<span style="font-weight:bolder"> ' +
+											(
+												item.stars != 0 ? item.stars.toFixed(1) : item.stars.toFixed(0)
+											) +
+										'</span>' +
+
+									    '<span class="ml-2" style="font-size:80%;">' +
+									    	item.starCount +
+									    	" Reviews" +
+									    '</span>' +
 									'</div>' +
-									'<div class="my-1 align-middle">' +
-									    '<i class="fas fa-heart"></i>' +
-									    '<span> ' + categoryList[item.category] + '</span>' +
-									'</div>' +
-									'<div class="my-2" style="font-weight:bolder">' +
-										'<i class="fas fa-phone"></i>' +
-										'<span>' + item.tel + '</span>' +
-									'</div>' +
-									'<div class="my-2" style="font-weight:bolder">' +
-										'<i class="fas fa-location-arrow"></i>' +
-										'<span>' + item.addr + '</span>' +
-									'</div>' +
-									'<div class="my-2" style="font-weight:bolder;">' +
-										'<i class="fas fa-clipboard-list"></i>' +
-										'<div>' +
-											item.contents +
+									(
+										item.type == 1 || item.type == 2 ?
+										'<div class="my-2" style="font-weight:bolder">' +
+											'<i class="fas fa-phone"></i>' +
+											'<span> ' + item.tel + '</span>' +
 										'</div>' +
-									'</div>' +
+										'<div class="my-2" style="font-weight:bolder">' +
+											'<i class="fas fa-location-arrow"></i>' +
+											'<span> ' + item.addr + '</span>' +
+										'</div>' +
+										'<div class="my-2" style="font-weight:bolder;">' +
+											'<i class="fas fa-clipboard-list mr-1"></i>' +
+											'<span> ' +
+												item.contents +
+											'</span>' +
+										'</div>' :
+										'<div class="my-2" style="font-weight:bolder">' +
+											'<span class="font-weight-bold">분류 : </span>' +
+											'<span>' + digitalCategory[0][item.subCategory1].name + '</span>' + 
+											'<span> - </span>' +
+											'<span>' + digitalCategory[1][item.subCategory2].name + '</span>' + 
+											'<span> - </span>' + 
+											'<span>' + digitalCategory[2][item.subCategory3].name + '</span>' + 
+										'</div>' +
+										'<div class="my-2" style="font-weight:bolder">' +
+											'<span class="font-weight-bold">제조사 </span>' +
+											'<span>' + (item.productor == null ? '' : item.productor) + '</span>' +
+										'</div>' +
+										'<div class="my-2" style="font-weight:bolder">' +
+											'<span class="font-weight-bold">출시일 : </span>' + 
+											'<span>' +
+												item.release.substring(0, 11) +
+											'</span>' +
+										'</div>' +
+										'<div class="my-2" style="font-weight:bolder">' +
+											'<span class="font-weight-bold">모델명 : </span>' + 
+											'<span>' + item.model + '</span>' +
+										'</div>'
+									) +
 								'</div>' +
 							'</div>'
 							document.getElementById('content').innerHTML += list;
@@ -457,13 +579,53 @@
 		});
 
 		function getReviewAddr(start) {
+
+			var params = JSON.parse('${params}');
+			
+			var restLoc = '';
+			var restCategory = '';
+			var hosLoc = '';
+			var medCategory = '';
+			var digiCategory3 = '';
+			
+			if (params.restLoc != null) {
+				params.restLoc.forEach((item, index) => {
+					restLoc += 'restLoc=' + item + '&';
+				})
+			}
+			if (params.restCategory != null) {
+				params.restCategory.forEach((item, index) => {
+					restCategory += 'restCategory=' + item + '&';
+				})
+			}
+			if (params.hosLoc != null) {
+				params.hosLoc.forEach((item, index) => {
+					hosLoc += 'hosLoc=' + item + '&';
+				})
+			}
+			if (params.medCategory != null) {
+				params.medCategory.forEach((item, index) => {
+					medCategory += 'medCategory=' + item + '&';
+				})
+			}
+			if (params.digiCategory3 != null) {
+				params.digiCategory3.forEach((item, index) => {
+					digiCategory3 += 'digiCategory3=' + item + '&';
+				})
+			}
+			
 			$.ajax({
-				url: '/review/search/address',
+				url: '/review/search/address?' + digiCategory3 + restLoc + hosLoc + medCategory + restCategory,
 				type: 'get',
 				dataType: 'json',
 				data: {
 					type: '${type}',
 					keyword: '${keyword}',
+					digitalGroup: params.digitalGroup,
+					digiCategory1: params.digiCategory1,
+					digiCategory2: params.digiCategory2,
+					hospitalGroup: params.hospitalGroup,
+					restGroup: params.restGroup,
 					start: start,
 					end: start + 4
 				},

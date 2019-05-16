@@ -157,12 +157,12 @@
 			<c:if test="${!fn:contains(currentPage,'main.jsp')}">
 				<form class="form-check-inline w-100" id="origin_search_form" action="/review/search">
 					<select class="form-control search_select" name="type">
-						<option value="1">음식점</option>
-						<option value="2">병원</option>	
-						<option value="3">전자제품</option>
+						<option value="1" ${type == 1 ? 'selected' : ''}>음식점</option>
+						<option value="2" ${type == 2 ? 'selected' : ''}>병원</option>	
+						<option value="3" ${type == 3 ? 'selected' : ''}>전자제품</option>
 					</select>
 					
-					<input class="form-control search_input" type="text" name="keyword" placeholder="Search" autocomplete="off">
+					<input class="form-control search_input" type="text" name="keyword" placeholder="Search" value="${keyword != null ? keyword : ''}" autocomplete="off">
 				
 					<button type="submit" class="fas text-white ml-2 fa-search" style="font-size: 20px; background-color: transparent; border: 0px transparent solid;"></button>
 				</form>
@@ -174,7 +174,7 @@
 				<c:when test="${nickname ne null}">	          	
 					<li class="w-100">
 						<a href="#" class="fas fa-user-alt text-dark text-center user_icon" data-target="#fullHeightModalRight" data-toggle="modal">
-							<span class="user_nickname d-md-inline-block d-none">${nickname}님</span>
+							<span id="session_nickname" class="user_nickname d-md-inline-block d-none">${nickname}</span>
 						</a>
 					</li>
 				</c:when>
