@@ -517,14 +517,14 @@
 			</div>
 			
 			<div class="first_recommand m-2 p-0 " style="background-image: url('/img/테마별사진/커리.png');">
-				<a onclick="alert('준비중입니다')" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100 text-white">
+				<a href="/review/search?type=3&digitalGroup=score&digiCategory1=0&digiCategory2=2&digiCategory3=42&digiCategory3=43" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100 text-white">
 					<b class="mb-3" style="font-size: 150%">이어폰 TOP 5</b>
 					"필수 아이템 무선이어폰"
 				</a>
 			</div>
 			
 			<div class="first_recommand m-2 p-0" style="background-image: url('/img/테마별사진/커리.png');">
-				<a onclick="alert('준비중입니다')" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100 text-white">
+				<a href="/review/search?type=2&medGroup=score&medCategory=12" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100 text-white">
 					<b class="mb-3" style="font-size: 150%">성형외과 TOP 10</b>
 					"나는야 호빵맨"
 				</a>

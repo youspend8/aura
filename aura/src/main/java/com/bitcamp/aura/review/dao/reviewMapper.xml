@@ -280,6 +280,20 @@
 			        AND
 			        	REVIEW.TITLE LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
 		        </if>
+		        <if test="digiCategory1 != null">
+		        	AND
+		        		DIGITAL_REVIEW.SUB_CATEGORY1 = #{digiCategory1, jdbcType=NUMERIC}
+		        </if>
+		        <if test="digiCategory2 != null">
+		        	AND
+		        		DIGITAL_REVIEW.SUB_CATEGORY2 = #{digiCategory2, jdbcType=NUMERIC}
+		        </if>
+		        <if test="digiCategory3 != null">
+		        	AND
+		        	<foreach collection="digiCategory3" item="digiCategory3" open="(" close=")" separator="OR">
+		        		DIGITAL_REVIEW.SUB_CATEGORY3 = #{digiCategory3, jdbcType=NUMERIC}
+		        	</foreach>
+		        </if>
 		        <if test="digitalGroup != null and digitalGroup.equals('score')">
 		   			ORDER BY stars DESC
 		        </if>

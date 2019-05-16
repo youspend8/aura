@@ -14,19 +14,17 @@
 			<div class="col-12 py-4">
 				<div class="board_search_title  d-flex justify-content-between">
 					<span>
-						<c:if test="${keyword == ''}">
-							<c:choose>
-								<c:when test="${type == 1}">
-									맛집
-								</c:when>
-								<c:when test="${type == 2}">
-									병원
-								</c:when>
-								<c:when test="${type == 3}">
-									전자제품
-								</c:when>
-							</c:choose>
-						</c:if>
+						<c:choose>
+							<c:when test="${type == 1}">
+								음식점
+							</c:when>
+							<c:when test="${type == 2}">
+								병원
+							</c:when>
+							<c:when test="${type == 3}">
+								전자제품
+							</c:when>
+						</c:choose>
 						<c:if test="${keyword != ''}">
 							'${keyword}'
 						</c:if>
@@ -39,7 +37,14 @@
 				
 				</div>
 			</div>
-	
+	    	<!-- 게시글의 사진 및 내용 -->
+	    	<c:if test="${list.size() == 0}">
+				<div class="d-flex col-12 justify-content-center align-items-center bg-white py-3 my-5">
+					리뷰글이 없습니다.
+				</div>
+	    	</c:if>
+	    	
+	    	<c:if test="${list.size() != 0}">
 			<c:if test="${type == 1 || type == 2}">
 				<!-- 지도 -->
 				<div class="col-12">
@@ -48,9 +53,6 @@
 				<div class="my-2" style="border-bottom: rgb(217, 217, 217) solid 1px;">
 				</div>
 			</c:if>
-			
-	      
-	    	<!-- 게시글의 사진 및 내용 -->
 		   	<c:forEach items="${list}" var="review" varStatus="i">
 				<div class="d-flex flex-wrap" style="margin: 3% 0 3% 0;" >
 					<div class="col-md-6 col-12">
@@ -211,30 +213,36 @@
 					</div>
 				</div>
 			</c:forEach>
+	    	</c:if>
 		</div>
 		<div class="my-3" style="border-bottom: rgb(217, 217, 217) solid 1px;"></div>
-		<div class="text-right">
-			<span class="badge badge-pill align-middle ml-1" style="font-size: 12px; background-color: red">
-				NEW
-			</span>
-			<c:if test="${type eq 1 || type == 2}">
-				<span style="font-size: 12px;">
-					: 이번달 신규 등록 지점
+		<c:if test="${list.size() == 0}">
+			<div style="height: 100px;"></div>
+		</c:if>
+		<c:if test="${list.size() != 0}">
+			<div class="text-right">
+				<span class="badge badge-pill align-middle ml-1" style="font-size: 12px; background-color: red">
+					NEW
 				</span>
-			</c:if>
-			<c:if test="${type eq 3}">
-				<span style="font-size: 12px;">
-					: 이번달 신규 출시 제품
-				</span>
-			</c:if>
-		</div>
-		<div id="review_more" class="d-flex col-12 justify-content-center align-items-center bg-white py-3 my-5">
-		    <a id="more_button" class="text-center" style="text-decoration: none">
-		        <img src="/img/more.png" style="width: 20%; border-radius: 100%; border: 1px solid gray">
-		        <span class="ml-2 text-dark">검색결과 더보기</span>
-		    </a>
-			<div id="bar" style="display: none;"></div>
-		</div>
+				<c:if test="${type eq 1 || type == 2}">
+					<span style="font-size: 12px;">
+						: 이번달 신규 등록 지점
+					</span>
+				</c:if>
+				<c:if test="${type eq 3}">
+					<span style="font-size: 12px;">
+						: 이번달 신규 출시 제품
+					</span>
+				</c:if>
+			</div>
+			<div id="review_more" class="d-flex col-12 justify-content-center align-items-center bg-white py-3 my-5">
+			    <a id="more_button" class="text-center" style="text-decoration: none">
+			        <img src="/img/more.png" style="width: 20%; border-radius: 100%; border: 1px solid gray">
+			        <span class="ml-2 text-dark">검색결과 더보기</span>
+			    </a>
+				<div id="bar" style="display: none;"></div>
+			</div>
+		</c:if>
 	</div>
   
 	<a href="#" id="scroll_top" class="text-dark">
@@ -363,13 +371,53 @@
 				$('#bar').show();
 				$('#more_button').hide();
 				start += 5;
+				var params = JSON.parse('${params}');
+				
+				var restLoc = '';
+				var restCategory = '';
+				var hosLoc = '';
+				var medCategory = '';
+				var digiCategory3 = '';
+				
+				if (params.restLoc != null) {
+					params.restLoc.forEach((item, index) => {
+						restLoc += 'restLoc=' + item + '&';
+					})
+				}
+				if (params.restCategory != null) {
+					params.restCategory.forEach((item, index) => {
+						restCategory += 'restCategory=' + item + '&';
+					})
+				}
+				if (params.hosLoc != null) {
+					params.hosLoc.forEach((item, index) => {
+						hosLoc += 'hosLoc=' + item + '&';
+					})
+				}
+				if (params.medCategory != null) {
+					params.medCategory.forEach((item, index) => {
+						medCategory += 'medCategory=' + item + '&';
+					})
+				}
+				if (params.digiCategory3 != null) {
+					params.digiCategory3.forEach((item, index) => {
+						digiCategory3 += 'digiCategory3=' + item + '&';
+					})
+				}
+				
+				console.log(params)
 				$.ajax({
-					url: '/review/search/more',
+					url: '/review/search/more?' + digiCategory3 + restLoc + hosLoc + medCategory + restCategory,
 					type: 'get',
 					dataType: 'json',
 					data: {
 						type: '${type}',
 						keyword: '${keyword}',
+						digitalGroup: params.digitalGroup,
+						digiCategory1: params.digiCategory1,
+						digiCategory2: params.digiCategory2,
+						hospitalGroup: params.hospitalGroup,
+						restGroup: params.restGroup,
 						start: start,
 						end: start + 4
 					},
@@ -531,13 +579,53 @@
 		});
 
 		function getReviewAddr(start) {
+
+			var params = JSON.parse('${params}');
+			
+			var restLoc = '';
+			var restCategory = '';
+			var hosLoc = '';
+			var medCategory = '';
+			var digiCategory3 = '';
+			
+			if (params.restLoc != null) {
+				params.restLoc.forEach((item, index) => {
+					restLoc += 'restLoc=' + item + '&';
+				})
+			}
+			if (params.restCategory != null) {
+				params.restCategory.forEach((item, index) => {
+					restCategory += 'restCategory=' + item + '&';
+				})
+			}
+			if (params.hosLoc != null) {
+				params.hosLoc.forEach((item, index) => {
+					hosLoc += 'hosLoc=' + item + '&';
+				})
+			}
+			if (params.medCategory != null) {
+				params.medCategory.forEach((item, index) => {
+					medCategory += 'medCategory=' + item + '&';
+				})
+			}
+			if (params.digiCategory3 != null) {
+				params.digiCategory3.forEach((item, index) => {
+					digiCategory3 += 'digiCategory3=' + item + '&';
+				})
+			}
+			
 			$.ajax({
-				url: '/review/search/address',
+				url: '/review/search/address?' + digiCategory3 + restLoc + hosLoc + medCategory + restCategory,
 				type: 'get',
 				dataType: 'json',
 				data: {
 					type: '${type}',
 					keyword: '${keyword}',
+					digitalGroup: params.digitalGroup,
+					digiCategory1: params.digiCategory1,
+					digiCategory2: params.digiCategory2,
+					hospitalGroup: params.hospitalGroup,
+					restGroup: params.restGroup,
 					start: start,
 					end: start + 4
 				},

@@ -18,15 +18,15 @@
   <div class="modal-dialog modal-full-height modal-right" role="document">
     <div class="modal-content">
 <!--  modal-header  -->
-	 <div class="modal-header text-center">
+	 <div class="modal-header text-center" >
 		<!-- Classic tabs -->
   <div class="classic-tabs ">
 
   <ul class="nav tabs-orange" id="myClassicTabOrange" role="tablist">
    <li class="nav-item ml-3" id="todayDo" style="font-color:red">
       <a class="nav-link waves-light text-center" id="follow-tab-classic-orange" data-toggle="tab"  href="/reviewList/modal_review" style="color:#ee5253"
-        role="tab" aria-controls="follow-classic-orange" aria-selected="false"><i class="fas fa-heart fa-2x  pb-2 text-center" 
-          aria-hidden="true"></i><br>타임라인 </a>
+        role="tab" aria-controls="follow-classic-orange" aria-selected="true"><i class="fas fa-heart fa-2x  pb-2 text-center" 
+          aria-hidden="true" ></i><br>타임라인 </a>
                     
     </li>
     <li class="nav-item"  style="color:yellow">
@@ -77,21 +77,19 @@
   </div>
 </div>
 <!-- modal Body -->
-     <div class="modal-body">
-        <div class="tab-content card" id="myClassicTabContentOrange">
-        <div class="tab-pane fade" id="follow-classic-orange" role="tabpanel" aria-labelledby="follow-tab-classic-orange">
-		</div>
-		<div class="tab-pane fade" id="awesome-classic-orange" role="tabpanel" aria-labelledby="awesome-tab-classic-orange">
-	         <p> 즐겨찾기 한내용 </p>
-	    </div>  
-
-	
-     </div> 
+     <div class="modal-body" style ="overflow-y: auto; max-height: 750px;">
+        <div class="tab-content card" id="myClassicTabContentOrange" style="box-shadow: 0 0;">
+	        <div class="tab-pane fade" id="follow-classic-orange" role="tabpanel" aria-labelledby="follow-tab-classic-orange">
+			</div>
+			<div class="tab-pane fade" id="awesome-classic-orange" role="tabpanel" aria-labelledby="awesome-tab-classic-orange">
+		         <p> 즐겨찾기 한내용 </p>
+		    </div>  
+     	</div> 
      </div>
 <!-- Classic tabs -->   
 <!-- footer 버튼 구성       -->
-     <div class="modal-footer justify-content-center">      
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+     <div class="modal-footer justify-content-center" >      
+        <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" onclick="location.href='/user/logout'">로그아웃</button>
      </div>
 
@@ -108,7 +106,7 @@
 $('#follow-tab-classic-orange').on('click', function(){
 	$.ajax({
 		url : "/reviewList/modal_review",
-		type :"GET",	
+		type :"GET",
 		success : function(data){
 			$('#myClassicTabContentOrange').empty();
 
@@ -116,19 +114,32 @@ $('#follow-tab-classic-orange').on('click', function(){
 			var spanEnd = $('</span>');
 
 			for(var i in data){
-
-				var div = $('<div>');
-				div.css({
+				var a = $('<a>');
+				a.attr({
+					'href': '/review/post?num='+data[i].postNum+"&type="+data[i].postType
+				})
+				a.css({
+					'color': 'black',
 					'text-align': 'center',
 					'font-size': '13px',
-					'height': '40px',
-					'margin' : '10px auto',
+					'margin': '5px 3px',
+					'display': 'flex',
+					'justify-content': 'space-between'
 				})
+				var strDiv = $('<div>');
+					strDiv.css({
+						'width': '80%',
+						'flex-direction': 'row',
+						'text-align': 'left'
+					})
 				
 				var img = ((data[i].reviewType == 1) ? '<i class="fas fa-share-alt mx-2 green-text"> ': ((data[i].reviewType == 2) ? '<i class="fas fa-star mx-2 amber-text"> ' : '<i class="fas fa-thumbs-up mx-2 cyan-text">'));
-				var str = '<b>'+ data[i].title +'</b>을 <b>'+ ((data[i].reviewType == 1) ? '공유하기': ((data[i].reviewType == 2) ? '즐겨찾기 ' : '좋아요 '))+'</b>하셨습니다.<br> >> '+ data[i].date;
-				div.append(img).append(str);
-				$('#myClassicTabContentOrange').append(div);
+				
+				var str = '<b>'+ data[i].title +'</b>을 <b>'+ ((data[i].reviewType == 1) ? '공유하기': ((data[i].reviewType == 2) ? '즐겨찾기 ' : '좋아요 '))+'</b>하셨습니다.<br> '+ data[i].date;
+				strDiv.append(str);
+				
+				a.append(img).append(strDiv).append($('<div>'));
+				$('#myClassicTabContentOrange').append(a);
 			}
 		},
 		error : function(){
@@ -143,38 +154,54 @@ $('#follow-tab-classic-orange').on('click', function(){
 $('#awesome-tab-classic-orange').on('click', function(){
 	$.ajax({
 		url : "/reviewList/modal_review",
-		type :"GET",	
+		type :"GET",
 		success : function(data){
+			console.log(data)
 			var span = $('<span>');
 			var spanEnd = $('</span>');
 			$('#myClassicTabContentOrange').empty();
 
 			for(var i in data){
-				var div = $('<div>');
-				div.css({
+				var a = $('<a>');
+				a.attr({
+					'href': '/review/post?num='+data[i].postNum+"&type="+data[i].postType
+				})
+				a.css({
+					'color': 'black',
 					'text-align': 'center',
 					'font-size': '13px',
-					'height': '40px',
-					'margin' : '10px auto' ,
-				});
+					'margin': '5px 3px',
+					'display': 'flex',
+					'justify-content': 'space-between'
+				})
+				var strDiv = $('<div>');
+					strDiv.css({
+						'width': '80%',
+						'flex-direction': 'row',
+						'text-align': 'left'
+					})
 				
 				if(data[i].reviewType == 2){
 					var img =  '<i class="fas fa-star mx-2 amber-text"> ';
-					var str = '<b>'+data[i].title +'</b>을 <b>즐겨찾기 </b>하셨습니다.<br> >> '+ data[i].date;
-					div.append(img).append(str);
-					$('#myClassicTabContentOrange').append(div);
+					var str = '<b>' + data[i].title + '</b>을 <b>즐겨찾기 </b>하셨습니다.<br> '+ data[i].date;
+					strDiv.append(str);
+					a.append(img).append(strDiv).append($('<div>'));
+					
+					$('#myClassicTabContentOrange').append(a);
+					
 				}else if(data[i].postNum == null){
 					var str = '즐겨찾기한 목록이 없습니다.';
 					div.append(str);
 			    	$('#myClassicTabContentOrange').append(div);
-				}			
+				}
+				
+			
+				
 			}
 		},
 		error : function(){
 			alert("에러발생했습니다")
 		}
-	
-		
 	});
 });
 </script>

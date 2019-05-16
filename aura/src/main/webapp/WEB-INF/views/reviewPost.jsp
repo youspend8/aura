@@ -74,7 +74,7 @@
 
 				<c:choose>
 					<c:when test="${reviewInfo.isShare }">
-						<i class="fas fa-share-alt" id="aa" value="${nickname}" style="color: green" data-toggle="modal" data-target="#basicExampleModal"></i>
+						<i class="fas fa-share-alt" id="aa" value="${nickname}" style="color: #27ae60" data-toggle="modal" data-target="#basicExampleModal"></i>
 					</c:when>
 					<c:otherwise>
 						<i class="fas fa-share-alt" id="aa" value="${nickname}" data-toggle="modal" data-target="#basicExampleModal"></i>
@@ -84,7 +84,7 @@
 				<a id="share" >
 					<c:choose>
 						<c:when test="${reviewInfo.isStar }">
-						    <i class="fas fa-star mx-4" id="bb" value="${nickname}" style="color: yellow" onclick="doReview(2)"></i>
+						    <i class="fas fa-star mx-4" id="bb" value="${nickname}" style="color: #f9ca24" onclick="doReview(2)"></i>
 						</c:when>
 						<c:otherwise>
 							<i class="fas fa-star mx-4" id="bb" value="${nickname}" onclick="doReview(2)"></i>
@@ -95,7 +95,7 @@
 				<a id="share" onclick="doReview(3)">
 					<c:choose>
 						<c:when test="${reviewInfo.isLike }">
-						    <i class="fas fa-thumbs-up" id="cc" value="${nickname}" style="color: blue"></i>
+						    <i class="fas fa-thumbs-up" id="cc" value="${nickname}" style="color: #3498db"></i>
 						</c:when>
 						<c:otherwise>
 							<i class="fas fa-thumbs-up" id="cc" value="${nickname}"></i>
@@ -955,17 +955,17 @@ var flag2=true;
 					}else{
 						if($(this).attr('id')=='aa'){
 						
-							$(this).css("color","green")
+							$(this).css("color","#27ae60")
 							
 						}
 						if($(this).attr('id')=='bb'){
 							
-							$(this).css("color","yellow")
+							$(this).css("color","#f9ca24") // 노랑
 						
 						}
 						if($(this).attr('id')=='cc'){
 							
-							$(this).css("color","blue")
+							$(this).css("color","#3498db")
 						
 						}
 					}

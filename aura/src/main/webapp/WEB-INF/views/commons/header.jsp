@@ -157,12 +157,12 @@
 			<c:if test="${!fn:contains(currentPage,'main.jsp')}">
 				<form class="form-check-inline w-100" id="origin_search_form" action="/review/search">
 					<select class="form-control search_select" name="type">
-						<option value="1">음식점</option>
-						<option value="2">병원</option>	
-						<option value="3">전자제품</option>
+						<option value="1" ${type == 1 ? 'selected' : ''}>음식점</option>
+						<option value="2" ${type == 2 ? 'selected' : ''}>병원</option>	
+						<option value="3" ${type == 3 ? 'selected' : ''}>전자제품</option>
 					</select>
 					
-					<input class="form-control search_input" type="text" name="keyword" placeholder="Search" autocomplete="off">
+					<input class="form-control search_input" type="text" name="keyword" placeholder="Search" value="${keyword != null ? keyword : ''}" autocomplete="off">
 				
 					<button type="submit" class="fas text-white ml-2 fa-search" style="font-size: 20px; background-color: transparent; border: 0px transparent solid;"></button>
 				</form>
