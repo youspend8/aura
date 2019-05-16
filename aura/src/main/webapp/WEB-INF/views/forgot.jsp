@@ -287,15 +287,19 @@
 					</div>
 				</div>
 	</section>
-
+<!-- <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="groupOfDefaultRadios" onclick="Radio_OnOff('test1')" checked> -->
 	<script>
 		function Radio_OnOff(type) {
 			if (type == 'test1') {
 				document.getElementById(type).style.display = '';
 				document.getElementById('test2').style.display = 'none';
+				document.getElementById('defaultGroupExample1').checked = true;
+				document.getElementById('defaultGroupExample2').checked = false;
 			} else {
 				document.getElementById('test1').style.display = 'none';
 				document.getElementById(type).style.display = '';
+				document.getElementById('defaultGroupExample1').checked = false;
+				document.getElementById('defaultGroupExample2').checked = true;
 			}
 		}
 
@@ -303,9 +307,15 @@
 			if (type == 'test3') {
 				document.getElementById(type).style.display = '';
 				document.getElementById('test4').style.display = 'none';
+				document.getElementById('defaultGroupExample3').checked = true;
+				document.getElementById('defaultGroupExample4').checked = false;
+
 			} else {
 				document.getElementById('test3').style.display = 'none';
 				document.getElementById(type).style.display = '';
+				document.getElementById('defaultGroupExample3').checked = false;
+				document.getElementById('defaultGroupExample4').checked = true;
+
 			}
 		}
 
