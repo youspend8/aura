@@ -17,6 +17,7 @@ import lombok.ToString;
 public class ReviewListVO {
 	private int num;
 	private int postNum;
+	private int postType;
 	private String nickname;
 	private int reviewType;
 	private String date;
