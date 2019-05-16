@@ -106,6 +106,7 @@ public class ReviewController {
 		List<CommentVO> commentList = commentService.selectAllByNum(num);
 		
 		commentList.forEach(item -> {
+//			item.setComment_Contents(item.getComment_Contents().replaceAll("<br>", "\r\n"));
 			item.setProfile(userService.getUser(item.getNickname()).getProfile());
 //			item.setFiles(commentService.selectFilesByNum(item.getComment_Num())
 //					.stream()

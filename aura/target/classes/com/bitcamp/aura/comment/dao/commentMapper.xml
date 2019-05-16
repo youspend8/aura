@@ -58,13 +58,6 @@
 			COMMENT_NUM = #{comment_Num, jdbcType=NUMERIC}
 	</delete>
 	
-	<delete id="deleteFile" parameterType="int">
-		DELETE FROM
-			COMMENT_FILE
-		WHERE
-			COMMENT_NUM = #{comment_Num, jdbcType=NUMERIC}
-	</delete>
-	
 	<select id="selectOne" parameterType="int" resultType="CommentVO">
 		SELECT
 			*

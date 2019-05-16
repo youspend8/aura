@@ -14,9 +14,7 @@ public interface CommentMapper {
 	public int insert (CommentVO comment);
 	public int insert_File (CommentFileVO comment);
 	public int update (CommentVO comment);
-//	public int update_Comment_File (CommentFileVO comment);
 	public int delete (int num);
-	public int deleteFile(int num);
 	public CommentVO selectOne (String nickname);
 	public List<CommentVO> moreComment(HashMap<String, Object> params);
 	public CommentVO selectOne (int comment_Num);
