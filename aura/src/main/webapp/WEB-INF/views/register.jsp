@@ -472,6 +472,7 @@
 						$("#email_none").css('display','none');
 						$("#email_true").css('display', 'inline');
 						$('#idDupCheck').click(function(e){
+							alert('인증메일을 확인하세요');
 							e.preventDefault();
 						}).prop("disabled",false);
 						e_mail();
