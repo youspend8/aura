@@ -192,7 +192,7 @@ public class UserServiceImpl implements UserService {
 		 String gmailPWD = "kms1994@@";
 
 		 String host = "smtp.gmail.com";
-		 String from = "doyoung5628@gmail.com";
+		 String from = "rkaalstu@gmail.com";
 		 String to = email;
 
 		Properties props = System.getProperties();
