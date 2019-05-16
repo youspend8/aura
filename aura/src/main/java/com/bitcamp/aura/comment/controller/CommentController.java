@@ -58,7 +58,7 @@ public class CommentController {
 		return commentService.more_Comment(params);
 	}
 	
-	@RequestMapping(value="delete")
+	@RequestMapping(value="/delete")
 	@ResponseBody
 	public boolean delete(int num) {
 		
