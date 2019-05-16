@@ -155,5 +155,22 @@ public class CommentServicelmpl implements CommentService {
         }
         return false;
     }
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectLikeList(String nickname) {
+		
+		return commentMapper.selectLikeList(nickname);
+	}
+
+	@Override
+	public void likeControll(HashMap<String, Object> param, int type) {
+		
+		if(type ==1) {
+			commentMapper.insertLike(param);
+		}else {
+			commentMapper.deleteLike(param);
+		}
+		
+	}
 	
 }

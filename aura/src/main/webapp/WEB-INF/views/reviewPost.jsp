@@ -113,9 +113,17 @@
 								  <span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<div class="modal-body">
+							<div class="modal-body d-flex justify-content-around">
 								<a href="javascript:;" id="kakao-link-btn"> 
-									<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" /> <!-- 톡 이미지 부분이고, 전 kakaolink_btn_small.png로 불러왔습니다.   -->
+									<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" width="60px"/> <!-- 톡 이미지 부분이고, 전 kakaolink_btn_small.png로 불러왔습니다.   -->
+								</a>
+								<!-- 페이스북 공유하기  -->
+								<a href="javascript:shareFB();" class="fb" title="facebook 공유">
+									<img src="/img/all_review_img/facebook.png" width="60px">
+								</a>
+								<!-- 네이버 공유하기  -->
+								<a href="javascript:shareNaver();" class="fa" title="naver공유">
+									<img src="/img/all_review_img/naver.PNG" width="60px">
 								</a>
 							</div>
 							<div class="modal-footer">
@@ -544,7 +552,8 @@
 <!-- 		</div> -->
 
 		<!-- strat -->
-		
+		${userComments}
+		<br>
 	<c:forEach var="commentList" items="${commentList }" varStatus="status" end="4">
 		<div class="col-12 my-3 d-md-flex d-none flex-wrap fade show active" id="home_${commentList.comment_Num }">
 		
@@ -564,7 +573,7 @@
 				</c:choose>
 				</div>
 
-				<div class="w-100 text-center" style="margin-top: 0px">${commentList.nickname }</div>
+				<div class="w-100 text-center" style="margin-top: 0px">${commentList.nickname }${commentList.comment_Num }</div>
 				
 					
 				<div class="p-0 d-flex justify-content-center">
@@ -678,7 +687,7 @@
 	
 	<script type="text/javascript">
 	//동훈이 짱
-	
+
 	function test5(num){
 		$.ajax({
 			url : '/comment/delete',
@@ -692,82 +701,6 @@
 			}
 		})
 	}
-			
-	
-	
-	
-	
-	
-	
-	
-	
-		
-			function addComma(num) {
-				 var regexp = /\B(?=(\d{3})+(?!\d))/g;
-			     return num.toString().replace(regexp, ',');
-			}
-				
-			$('.heartCl').click(function(){
-				
-				if($(this).next().attr('nickname')!=""){
-					
-						if($(this).find("i").css('color')=='rgb(33, 37, 41)'){ 
-							$(this).find("i").css('color','rgb(255, 0, 0)')//빨강
-							
-							var num1=Number($(this).next().attr('value'))+1;
-							var num=addComma(Number($(this).next().attr('value'))+1);
-							
-							$(this).next().remove();
-							$(this).after('<p value=\"'+num1+'\">'+num+'</p>')
-							var commentNum = Number($(this).attr('commentNum'));
-							
-								$.ajax({
-						    		url: '/comment/update', // 요청 할 주소 
-						    	    type: 'get', // GET, PUT
-						    	    dataType: 'text', 
-						    	    data: {
-						    	    	commentNum : commentNum,
-						    	    	type : 1
-						    	    },
-						    	    success: function(data) {
-					    	        },
-					    	       error : function (data) {
-					    	        	alert('죄송합니다. 잠시 후 다시 시도해주세요.');
-						    	        return false;
-					    	       }  // 전송할 데이터
-						    	})
-		    	
-						}else{
-							$(this).find("i").css('color','rgb(33, 37, 41)')//검정
-	
-							var num1=Number($(this).next().attr('value'))-1;
-							var num=addComma(Number($(this).next().attr('value'))-1);
-							
-							$(this).next().remove();
-							$(this).after('<p value=\"'+num1+'\">'+num+'</p>')
-							var commentNum = Number($(this).attr('commentNum'));
-							
-								$.ajax({
-						    		url: '/comment/update', // 요청 할 주소 
-						    	    type: 'get', // GET, PUT
-						    	    dataType: 'text', 
-						    	    data: {
-						    	    	commentNum : commentNum,
-						    	    	type : 2
-						    	    },
-						    	    success: function(data) {
-					    	        },
-					    	       error : function (data) {
-					    	        	alert('죄송합니다. 잠시 후 다시 시도해주세요.');
-						    	        return false;
-					    	       }  // 전송할 데이터
-						    	})
-						}
-				}
-				else{
-					alert("회원만 이용 가능한 기능입니다. 로그인을 해주세요.")
-				}
-			})
 			
 		</script>
 
@@ -786,6 +719,19 @@
 <jsp:include page="/WEB-INF/views/commons/footer.jsp" />
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=53d46cec9bd19a0835b7c8bc8150a448&libraries=services"></script>
 <script type="text/javascript">
+
+	var test2 = $('.heartCl')
+	var userComments=${userComments}
+		
+	for(var i=0;i<test2.length;i++){
+		var commentNum = $(test2[i]).attr('commentNum');
+		for(var j =0 ; j<userComments.length;j++){
+			if(commentNum==userComments[j].COMMENT_NUM){
+				test2[i].style.color='rgb(255, 0, 0)'
+				break;
+			}
+		}
+	}
 
 	function addComma(num) {
 		 var regexp = /\B(?=(\d{3})+(?!\d))/g;
@@ -931,6 +877,13 @@ geocoder.addressSearch('${reviewInfo.ADDR}', function(result, status) {
  
       ]
     });
+    function shareFB() {
+    	window.open('http://www.facebook.com/sharer/sharer.php?u=https://www.mangoplate.com/restaurants/B8CzA6i9Bb8Z',"zzzzzzzz",
+    			"width=700, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes")
+    }
+    function shareNaver() {
+    	window.open('https://share.naver.com/web/shareView.nhn?url=https://www.mangoplate.com&title=${reviewInfo.TITLE}','naversharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600')
+    }
 
 </script> 
 <script>
