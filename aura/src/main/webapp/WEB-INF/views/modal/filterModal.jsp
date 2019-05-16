@@ -9,18 +9,18 @@
 				<div class="modal-content">
 					<div class="modal-body">
 						<div class="btn-group btn-group-toggle nav nav-tabs" data-toggle="buttons" id="myTab" role="tablist">
-							<a class="btn btn-warning active nav-link col-4" id="home-tab" data-toggle="tab" href="#home">
-								<input type="radio" name="type" value="1" checked>맛집
+							<a class="btn btn-warning nav-link col-4 ${type == 1 ? 'focus active' : ''}" id="home-tab" data-toggle="tab" href="#home">
+								<input type="radio" name="type" value="1" ${type == 1 ? 'checked' : ''}>맛집
 							</a>
-							<a class="btn btn-warning nav-link col-4" id="profile-tab" data-toggle="tab" href="#profile">
-								<input type="radio" name="type" value="2">병원
+							<a class="btn btn-warning nav-link col-4 ${type == 2 ? 'focus active' : ''}" id="profile-tab" data-toggle="tab" href="#profile">
+								<input type="radio" name="type" value="2" ${type == 2 ? 'checked' : ''}>병원
 							</a>
-							<a class="btn btn-warning nav-link col-4" id="contact-tab" data-toggle="tab" href="#contact">
-								<input type="radio" name="type" value="3">전자제품
+							<a class="btn btn-warning nav-link col-4 ${type == 3 ? 'focus active' : ''}" id="contact-tab" data-toggle="tab" href="#contact">
+								<input type="radio" name="type" value="3" ${type == 3 ? 'checked' : ''}>전자제품
 							</a>
 						</div>
 						<div class="tab-content" id="myTabContent">
-						    <div class="tab-pane fade show active" id="home" role="tabpanel">
+						    <div class="tab-pane fade show ${type == 1 ? 'active show' : ''}" id="home" role="tabpanel">
 								<div class="pt-3">
 								    <b style="font-size:18px;">검색 필터</b>
 								    <div class="custom-control custom-radio d-flex justify-content-around py-2">
@@ -39,33 +39,6 @@
 								    </div>
 								    <hr>
 								</div>
-						
-<!-- 								<div class="pt-1"> -->
-<!-- 									<b style="font-size:18px;">1인당 가격</b> -->
-<!-- 								    <div class="custom-control custom-checkbox d-flex justify-content-around py-2"> -->
-<!-- 								        <b> -->
-<!-- 								            <input type="checkbox" class="custom-control-input" id="defaultChecked1" -->
-<!-- 								            	name="restPrice" value="0"> -->
-<!-- 								            <label class="custom-control-label" for="defaultChecked1">만원미만</label> -->
-<!-- 								        </b> -->
-<!-- 								        <b> -->
-<!-- 								            <input type="checkbox" class="custom-control-input" id="defaultChecked2" -->
-<!-- 								            	name="restPrice" value="10000"> -->
-<!-- 								            <label class="custom-control-label" for="defaultChecked2">1만원대</label> -->
-<!-- 								        </b> -->
-<!-- 								        <b> -->
-<!-- 								            <input type="checkbox" class="custom-control-input" id="defaultChecked3" -->
-<!-- 								            	name="restPrice" value="20000"> -->
-<!-- 								            <label class="custom-control-label" for="defaultChecked3">2만원대</label> -->
-<!-- 								        </b> -->
-<!-- 								        <b> -->
-<!-- 								            <input type="checkbox" class="custom-control-input" id="defaultChecked4" -->
-<!-- 								            	name="restPrice" value="30000"> -->
-<!-- 								            <label class="custom-control-label" for="defaultChecked4">3만원대</label> -->
-<!-- 								        </b> -->
-<!-- 								    </div> -->
-<!-- 								    <hr> -->
-<!-- 								</div> -->
 						
 								<div class="pt-1">
 									<b style="font-size:18px;">지역</b>
@@ -127,7 +100,7 @@
 							</div>
 							
 							<!-- 병원 -->
-							<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+							<div class="tab-pane fade ${type == 2 ? 'active show' : ''}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 								<div class="pt-3">
 								    <b style="font-size:18px;">검색 필터</b>
 								    <div class="custom-control custom-radio d-flex justify-content-around py-2">
@@ -211,7 +184,7 @@
 							</div>
 							
 							<!-- 전자제품  -->
-							<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+							<div class="tab-pane fade ${type == 3 ? 'active show' : ''}" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 								<div class="pt-3">
 								    <b style="font-size:18px;">검색 필터</b>
 								    <div class="custom-control custom-radio d-flex justify-content-around py-2">

@@ -14,19 +14,17 @@
 			<div class="col-12 py-4">
 				<div class="board_search_title  d-flex justify-content-between">
 					<span>
-						<c:if test="${keyword == ''}">
-							<c:choose>
-								<c:when test="${type == 1}">
-									맛집
-								</c:when>
-								<c:when test="${type == 2}">
-									병원
-								</c:when>
-								<c:when test="${type == 3}">
-									전자제품
-								</c:when>
-							</c:choose>
-						</c:if>
+						<c:choose>
+							<c:when test="${type == 1}">
+								음식점
+							</c:when>
+							<c:when test="${type == 2}">
+								병원
+							</c:when>
+							<c:when test="${type == 3}">
+								전자제품
+							</c:when>
+						</c:choose>
 						<c:if test="${keyword != ''}">
 							'${keyword}'
 						</c:if>
@@ -39,7 +37,14 @@
 				
 				</div>
 			</div>
-	
+	    	<!-- 게시글의 사진 및 내용 -->
+	    	<c:if test="${list.size() == 0}">
+				<div class="d-flex col-12 justify-content-center align-items-center bg-white py-3 my-5">
+					리뷰글이 없습니다.
+				</div>
+	    	</c:if>
+	    	
+	    	<c:if test="${list.size() != 0}">
 			<c:if test="${type == 1 || type == 2}">
 				<!-- 지도 -->
 				<div class="col-12">
@@ -48,15 +53,6 @@
 				<div class="my-2" style="border-bottom: rgb(217, 217, 217) solid 1px;">
 				</div>
 			</c:if>
-			
-	      
-	    	<!-- 게시글의 사진 및 내용 -->
-	    	<c:if test="${list.size() == 0}">
-				<div class="d-flex col-12 justify-content-center align-items-center bg-white py-3 my-5">
-					리뷰글이 없습니다.
-				</div>
-	    	</c:if>
-	    	<c:if test="${list.size() != 0}">
 		   	<c:forEach items="${list}" var="review" varStatus="i">
 				<div class="d-flex flex-wrap" style="margin: 3% 0 3% 0;" >
 					<div class="col-md-6 col-12">
