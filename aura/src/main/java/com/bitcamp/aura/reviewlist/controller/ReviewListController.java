@@ -1,8 +1,9 @@
 package com.bitcamp.aura.reviewlist.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,12 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.bitcamp.aura.review.dao.ReviewFileMapper;
-import com.bitcamp.aura.review.model.ReviewFileVO;
+import com.bitcamp.aura.review.model.ReviewVO;
 import com.bitcamp.aura.review.service.ReviewService;
 import com.bitcamp.aura.reviewlist.dao.ReviewListMapper;
 import com.bitcamp.aura.reviewlist.model.ReviewListVO;
@@ -62,25 +61,7 @@ public class ReviewListController {
 		return false;
 	}
 		
-//		Date today = new Date();
-//		SimpleDateFormat sm = new SimpleDateFormat("yy/mm/dd HH:mm:ss");
-//		ReviewListVO reviewListVo = new ReviewListVO();
-//		
-		
-//		int num =0;
-//		num++;
-//		reviewListVo.setNickname(nickname); 
-//		reviewListVo.setDate(sm.format(today));
-//		reviewListVo.setReviewType(2);
-//		reviewListVo.setPostNum(review_post_num);
-//		reviewListVo.setNum(num);
-//		System.out.println("리뷰리스트 삽입:" + reviewListVo);
-		
-//		reviewListMapper.insert(reviewListVo);
-		
-		
-	
-	
+
 	@RequestMapping("/modal_review")
 	@ResponseBody
 	public List<ReviewListVO> modal_review(HttpSession session) {
@@ -90,15 +71,22 @@ public class ReviewListController {
 //		int postNum = reviewListVo.get(0).getPostNum();
 //		System.out.println("postNum" + postNum);
 //		List<ReviewFileVO> reviewFileVo = reviewFileMapper.selectByPostNum(postNum);
+//		System.out.println("type:" + type);
+		
+		List<ReviewVO> reviewList = reviewService.searchAll();
+		
 		reviewListVo.forEach(item -> {
 			item.setTitle(reviewService.searchOne(item.getPostNum()).getTitle());
-//			item.(postNum);
+			item.setPostType(StreamSupport.stream(reviewList.spliterator(), true)  // 잘못 넘김 reviewType이 아니라 Type을 넘겨야함  전자제품, 
+					.filter(r -> r.getNum() == item.getPostNum())
+					.mapToInt(ReviewVO::getType).toArray()[0]);
 		});
-				
-		System.out.println("reviewListVo"+reviewListVo); //리뷰리스트의  List의 내용은 넘어옴
 		
-		return reviewListVo;
+		System.out.println("reviewListVo" + reviewListVo); //리뷰리스트의  List의 내용은 넘어옴
 		
+		return StreamSupport.stream(reviewListVo.spliterator(), true)
+				.sorted((r1, r2) -> r1.getNum() < r2.getNum() ? 1 : -1)
+				.collect(Collectors.toList());
 	}
 	
 	
