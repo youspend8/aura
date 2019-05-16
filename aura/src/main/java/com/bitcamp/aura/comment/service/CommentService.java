@@ -1,5 +1,6 @@
 package com.bitcamp.aura.comment.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,6 +13,8 @@ public interface CommentService {
 	public String insert_Comment(MultipartHttpServletRequest comment);
 	public int delete_Comment(int num);
 	public void update (CommentVO comment,int type);
+	public void likeControll(HashMap<String, Object> param, int type);
+	public ArrayList<HashMap<String, Object>> selectLikeList(String nickname);
 	public String selectAll_Comment();
 	public List<CommentVO> more_Comment(HashMap<String, Object> params);
 	public CommentVO selectOne(int comment_Num);
