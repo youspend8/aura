@@ -49,8 +49,7 @@
 						<!--휴대폰 인증으로 찾기 -->
 									<form method="POST" class="my-login-validation" novalidate="">
 										<div class="custom-control custom-radio">
-												<input type="radio" class="custom-control-input" id="defaultGroupExample1"
-													name="groupOfDefaultRadios" onclick="Radio_OnOff('test1')" checked>
+												<input type="radio" class="custom-control-input" id="defaultGroupExample1" name="groupOfDefaultRadios" onclick="Radio_OnOff('test1')" checked>
 												<label class="custom-control-label" for="defaultGroupExample1">회원정보에 등록한
 													휴대전화로 인증</label>
 	
@@ -81,15 +80,13 @@
 													
 												</div>
 										</div>
-<!-- 									</form> -->
+									</form>
 
 
 									<!--이메일 인증으로 찾기 -->
 										<form method="POST" class="my-login-validation" novalidate="">
 											<div class="custom-control custom-radio">
-												<input type="radio" class="custom-control-input"
-													id="defaultGroupExample2" name="groupOfDefaultRadios"
-													onclick="Radio_OnOff('test2')" >
+												<input type="radio" class="custom-control-input" id="defaultGroupExample2" name="groupOfDefaultRadios" onclick="Radio_OnOff('test2')" >
 												<label class="custom-control-label" for="defaultGroupExample2">본인확인 이메일로
 													인증</label>
 												<div class="form-group" id="test2" style="display: none;">
@@ -169,9 +166,7 @@
 										<!-- 이메일 인증으로 찾기 -->
 										<form class="my-login-validation" id="pwFindForm">
 											<div class="custom-control custom-radio">
-												<input type="radio" class="custom-control-input"
-													id="defaultGroupExample4" name="groupOfDefaultRadios"
-													onclick="Radio_OnOff2('test4')">
+												<input type="radio" class="custom-control-input" id="defaultGroupExample4" name="groupOfDefaultRadios" onclick="Radio_OnOff2('test4')">
 												<label class="custom-control-label" for="defaultGroupExample4">본인확인 이메일로
 													인증
 												</label>
@@ -232,7 +227,7 @@
 										<div class="modal-dialog modal-dialog-centered" role="document">
 											<div class="modal-content">
 												<div class="modal-header primary-color #4285F4">
-													<h5 class="modal-title white-text" id="exampleModalLabel">비밀번호 변경1111</h5>
+													<h5 class="modal-title white-text" id="exampleModalLabel">비밀번호 변경</h5>
 													<button type="button" class="close" data-dismiss="modal"
 														aria-label="Close">
 														<span aria-hidden="true">&times;</span>
@@ -314,6 +309,7 @@
 			}
 		}
 
+		
 		function findThing(evt, whatfind) {
 			var i, tabcontent, tablinks;
 			tabcontent = document.getElementsByClassName("tabcontent");
