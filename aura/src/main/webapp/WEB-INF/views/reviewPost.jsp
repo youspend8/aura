@@ -716,32 +716,33 @@
 <jsp:include page="/WEB-INF/views/commons/footer.jsp" />
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=53d46cec9bd19a0835b7c8bc8150a448&libraries=services"></script>
 <script type="text/javascript">
-
-var nickname ='${nickname}';
-var test2 = $('.heartCl')
-var userCommentsStr = '${userComments}';
-
- 	if(userCommentsStr != ''){
- 		var userComments = JSON.parse(userCommentsStr);
- 		
-		for(var i=0;i<test2.length;i++){
-			var commentNum = $(test2[i]).attr('commentNum');
-			for(var j =0 ; j<userComments.length;j++){
-				if(commentNum==userComments[j].COMMENT_NUM){
-					test2[i].style.color='rgb(255, 0, 0)'
-					break;
+	$(function() {
+		star();
+	})
+	function star() {
+		var nickname ='${nickname}';
+		var test2 = $('.heartCl')
+		var userCommentsStr = '${userComments}';
+	
+	 	if(userCommentsStr != ''){
+	 		var userComments = JSON.parse(userCommentsStr);
+	 		
+			for(var i=0;i<test2.length;i++){
+				var commentNum = $(test2[i]).attr('commentNum');
+				for(var j =0 ; j<userComments.length;j++){
+					if(commentNum==userComments[j].COMMENT_NUM){
+						test2[i].style.color='rgb(255, 0, 0)'
+						break;
+					}
 				}
 			}
-		}
- 	}
-
+	 	}
+	}
 	function addComma(num) {
 		 var regexp = /\B(?=(\d{3})+(?!\d))/g;
 	     return num.toString().replace(regexp, ',');
 	}
-		
-	$('.heartCl').click(function(){
-		
+	$('.heartCl').on('click', function(e){
 		if($(this).next().attr('nickname')!=""){
 			
 				if($(this).find("i").css('color')=='rgb(33, 37, 41)'){ 
@@ -1204,17 +1205,78 @@ $('#review_more').on('click', function(){
 								'<i class="fas fa-heart" style="font-size: 40px" ></i>' +
 							'</a>' +
 							'<p value="' + item.comment_Like + '" nickname="' + item.nickname + '">' +
-							
-							
-							
+								addComma(item.comment_Like) +
 							'</p>' +
 								comment_delete
 						'</div>' +
 					'</div>';
 							
 					document.getElementById('contents_area').innerHTML += reviewComment;
-				
+					star();
+					
+					$('.heartCl').click(function(e){
+						if('${nickname}' !=""){
+							
+							if($(this).find("i").css('color')=='rgb(33, 37, 41)'){ 
+								$(this).find("i").css('color','rgb(255, 0, 0)')//빨강
+								
+								var num1=Number($(this).next().attr('value'))+1;
+								var num=addComma(Number($(this).next().attr('value'))+1);
+								
+								$(this).next().remove();
+								$(this).after('<p value=\"'+num1+'\">'+num+'</p>')
+								var commentNum = Number($(this).attr('commentNum'));
+								
+									$.ajax({
+							    		url: '/comment/update', // 요청 할 주소 
+							    	    type: 'get', // GET, PUT
+							    	    dataType: 'text', 
+							    	    data: {
+							    	    	commentNum : commentNum,
+							    	    	type : 1
+							    	    },
+							    	    success: function(data) {
+						    	        },
+						    	       error : function (data) {
+						    	        	alert('죄송합니다. 잠시 후 다시 시도해주세요.');
+							    	        return false;
+						    	       }  // 전송할 데이터
+							    	})
+			    	
+							}else{
+								$(this).find("i").css('color','rgb(33, 37, 41)')//검정
+
+								var num1=Number($(this).next().attr('value'))-1;
+								var num=addComma(Number($(this).next().attr('value'))-1);
+								
+								$(this).next().remove();
+								$(this).after('<p value=\"'+num1+'\">'+num+'</p>')
+								var commentNum = Number($(this).attr('commentNum'));
+								
+								$.ajax({
+						    		url: '/comment/update', // 요청 할 주소 
+						    	    type: 'get', // GET, PUT
+						    	    dataType: 'text', 
+						    	    data: {
+						    	    	commentNum : commentNum,
+						    	    	type : 2
+						    	    },
+						    	    success: function(data) {
+					    	        },
+					    	       error : function (data) {
+					    	        	alert('죄송합니다. 잠시 후 다시 시도해주세요.');
+						    	        return false;
+					    	       }  // 전송할 데이터
+						    	})
+							}
+						}
+						else{
+							alert("회원만 이용 가능한 기능입니다. 로그인을 해주세요.")
+						}
+						
+					})
 			});
+			
 		 	more_start += 5;
 		 	$('#bar').hide();
 		 	if (data.length < 5){
