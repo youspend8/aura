@@ -54,16 +54,10 @@ public class UserServiceImpl implements UserService {
 		session.setAttribute("profile", apiUser.getProfile());
 		session.setAttribute("regLocation", apiUser.getRegLocation());
 
-		
-		System.out.println("닉네임 테스트: " + apiUser.getNickname());
-		System.out.println("유저 아이디 :" + apiUser.getEmail());
-		System.out.println("유저 프로필 + " + apiUser.getProfile());
 	}
 	
 	@Override
 	public boolean login(HttpSession session, String email, String password) {
-		System.out.println("email :"+email);
-		System.out.println("password :"+password);
 		// TODO Auto-generated method stub
 		UserVO originUser = userMapper.selectOneEmail(email);
 		if (originUser != null) {
@@ -73,9 +67,6 @@ public class UserServiceImpl implements UserService {
 				session.setAttribute("profile", originUser.getProfile());
 				session.setAttribute("regLocation", originUser.getRegLocation());
 				
-				System.out.println("닉네임 값:" + session.getAttribute("nickname"));
-				System.out.println("AR가입 회원 email:" + session.getAttribute("email"));
-				System.out.println("유저 프로필 : " + originUser.getProfile());
 				return true;
 			}
 		}
