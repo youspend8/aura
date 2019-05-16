@@ -24,6 +24,9 @@ public class SearchParams {
 	private String[] hosLoc;
 	private int[] restCategory;
 	private int[] medCategory;
+	private Integer digiCategory1;
+	private Integer digiCategory2;
+	private int[] digiCategory3;
 	private int start;
 	private int end;
 }

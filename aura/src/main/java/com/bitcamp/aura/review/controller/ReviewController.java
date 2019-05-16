@@ -156,6 +156,7 @@ public class ReviewController {
 			HttpSession session) {
 		String nickname = (String) session.getAttribute("nickname");
 		
+		System.out.println("search : " + params);
 		logger.info(new StringBuilder()
 					.append("search/")
 					.append(nickname + "/")
@@ -171,7 +172,8 @@ public class ReviewController {
 		model.addAttribute("medCategory", medCateService.readAll());
 		model.addAttribute("locationCate", new Location().locationList());
 		model.addAttribute("digitalCategory", digitalService.readAll());
-
+		model.addAttribute("params", new Gson().toJson(params));
+		
 		if (nickname != null) {
 			Map<Integer, String> map = StreamSupport.stream(reviewListMapper.selectByNickname(nickname).spliterator(), true)
 											.filter(e -> e.getReviewType() == 2)
@@ -185,6 +187,7 @@ public class ReviewController {
 	@ResponseBody
 	public HashMap<String, Object> searchMore(
 			@ModelAttribute SearchParams params) {
+		System.out.println("More : " + params);
 		HashMap<String, Object> result = new HashMap<>();
 		result.put("data", service.search(params));
 		result.put("type", params.getType());
