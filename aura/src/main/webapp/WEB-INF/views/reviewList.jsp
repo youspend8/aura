@@ -48,7 +48,7 @@
 			<c:if test="${type == 1 || type == 2}">
 				<!-- 지도 -->
 				<div class="col-12">
-					<div id="map" class="w-100" style="height:400px;"></div>
+					<div id="map" class="w-100" style="height: 400px;"></div>
 				</div>
 				<div class="my-2" style="border-bottom: rgb(217, 217, 217) solid 1px;">
 				</div>

@@ -17,13 +17,15 @@
 	<link href="/css/my-login.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
 	<section class="my-login-page h-100">
 		<div class="container h-100">
 			<div class="row justify-content-md-center align-items-center h-100">
 				<div class="card-wrapper">
 					<div class="brand">
 						<a href="/user/loginForm">
-							<img src="/img/logo/blacklogo.png" alt="bootstrap 4 login page" style="width:150px">
+							<img src="/img/logo/blacklogo.png" alt="bootstrap 4 login page"
+								style="width:150px">
 						</a>
 					</div>
 					<div class="card fat">
@@ -43,165 +45,180 @@
 						<!--아이디찾기 -->
 							<div id="id_find" class="tabcontent" value="id_find">
 								<div class="form-group">
-									<!--휴대폰 인증으로 찾기 -->
+
+						<!--휴대폰 인증으로 찾기 -->
 									<form method="POST" class="my-login-validation" novalidate="">
 										<div class="custom-control custom-radio">
-											<input type="radio" class="custom-control-input" id="defaultGroupExample1" name="groupOfDefaultRadios" onclick="Radio_OnOff('test1')" checked>
-											<label class="custom-control-label" for="defaultGroupExample1">
-												회원정보에 등록한 휴대전화로 인증
-											</label>
-											<div class="form-group" id="test1" >
+												<input type="radio" class="custom-control-input" id="defaultGroupExample1" name="groupOfDefaultRadios" onclick="Radio_OnOff('test1')" checked>
+												<label class="custom-control-label" for="defaultGroupExample1">회원정보에 등록한
+													휴대전화로 인증</label>
+	
+	
+												<div class="form-group" id="test1" >
+	
+														<div class="form-group">
+															<div class="md-form">
+																<input type="text" class="form-control" id="find_name">
+																<label for="find_name">이름 *</label>
+															</div>
+															<div class="invalid-feedback">
+																이름 입력이 필요합니다.
+															</div>
+														</div>
+		
+														<div class="md-form flex-column flex-sm-row" style="display: flex;">
+															<input type="text" class="form-control col-sm-8 col-12" id="identified_phone">
+															<label for="identified_phone">휴대폰 *</label>
+															<button class="btn btn-primary btn-sm" >인증번호</button>
+														</div>
 
-												<div class="form-group">
-													<div class="md-form">
-														<input type="text" class="form-control" id="find_name">
-														<label for="find_name">이름 *</label>
-													</div>
-													<div class="invalid-feedback">
-														이름 입력이 필요합니다.
-													</div>
+														<div class="md-form flex-column flex-sm-row" style="display: flex;">
+																<input type="text" class="form-control col-sm-8 col-12" id="identified_number_idphone">
+																<label for="identified_number_idphone">인증번호*</label>
+																<button type="button" class="btn btn-primary btn-sm">확인</button>
+														</div>
+													
 												</div>
-
-												<div class="md-form flex-column flex-sm-row" style="display: flex;">
-													<input type="text" class="form-control col-sm-8 col-12" id="identified_phone">
-													<label for="identified_phone">휴대폰 *</label>
-													<button class="btn btn-primary btn-sm" >인증번호</button>
-												</div>
-
-												<div class="md-form flex-column flex-sm-row" style="display: flex;">
-														<input type="text" class="form-control col-sm-8 col-12" id="identified_number_idphone">
-														<label for="identified_number_idphone">인증번호*</label>
-														<button type="button" class="btn btn-primary btn-sm">확인</button>
-												</div>
-											</div>
 										</div>
 									</form>
 
 
-<!-- 									이메일 인증으로 찾기 -->
-								<form method="POST" class="my-login-validation" novalidate="">
-									<div class="custom-control custom-radio">
-										<input type="radio" class="custom-control-input"
-											id="defaultGroupExample2" name="groupOfDefaultRadios"
-											onclick="Radio_OnOff('test2')" >
-										<label class="custom-control-label" for="defaultGroupExample2">본인확인 이메일로
-											인증</label>
-										<div class="form-group" id="test2" style="display: none;">
-											<div class="md-form flex-column flex-sm-row" style="display: flex;">
-												<input type="text" class="form-control col-sm-8 col-12" id="identified_email">
-												<label for="identified_email">인증번호 받을 이메일주소를 적어주세요 *</label>
-												<button class="btn btn-primary btn-sm" id="duplicate">인증번호</button>
+									<!--이메일 인증으로 찾기 -->
+										<form method="POST" class="my-login-validation" novalidate="">
+											<div class="custom-control custom-radio">
+												<input type="radio" class="custom-control-input" id="defaultGroupExample2" name="groupOfDefaultRadios" onclick="Radio_OnOff('test2')" >
+												<label class="custom-control-label" for="defaultGroupExample2">본인확인 이메일로
+													인증</label>
+												<div class="form-group" id="test2" style="display: none;">
+
+
+													<div class="md-form flex-column flex-sm-row" style="display: flex;">
+														<input type="text" class="form-control col-sm-8 col-12" id="identified_email">
+														<label for="identified_email">인증번호 받을 이메일주소를 적어주세요 *</label>
+														<button class="btn btn-primary btn-sm" id="duplicate">인증번호</button>
+													</div>
+
+
+														<div class="md-form flex-column flex-sm-row" style="display: flex;">
+															<input type="text" class="form-control  col-sm-8 col-12" id="identified_number_idemail">
+															<label for="identified_number_idemail">인증번호*</label>
+															<button  class="btn btn-primary btn-sm" id="duplicate1">확인</button>
+														</div>
+												</div>
 											</div>
-	
-											<div class="md-form flex-column flex-sm-row" style="display: flex;">
-												<input type="text" class="form-control  col-sm-8 col-12" id="identified_number_idemail">
-												<label for="identified_number_idemail">인증번호*</label>
-												<button  class="btn btn-primary btn-sm" id="duplicate1">확인</button>
-											</div>
-										</div>
+										</form>
+								</div>
+
+								<!--아이디/ 로그인 버튼 -->
+								<form method="POST" class="my-login-validation" novalidate="" style="margin-top: 20px;margin-bottom: 0;">
+									<div class="form-group m-0" style="display: flex">
+ 										
+										<button type="button" class="btn  btn-outline-primary waves-effect"
+											style="width:100%; height: 46px; margin: 10px auto">
+											<a href="/user/loginForm">
+												<div style="margin-bottom: 20px">로그인 하러가기</div>
+											</a>
+										</button>
 									</div>
 								</form>
 							</div>
-
-							<!--아이디/ 로그인 버튼 -->
-							<form method="POST" class="my-login-validation" novalidate="" style="margin-top: 20px;margin-bottom: 0;">
-								<div class="form-group m-0" style="display: flex">
-									<button type="button" class="btn  btn-outline-primary waves-effect"style="width:100%; height: 46px; margin: 10px auto">
-										<a href="/user/loginForm"> 
-											<div style="margin-bottom: 20px">로그인 하러가기</div>
-										</a>
-									</button>
-								</div>
-							</form>
-						</div>
 							<!-- 비밀번호 찾기 -->
 							<div id="pw_find" class="tabcontent" value="pw_find">
 								<div class="form-group">
-								
-									<!-- 휴대폰 인증으로 찾기 -->
-									<div class="custom-control custom-radio">
-										<input type="radio" class="custom-control-input" id="defaultGroupExample3" name="groupOfDefaultRadios" onclick="Radio_OnOff2('test3')">
-										<label class="custom-control-label" for="defaultGroupExample3">회원정보에 등록한 휴대전화로 인증</label>
-										<div class="form-group" id="test3">
 
-											<div class="form-group">
-												<div class="md-form">
-													<input type="text" class="form-control" id="input_name_pwfind">
-													<label for="input_name_pwfind">이름 *</label>
-												</div>
-												<div class="invalid-feedback">
-													이름 입력이 필요합니다.
-												</div>
-											</div>
-
-											<div class="md-form flex-column flex-sm-row" style="display: flex;">
-												<input type="text" class="form-control  col-sm-8 col-12 " id="identified_phone_pw">
-												<label for="identified_phone_pw">휴대폰 *</label>
-												<button  class="btn btn-primary btn-sm" id="duplicate">인증번호</button>
-											</div>
-
-											<div class="md-form flex-column flex-sm-row" style="display: flex;">
-												<input type="text" class="form-control  col-sm-8 col-12" id="identified_number_idphone_pw" >
-												<label for="identified_number_idphone_pw">인증번호*</label>
-												<button type="button" class="btn btn-primary btn-sm" id="duplicate3">확인</button>
-											</div>
-										</div>
-									</div>
-									
-										<!-- 이메일 인증으로 찾기 -->
-									<form class="my-login-validation" id="pwFindForm">
+										<!-- 휴대폰 인증으로 찾기-->
 										<div class="custom-control custom-radio">
-											<input type="radio" class="custom-control-input"id="defaultGroupExample4" name="groupOfDefaultRadios"onclick="Radio_OnOff2('test4')">
-											<label class="custom-control-label" for="defaultGroupExample4">
-												본인확인 이메일로 인증
-											</label>
-											<div class="form-group" id="test4" style="display: none;">
-
-												<div class="md-form flex-column flex-sm-row" style="display: flex;">
-													<input type="text" class="form-control col-sm-8 col-12" id="identified_email_pw">
-													<label for="identified_email_pw">이메일 *</label>
-													<button class="btn btn-primary btn-sm" id="identified_number_idemail_pw" disabled>인증 받기</button>
-												</div>
-
-												<div class="md-form flex-column flex-sm-row" style="display: flex; ">
-													<input type="text" class="form-control  col-sm-8 col-12" id="Certified">
-												</div>
-											</div>
-											
-											<div class="flex" style="display: none; color: red; font-size: 15px;"id="email_check_none">
-												인증번호를 입력해주세요
-											</div>
-											
-											<div class="flex" style="display: none; color: red; font-size: 15px;"id="email_check_false">
-												인증번호가 불 일치합니다.
-											</div>
-											
-											<div class="flex" style="display: none; color: blue; font-size: 15px;"id="email_check_true">
-												인증번호가  일치합니다.
-											</div>
-											
-											<div class="flex" style="display: none; color: red; font-size: 15px;"id="email_overlap">
-												이미 사용중인 이메일 입니다.
-											</div>
+												<input type="radio" class="custom-control-input" id="defaultGroupExample3" name="groupOfDefaultRadios" onclick="Radio_OnOff2('test3')" checked>
+												<label class="custom-control-label" for="defaultGroupExample3" >회원정보에 등록한
+													휴대전화로 인증</label>
+	
+	
+												<div class="form-group" id="test3">
+	
+													<div class="form-group">
+														<div class="md-form">
+															<input type="text" class="form-control" id="input_name_pwfind">
+															<label for="input_name_pwfind">이름 *</label>
+														</div>
+														<div class="invalid-feedback">
+															이름 입력이 필요합니다.
+														</div>
+													</div>
+	
+													<div class="md-form flex-column flex-sm-row" style="display: flex;">
+														<input type="text" class="form-control  col-sm-8 col-12 " id="identified_phone_pw">
+														<label for="identified_phone_pw">휴대폰 *</label>
+														<button  class="btn btn-primary btn-sm" id="duplicate">인증번호</button>
+													</div>
 												
-											<div class="flex" style="display: none; color: red; font-size: 15px;"id="email_none">
-												이메일을 입력해주세요
+	
+														<div class="md-form flex-column flex-sm-row" style="display: flex;">
+															<input type="text" class="form-control  col-sm-8 col-12" id="identified_number_idphone_pw" >
+															<label for="identified_number_idphone_pw">인증번호*</label>
+															<button type="button" class="btn btn-primary btn-sm" id="duplicate3">확인</button>
+														</div>
+													
+												</div>
 											</div>
 	
-											<div class="flex" style="display: none; color: blue; font-size: 15px;"id="email_true">
-												적어주신 이메일이 존재합니다.
-											</div>
+
+
+										<!-- 이메일 인증으로 찾기 -->
+										<form class="my-login-validation" id="pwFindForm">
+											<div class="custom-control custom-radio">
+												<input type="radio" class="custom-control-input" id="defaultGroupExample4" name="groupOfDefaultRadios" onclick="Radio_OnOff2('test4')">
+												<label class="custom-control-label" for="defaultGroupExample4">본인확인 이메일로
+													인증
+												</label>
+												<div class="form-group" id="test4" style="display: none;">
+
+													<div class="md-form flex-column flex-sm-row" style="display: flex;">
+														<input type="text" class="form-control col-sm-8 col-12" id="identified_email_pw">
+														<label for="identified_email_pw">이메일 *</label>
+														<button class="btn btn-primary btn-sm" id="identified_number_idemail_pw" disabled>인증 받기</button>
+													</div>
 	
-											<div class="flex" style="display: none; color: red; font-size: 15px;"id="email_false">
-												적어주신 이메일이 존재하지 않습니다.
+													<div class="md-form flex-column flex-sm-row" style="display: flex; ">
+														<input type="text" class="form-control  col-sm-8 col-12" id="Certified">
+													</div>
+												</div>
+												
+												<div class="flex" style="display: none; color: red; font-size: 15px;"id="email_check_none">
+													인증번호를 입력해주세요
+												</div>
+												
+												<div class="flex" style="display: none; color: red; font-size: 15px;"id="email_check_false">
+													인증번호가 불 일치합니다.
+												</div>
+												
+												<div class="flex" style="display: none; color: blue; font-size: 15px;"id="email_check_true">
+													인증번호가  일치합니다.
+												</div>
+												
+												<div class="flex" style="display: none; color: red; font-size: 15px;"id="email_overlap">
+													이미 사용중인 이메일 입니다.
+												</div>
+													
+												<div class="flex" style="display: none; color: red; font-size: 15px;"id="email_none">
+													이메일을 입력해주세요
+												</div>
+		
+												<div class="flex" style="display: none; color: blue; font-size: 15px;"id="email_true">
+													적어주신 이메일이 존재합니다.
+												</div>
+		
+												<div class="flex" style="display: none; color: red; font-size: 15px;"id="email_false">
+													적어주신 이메일이 존재하지 않습니다.
+												</div>
+												<div id="emailAuthCheck">
+												
+												</div>
 											</div>
-											<div id="emailAuthCheck">
-											
-											</div>
-										</div>
-									</form>
+										</form>
 								</div>
-								<button type="button" class="btn btn-outline-primary waves-effect"style="width:100%; height: 46px; margin: 10px auto" data-toggle="modal" data-target="#pw_renew" id="next" disabled>
+								<button type="button" class="btn btn-outline-primary waves-effect"
+									style="width:100%; height: 46px; margin: 10px auto" data-toggle="modal"
+									data-target="#pw_renew" id="next" disabled>
 									다음 단계로
 								</button>
 
@@ -211,10 +228,12 @@
 											<div class="modal-content">
 												<div class="modal-header primary-color #4285F4">
 													<h5 class="modal-title white-text" id="exampleModalLabel">비밀번호 변경</h5>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
+	
 	
 												<div class="modal-body">
 													<div class="form-group text-center"
@@ -233,6 +252,7 @@
 														<div class="invalid-feedback">
 															비밀번호 입력이 필요합니다.
 														</div>
+	
 														<div class="md-form text-left">
 															<input type="password" class="form-control"
 																id="password_find_confirm" name="password">
@@ -241,17 +261,16 @@
 														<div class="invalid-feedback">
 															비밀번호 입력이 필요합니다.
 														</div>
+	
 													</div>
 	
-													<div id="lblErr" style="font-size :11px; margin-left:10px">
-													 	암호를 입력하세요
+													<div id="lblErr" style="font-size :11px; margin-left:10px"> 암호를 입력하세요
 													</div>
 	
 												</div>
 												<div class="modal-footer flex " style="justify-content:center ">
-													<button type="button" class="btn btn-outline-primary waves-effect col-5"data-dismiss="modal">
-														Close
-													</button>
+													<button type="button" class="btn btn-outline-primary waves-effect col-5"
+														data-dismiss="modal">Close</button>
 													<button type="submit" class="btn btn-primary col-7" id="pwdChange" disabled>
 														비밀번호변경
 													</button>
@@ -267,8 +286,6 @@
 						Copyright &copy; 2019 &mdash; Your All Review
 					</div>
 				</div>
-			</div>
-		</div>
 	</section>
 
 	<script>
@@ -294,6 +311,7 @@
 			}
 		}
 
+		
 		function findThing(evt, whatfind) {
 			var i, tabcontent, tablinks;
 			tabcontent = document.getElementsByClassName("tabcontent");
