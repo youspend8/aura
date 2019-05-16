@@ -235,11 +235,12 @@
 								        <b style="font-size:18px;">분류</b>
 									</div>
 									
+									<input type="hidden" id="digital_category1_value" name="digiCategory1" value="0">
 									<ul class="nav nav-tabs" id="myTab" role="tablist">
 										<c:forEach var="category1" items="${digitalCategory[0]}" varStatus="i">
 										    <li class="nav-item">
 										        <a class="nav-link ${i.index == 0 ? 'active' : ''} text-dark" style="font-weight: bold;" id="${category1.name}-tab" data-toggle="tab" href="#${category1.name}" role="tab" aria-controls="${category1.name}"
-											    aria-selected="true">${category1.name}</a>
+											    aria-selected="true" onclick="$('#digital_category1_value').val(${category1.num})">${category1.name}</a>
 											</li>
 										</c:forEach>
 									</ul>
