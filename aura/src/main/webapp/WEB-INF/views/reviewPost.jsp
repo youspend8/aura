@@ -113,9 +113,17 @@
 								  <span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<div class="modal-body">
+							<div class="modal-body d-flex justify-content-around">
 								<a href="javascript:;" id="kakao-link-btn"> 
-									<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" /> <!-- 톡 이미지 부분이고, 전 kakaolink_btn_small.png로 불러왔습니다.   -->
+									<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" width="60px"/> <!-- 톡 이미지 부분이고, 전 kakaolink_btn_small.png로 불러왔습니다.   -->
+								</a>
+								<!-- 페이스북 공유하기  -->
+								<a href="javascript:shareFB();" class="fb" title="facebook 공유">
+									<img src="/img/all_review_img/facebook.png" width="60px">
+								</a>
+								<!-- 네이버 공유하기  -->
+								<a href="javascript:shareNaver();" class="fa" title="naver공유">
+									<img src="/img/all_review_img/naver.PNG" width="60px">
 								</a>
 							</div>
 							<div class="modal-footer">
@@ -549,17 +557,15 @@
 			<div class="col-12 my-3 d-md-flex d-none flex-wrap fade show active" id="home_${commentList.comment_Num }">
 			
 			
-				<div
-					class=" col-2 d-flex flex-column justify-content-center align-items-center"
-					style="width: 100%;">
+				<div class=" col-2 d-flex flex-column justify-content-center align-items-center" style="width: 100%;">
 					
-					<div class="p-0">
+					<div class="p-0" style="width: 45%">
 					<c:choose>
 						<c:when test="${commentList.profile ne null }">
-							<img class="rounded-circle" src=${commentList.profile } style="height: 75px;">
+							<img class="rounded-circle w-100" src=${commentList.profile } style="height: 75px;">
 						</c:when>
 						<c:otherwise>
-							<img class="rounded-circle" src="https://ssl.pstatic.net/static/pwe/address/img_profile.png" style="height: 75px;">
+							<img class="rounded-circle w-100" src="https://ssl.pstatic.net/static/pwe/address/img_profile.png" style="height: 75px;">
 						</c:otherwise>
 					</c:choose>
 					</div>
@@ -630,9 +636,9 @@
 						
 					</p>
 					<c:if test="${nickname eq commentList.nickname}">
-						<div id="session_Comment" class="w-50 d-flex mt-5 justify-content-center">
-						<input type="hidden" value="" name="">
-						<input type="hidden" value="" name="">
+						<div id="session_Comment" class="w-50 d-flex mt-2 justify-content-center">
+							<input type="hidden" value="" name="">
+							<input type="hidden" value="" name="">
 							
 							<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0"  data-toggle="modal" data-target="#delete_${commentList.comment_Num }" >삭제</button>
 							
@@ -677,7 +683,6 @@
 	
 	<script type="text/javascript">
 	//동훈이 짱
-	
 	function comment_delete(num){
 		$.ajax({
 			url : '/comment/delete',
@@ -691,82 +696,6 @@
 			}
 		})
 	}
-			
-	
-	
-	
-	
-	
-	
-	
-	
-		
-			function addComma(num) {
-				 var regexp = /\B(?=(\d{3})+(?!\d))/g;
-			     return num.toString().replace(regexp, ',');
-			}
-				
-			$('.heartCl').click(function(){
-				
-				if($(this).next().attr('nickname')!=""){
-					
-						if($(this).find("i").css('color')=='rgb(33, 37, 41)'){ 
-							$(this).find("i").css('color','rgb(255, 0, 0)')//빨강
-							
-							var num1=Number($(this).next().attr('value'))+1;
-							var num=addComma(Number($(this).next().attr('value'))+1);
-							
-							$(this).next().remove();
-							$(this).after('<p value=\"'+num1+'\">'+num+'</p>')
-							var commentNum = Number($(this).attr('commentNum'));
-							
-								$.ajax({
-						    		url: '/comment/update', // 요청 할 주소 
-						    	    type: 'get', // GET, PUT
-						    	    dataType: 'text', 
-						    	    data: {
-						    	    	commentNum : commentNum,
-						    	    	type : 1
-						    	    },
-						    	    success: function(data) {
-					    	        },
-					    	       error : function (data) {
-					    	        	alert('죄송합니다. 잠시 후 다시 시도해주세요.');
-						    	        return false;
-					    	       }  // 전송할 데이터
-						    	})
-		    	
-						}else{
-							$(this).find("i").css('color','rgb(33, 37, 41)')//검정
-	
-							var num1=Number($(this).next().attr('value'))-1;
-							var num=addComma(Number($(this).next().attr('value'))-1);
-							
-							$(this).next().remove();
-							$(this).after('<p value=\"'+num1+'\">'+num+'</p>')
-							var commentNum = Number($(this).attr('commentNum'));
-							
-								$.ajax({
-						    		url: '/comment/update', // 요청 할 주소 
-						    	    type: 'get', // GET, PUT
-						    	    dataType: 'text', 
-						    	    data: {
-						    	    	commentNum : commentNum,
-						    	    	type : 2
-						    	    },
-						    	    success: function(data) {
-					    	        },
-					    	       error : function (data) {
-					    	        	alert('죄송합니다. 잠시 후 다시 시도해주세요.');
-						    	        return false;
-					    	       }  // 전송할 데이터
-						    	})
-						}
-				}
-				else{
-					alert("회원만 이용 가능한 기능입니다. 로그인을 해주세요.")
-				}
-			})
 			
 		</script>
 
@@ -787,14 +716,33 @@
 <jsp:include page="/WEB-INF/views/commons/footer.jsp" />
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=53d46cec9bd19a0835b7c8bc8150a448&libraries=services"></script>
 <script type="text/javascript">
-
+	$(function() {
+		star();
+	})
+	function star() {
+		var nickname ='${nickname}';
+		var test2 = $('.heartCl')
+		var userCommentsStr = '${userComments}';
+	
+	 	if(userCommentsStr != ''){
+	 		var userComments = JSON.parse(userCommentsStr);
+	 		
+			for(var i=0;i<test2.length;i++){
+				var commentNum = $(test2[i]).attr('commentNum');
+				for(var j =0 ; j<userComments.length;j++){
+					if(commentNum==userComments[j].COMMENT_NUM){
+						test2[i].style.color='rgb(255, 0, 0)'
+						break;
+					}
+				}
+			}
+	 	}
+	}
 	function addComma(num) {
 		 var regexp = /\B(?=(\d{3})+(?!\d))/g;
 	     return num.toString().replace(regexp, ',');
 	}
-		
-	$('.heartCl').click(function(){
-		
+	$('.heartCl').on('click', function(e){
 		if($(this).next().attr('nickname')!=""){
 			
 				if($(this).find("i").css('color')=='rgb(33, 37, 41)'){ 
@@ -932,6 +880,13 @@ geocoder.addressSearch('${reviewInfo.ADDR}', function(result, status) {
  
       ]
     });
+    function shareFB() {
+    	window.open('http://www.facebook.com/sharer/sharer.php?u=https://www.mangoplate.com/restaurants/B8CzA6i9Bb8Z',"zzzzzzzz",
+    			"width=700, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes")
+    }
+    function shareNaver() {
+    	window.open('https://share.naver.com/web/shareView.nhn?url=https://www.mangoplate.com&title=${reviewInfo.TITLE}','naversharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600')
+    }
 
 </script> 
 <script>
@@ -1250,17 +1205,78 @@ $('#review_more').on('click', function(){
 								'<i class="fas fa-heart" style="font-size: 40px" ></i>' +
 							'</a>' +
 							'<p value="' + item.comment_Like + '" nickname="' + item.nickname + '">' +
-							
-							
-							
+								addComma(item.comment_Like) +
 							'</p>' +
 								comment_delete
 						'</div>' +
 					'</div>';
 							
 					document.getElementById('contents_area').innerHTML += reviewComment;
-				
+					star();
+					
+					$('.heartCl').click(function(e){
+						if('${nickname}' !=""){
+							
+							if($(this).find("i").css('color')=='rgb(33, 37, 41)'){ 
+								$(this).find("i").css('color','rgb(255, 0, 0)')//빨강
+								
+								var num1=Number($(this).next().attr('value'))+1;
+								var num=addComma(Number($(this).next().attr('value'))+1);
+								
+								$(this).next().remove();
+								$(this).after('<p value=\"'+num1+'\">'+num+'</p>')
+								var commentNum = Number($(this).attr('commentNum'));
+								
+									$.ajax({
+							    		url: '/comment/update', // 요청 할 주소 
+							    	    type: 'get', // GET, PUT
+							    	    dataType: 'text', 
+							    	    data: {
+							    	    	commentNum : commentNum,
+							    	    	type : 1
+							    	    },
+							    	    success: function(data) {
+						    	        },
+						    	       error : function (data) {
+						    	        	alert('죄송합니다. 잠시 후 다시 시도해주세요.');
+							    	        return false;
+						    	       }  // 전송할 데이터
+							    	})
+			    	
+							}else{
+								$(this).find("i").css('color','rgb(33, 37, 41)')//검정
+
+								var num1=Number($(this).next().attr('value'))-1;
+								var num=addComma(Number($(this).next().attr('value'))-1);
+								
+								$(this).next().remove();
+								$(this).after('<p value=\"'+num1+'\">'+num+'</p>')
+								var commentNum = Number($(this).attr('commentNum'));
+								
+								$.ajax({
+						    		url: '/comment/update', // 요청 할 주소 
+						    	    type: 'get', // GET, PUT
+						    	    dataType: 'text', 
+						    	    data: {
+						    	    	commentNum : commentNum,
+						    	    	type : 2
+						    	    },
+						    	    success: function(data) {
+					    	        },
+					    	       error : function (data) {
+					    	        	alert('죄송합니다. 잠시 후 다시 시도해주세요.');
+						    	        return false;
+					    	       }  // 전송할 데이터
+						    	})
+							}
+						}
+						else{
+							alert("회원만 이용 가능한 기능입니다. 로그인을 해주세요.")
+						}
+						
+					})
 			});
+			
 		 	more_start += 5;
 		 	$('#bar').hide();
 		 	if (data.length < 5){
