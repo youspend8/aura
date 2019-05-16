@@ -188,8 +188,8 @@ public class UserServiceImpl implements UserService {
 		
 		 String random_Num = new BigInteger(20, new SecureRandom()).toString();
 		//관리자 비밀번호 and 아이디
-		 String gmailID = "doyoung5628@gmail.com";
-		 String gmailPWD = "dodo5684@@";
+		 String gmailID = "rkaalstu@gmail.com";
+		 String gmailPWD = "kms1994@@";
 
 		 String host = "smtp.gmail.com";
 		 String from = "doyoung5628@gmail.com";
