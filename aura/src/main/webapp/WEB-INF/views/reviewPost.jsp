@@ -557,17 +557,15 @@
 			<div class="col-12 my-3 d-md-flex d-none flex-wrap fade show active" id="home_${commentList.comment_Num }">
 			
 			
-				<div
-					class=" col-2 d-flex flex-column justify-content-center align-items-center"
-					style="width: 100%;">
+				<div class=" col-2 d-flex flex-column justify-content-center align-items-center" style="width: 100%;">
 					
-					<div class="p-0">
+					<div class="p-0" style="width: 45%">
 					<c:choose>
 						<c:when test="${commentList.profile ne null }">
-							<img class="rounded-circle" src=${commentList.profile } style="height: 75px;">
+							<img class="rounded-circle w-100" src=${commentList.profile } style="height: 75px;">
 						</c:when>
 						<c:otherwise>
-							<img class="rounded-circle" src="https://ssl.pstatic.net/static/pwe/address/img_profile.png" style="height: 75px;">
+							<img class="rounded-circle w-100" src="https://ssl.pstatic.net/static/pwe/address/img_profile.png" style="height: 75px;">
 						</c:otherwise>
 					</c:choose>
 					</div>
@@ -638,9 +636,9 @@
 						
 					</p>
 					<c:if test="${nickname eq commentList.nickname}">
-						<div id="session_Comment" class="w-50 d-flex mt-5 justify-content-center">
-						<input type="hidden" value="" name="">
-						<input type="hidden" value="" name="">
+						<div id="session_Comment" class="w-50 d-flex mt-2 justify-content-center">
+							<input type="hidden" value="" name="">
+							<input type="hidden" value="" name="">
 							
 							<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0"  data-toggle="modal" data-target="#delete_${commentList.comment_Num }" >삭제</button>
 							
