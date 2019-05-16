@@ -14,7 +14,7 @@
 		$(function() {
 			var index = 1;
 			var images = [
-				'/img/main/full_background.jpg',
+				'/img/main/full_background1.jpg',
 				'/img/main/full_background2.png',
 				'/img/main/full_background3.png',
 				'/img/main/full_background4.png'

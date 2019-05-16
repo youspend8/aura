@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,10 +39,14 @@ public class CommentController {
 	
 	@RequestMapping(value="/update")
 	@ResponseBody
-	public String update(int commentNum, int type) {
+	public String update(int commentNum, int type, HttpSession session) {
 	
-	 CommentVO comment=commentService.selectOne(commentNum);
-	 commentService.update(comment, type);
+		 CommentVO comment=commentService.selectOne(commentNum);
+		 commentService.update(comment, type);
+		 HashMap<String, Object> param = new HashMap<>();
+		 param.put("commentNum", commentNum); 
+		 param.put("nickname", session.getAttribute("nickname"));
+		 commentService.likeControll(param, type);
 	 
 		return "1";
 	}
@@ -58,7 +64,7 @@ public class CommentController {
 		return commentService.more_Comment(params);
 	}
 	
-	@RequestMapping(value="delete")
+	@RequestMapping(value="/delete")
 	@ResponseBody
 	public boolean delete(int num) {
 		

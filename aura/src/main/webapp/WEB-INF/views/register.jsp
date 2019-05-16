@@ -354,8 +354,6 @@
 				// 인증취소 또는 인증실패
 				var msg = '인증에 실패하였습니다.';
 				msg += '에러내용 : ' + rsp.error_msg;
-
-				alert(msg);
 			}
 		});
 	</script>
@@ -474,6 +472,7 @@
 						$("#email_none").css('display','none');
 						$("#email_true").css('display', 'inline');
 						$('#idDupCheck').click(function(e){
+							alert('인증메일을 확인하세요');
 							e.preventDefault();
 						}).prop("disabled",false);
 						e_mail();
@@ -574,9 +573,6 @@
 		//이메일 인증번호 맞는지 확인
 
 		function emailCheck(Check_num) {
-			alert("인증번호가 달려가고 있어요!! :)");
-			// 나중에 인증번호 삭제해야함!!
-			alert("emailcheck : "+Check_num);
 			$('#email_Check_num').focusout(function() {
 				if (Check_num == $("#email_Check_num").val()) {
 					$('#email_Check_num_false').css('display', 'none');

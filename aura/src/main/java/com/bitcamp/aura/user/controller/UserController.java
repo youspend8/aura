@@ -56,9 +56,6 @@ public class UserController {
 
 	@RequestMapping("/login")
 	public String loginResult(HttpSession session, String email, String password) {
-		System.out.println("Eamil :"+ email);
-		System.out.println("password :"+ password);
-//		System.out.println("regLocation :"+ session.getAttribute("regLocation"));
 
 		if(email == null || password == null)
 			return "redirect:/user/login";
@@ -103,7 +100,6 @@ public class UserController {
 	
 	@RequestMapping(value="/withdraw_user")
 	public String withdraw_user(HttpSession session, String nickname) {
-		userService.tempWithdraw(nickname);
 		session.removeAttribute("email");
 		session.removeAttribute("nickname");
 		session.removeAttribute("regLocation");
@@ -160,18 +156,15 @@ public class UserController {
 			mav.addObject("userInfo", kakao_userinfo);
 			return mav;
 		}
-		
 	}
 	
 	@RequestMapping("/oauth/google")
 	public ModelAndView google(HttpSession session,String code) {
-		System.out.println("code 여기는 Controller : " + code);
 
 		ModelAndView mav = new ModelAndView();
 		String accessToken = googleLogin.getAccessToken(code);
 		UserVO google_userinfo = googleLogin.getUserInfo(accessToken);
 		
-		System.out.println("google userinfo:"+ google_userinfo);
 	
 		if (userService.apiLoginCheck(google_userinfo.getUserId())) {
 			userService.apiSession(session, google_userinfo.getUserId());
@@ -189,9 +182,6 @@ public class UserController {
 		session.setAttribute("nickname", uservo.getNickname());
 		session.setAttribute("email", uservo.getEmail());
 		session.setAttribute("regLocation", uservo.getRegLocation());
-		System.out.println("닉네임 : " + uservo.getNickname());
-		System.out.println("유저 아이디 :" + uservo.getEmail());
-		System.out.println("유저 레그 로케이션:" + uservo.getRegLocation());
 		
 		
 		if(userService.snsLogin(uservo) == true) { //DB에 중복값 X => insert
@@ -206,14 +196,12 @@ public class UserController {
 	@ResponseBody
 	public String nickNameCheck(String nickname) {
 		
-//		System.out.println("nickname : " + nickname);
 		
 		for(int i = 0 ; i<nickname.length(); i++) {
 			if(nickname.charAt(i) == ' ') {
 	            return "false";
 			}else {
 				if(userService.getUser(nickname) == null) {
-					System.out.println("2 : "+ userService.getUser(nickname));
 					return "true";
 				}else 
 					return "false";
@@ -225,7 +213,6 @@ public class UserController {
 	@RequestMapping("/emailCheck")
 	@ResponseBody
 	public String emailCheck(String email) {
-	System.out.println(" >> [AURA_boot : 코드 보내고 있어.. 잠시만 기달려줘.. 이렇게 라도 하지않으면 민서짱이 날 봐주지 않는걸");
 		if(userService.getUsersEmail(email) == null) {
 			//등록된 이메일을 찾앗는대 없을경우는 1 을 리턴해준다
 			return "0";
@@ -255,7 +242,6 @@ public class UserController {
 	public String Changepwd(String email, String password) {
 		UserVO userVo = userService.getUserEmail(email);
 		userVo.setPassword(password);
-		System.out.println(userVo);
 		userService.modify(userVo);
 		
 		return "redirect:/main";
@@ -298,7 +284,6 @@ public class UserController {
 		session.setAttribute("nickname", uservo1.getNickname());
 		session.setAttribute("email", uservo1.getEmail());
 		session.setAttribute("regLocation", uservo1.getRegLocation());
-
 		
 		return "redirect:/main";
 	}

@@ -54,7 +54,6 @@ public class ReviewListController {
 		System.out.println("params(파람 찍히는 것 확인)1:"+ params);
 		
 		if(session.getAttribute("nickname")!=null ) {
-//			System.out.println("params(파람 찍히는 것 확인)2:"+ params);
 			listService.doReview(params);
 			return true;
 		}
@@ -77,7 +76,7 @@ public class ReviewListController {
 		
 		reviewListVo.forEach(item -> {
 			item.setTitle(reviewService.searchOne(item.getPostNum()).getTitle());
-			item.setPostType(StreamSupport.stream(reviewList.spliterator(), true)  // 잘못 넘김 reviewType이 아니라 Type을 넘겨야함  전자제품, 
+			item.setPostType(StreamSupport.stream(reviewList.spliterator(), true)  
 					.filter(r -> r.getNum() == item.getPostNum())
 					.mapToInt(ReviewVO::getType).toArray()[0]);
 		});

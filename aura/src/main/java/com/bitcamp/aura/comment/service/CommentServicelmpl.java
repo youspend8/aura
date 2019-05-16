@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +40,7 @@ public class CommentServicelmpl implements CommentService {
 		
 		String review_Num = comment.getParameter("review_post_num");
 		String nickname = comment.getParameter("nickname_post");
-		String content = comment.getParameter("comment");
+		String content = comment.getParameter("comment").replaceAll("\r\n", "<br>");
 		String grade = comment.getParameter("grade");
 		
 		File file = new File("");
@@ -95,7 +98,16 @@ public class CommentServicelmpl implements CommentService {
 	
 	@Override
 	public int delete_Comment(int num) {
-		commentMapper.deleteFile(num);
+		List<String> files = StreamSupport.stream(commentMapper.selectFilesByNum(num).spliterator(), true)
+								.map(f -> f.getComment_File())
+								.collect(Collectors.toList());
+
+		File file = new File("");
+		if (files.size() != 0) {
+			files.forEach(f -> {
+				new File(file.getAbsolutePath() + FileUpload.PATH + f).delete();
+			});
+		}
 		
 		return commentMapper.delete(num);
 	}
@@ -156,5 +168,22 @@ public class CommentServicelmpl implements CommentService {
         }
         return false;
     }
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectLikeList(String nickname) {
+		
+		return commentMapper.selectLikeList(nickname);
+	}
+
+	@Override
+	public void likeControll(HashMap<String, Object> param, int type) {
+		
+		if(type ==1) {
+			commentMapper.insertLike(param);
+		}else {
+			commentMapper.deleteLike(param);
+		}
+		
+	}
 	
 }
