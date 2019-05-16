@@ -279,222 +279,10 @@
 	
 	<!-- 추천 밑 테마 -->
 	<div class="container d-flex justify-content-center">
-
-
-<!--       <div class="col-11 col-md-11 col-lg-4 pl-5"> -->
-<!--         <div class="pb-4" style="font-weight: 900; padding-left: 1%">오늘의 All Review 추천</div> -->
-<!--         Classic tabs -->
-<!--         <div class="classic-tabs border-bottom"> -->
-<!--           <ul id="today_review" class="nav navbar bg-dark p-0 justify-content-start" id="myClassicTab"> -->
-<!--             <li class="nav-item col-4 text-center orange p-0"> -->
-<!--               <a class="nav-link today_item active waves-light show text-white" id="profile-tab-classic" -->
-<!--                 data-toggle="tab" href="#profile-classic">병원</a> -->
-<!--             </li> -->
-<!--             <li class="nav-item col-4 text-center orange p-0"> -->
-<!--               <a class="nav-link today_item waves-light text-white" id="follow-tab-classic" data-toggle="tab" -->
-<!--                 href="#follow-classic">맛집</a> -->
-<!--             </li> -->
-<!--             <li class="nav-item col-4 text-center orange p-0"> -->
-<!--               <a class="nav-link today_item waves-light text-white" id="contact-tab-classic" data-toggle="tab" -->
-<!--                 href="#contact-classic">전자기기</a> -->
-<!--             </li> -->
-<!--           </ul> -->
-<!--           <div class="tab-content rounded-bottom" id="myClassicTabContent"> -->
-<!--             <div class="tab-pane active" id="profile-classic"> -->
-
-<!--               <ul class="row flex-wrap pl-2 pt-4"> -->
-<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
-<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
-<!--                     <img class="mt-1" src="/img/추천/병원/아산병원.jpg" alt="" -->
-<!--                       style="border-radius: 7px; width: 35%; height: 80%;"> -->
-<!--                     <div class="d-flex flex-wrap "> -->
-<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
-<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
-<!--                     </div> -->
-
-<!--                   </li> -->
-<!--                 </a> -->
-<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
-<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
-<!--                     <img class="mt-1" src="/img/추천/병원/차병원.jpg" alt="" -->
-<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
-<!--                     <div class="d-flex flex-wrap "> -->
-<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
-<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
-<!--                     </div> -->
-
-<!--                   </li> -->
-<!--                 </a> -->
-<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
-<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
-<!--                     <img class="mt-1" src="/img/추천/병원/삼성병원.jpg" alt="" -->
-<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
-<!--                     <div class="d-flex flex-wrap "> -->
-<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
-<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
-<!--                     </div> -->
-
-<!--                   </li> -->
-<!--                 </a> -->
-<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
-<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
-<!--                     <img class="mt-1" src="/img/추천/병원/건대병원.jpg" alt="" -->
-<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
-<!--                     <div class="d-flex flex-wrap "> -->
-<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
-<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
-<!--                     </div> -->
-
-<!--                   </li> -->
-<!--                 </a> -->
-<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
-<!--                   <li class="col-11 d-flex" style="height: 120px;"> -->
-<!--                     <img class="mt-1" src="/img/추천/병원/가천길병원.jpg" alt="" -->
-<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
-<!--                     <div class="d-flex flex-wrap "> -->
-<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
-<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
-<!--                     </div> -->
-
-<!--                   </li> -->
-<!--                 </a> -->
-
-<!--               </ul> -->
-
-<!--             </div> -->
-
-<!--             <div class="tab-pane fade" id="follow-classic"> -->
-<!--               <ul class="row flex-wrap pl-2 pt-4"> -->
-
-<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
-<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
-<!--                     <img class="mt-1" src="/img/추천/전자기기/노트북.jpg" alt="" -->
-<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
-<!--                     <div class="d-flex flex-wrap "> -->
-<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
-<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
-<!--                     </div> -->
-
-<!--                   </li> -->
-<!--                 </a> -->
-<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
-<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
-<!--                     <img class="mt-1" src="img/추천/전자기기/맥북.jpg" alt="" -->
-<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
-<!--                     <div class="d-flex flex-wrap "> -->
-<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
-<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
-<!--                     </div> -->
-
-<!--                   </li> -->
-<!--                 </a> -->
-<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
-<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
-<!--                     <img class="mt-1" src="img/추천/전자기기/아이폰.jpg" alt="" -->
-<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
-<!--                     <div class="d-flex flex-wrap "> -->
-<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
-<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
-<!--                     </div> -->
-
-<!--                   </li> -->
-<!--                 </a> -->
-<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
-<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
-<!--                     <img class="mt-1" src="img/추천/전자기기/애플워치.jpg" alt="" -->
-<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
-<!--                     <div class="d-flex flex-wrap "> -->
-<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
-<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
-<!--                     </div> -->
-
-<!--                   </li> -->
-<!--                 </a> -->
-<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
-<!--                   <li class="col-11 d-flex" style="height: 120px;"> -->
-<!--                     <img class="mt-1" src="img/추천/전자기기/이어팟.jpg" alt="" -->
-<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
-<!--                     <div class="d-flex flex-wrap "> -->
-<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
-<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
-<!--                     </div> -->
-
-<!--                   </li> -->
-<!--                 </a> -->
-
-<!--               </ul> -->
-<!--             </div> -->
-<!--             <div class="tab-pane fade" id="contact-classic"> -->
-<!--               <ul class="row flex-wrap pl-2 pt-4"> -->
-
-<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
-<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
-<!--                     <img class="mt-1" src="img/event/이벤트2.jpg" alt="" -->
-<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
-<!--                     <div class="d-flex flex-wrap "> -->
-<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
-<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
-<!--                     </div> -->
-
-<!--                   </li> -->
-<!--                 </a> -->
-<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
-<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
-<!--                     <img class="mt-1" src="img/event/이벤트2.jpg" alt="" -->
-<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
-<!--                     <div class="d-flex flex-wrap "> -->
-<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
-<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
-<!--                     </div> -->
-
-<!--                   </li> -->
-<!--                 </a> -->
-<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
-<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
-<!--                     <img class="mt-1" src="img/event/이벤트2.jpg" alt="" -->
-<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
-<!--                     <div class="d-flex flex-wrap "> -->
-<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
-<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
-<!--                     </div> -->
-
-<!--                   </li> -->
-<!--                 </a> -->
-<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
-<!--                   <li class="col-11 d-flex border-bottom mb-2" style="height: 120px;"> -->
-<!--                     <img class="mt-1" src="img/event/이벤트2.jpg" alt="" -->
-<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
-<!--                     <div class="d-flex flex-wrap "> -->
-<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
-<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
-<!--                     </div> -->
-
-<!--                   </li> -->
-<!--                 </a> -->
-<!--                 <a href="#" style="color: black;" class="col-md-6 col-lg-12"> -->
-<!--                   <li class="col-11 d-flex" style="height: 120px;"> -->
-<!--                     <img class="mt-1" src="img/event/이벤트2.jpg" alt="" -->
-<!--                       style="border-radius: 7px; width: 35%; height: 100px;"> -->
-<!--                     <div class="d-flex flex-wrap "> -->
-<!--                       <div class="col-12 mt-4 pt-3 pr-0 pl-1" style="font-size: 70%;">빵순이 빵돌이들이 환장하는 집</div> -->
-<!--                       <div class="col-12 pb-5 pl-1" style="font-size: 80%; font-weight: bold">아리가또빵집</div> -->
-<!--                     </div> -->
-<!--                   </li> -->
-<!--                 </a> -->
-<!--               </ul> -->
-<!--             </div> -->
-
-<!--           </div> -->
-
-<!--         </div> -->
-<!--         Classic tabs -->
-
-<!--       </div> -->
-
 		<div class="thema-flex col-12 d-flex flex-row flex-wrap justify-content-center align-items-start">
 			<h5 class="w-100 pt-2 m-0 text-center text-danger" style="font-weight: bold;">All Review Recommend</h5>
 			
-			<div class="first_recommand m-2 p-0" style="background-image: url('/img/테마별사진/img.jpg');">
+			<div class="first_recommand m-2 p-0" style="background-image: url('/img/테마별사진/img2.jpg');">
 				<a href="/review/search?type=1&keyword=냉면" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
 					<b class="mb-3" style="font-size: 150%">냉면맛집 TOP 20</b>
 					"더운여름엔 냉면"
@@ -502,7 +290,7 @@
 			</div>
 			
 			
-			<div class="first_recommand m-2 p-0" style="background-image: url('/img/테마별사진/img.jpg');">
+			<div class="first_recommand m-2 p-0" style="background-image: url('/img/테마별사진/신논.png');">
 				<a href="/review/search?type=1&restGroup=score&restLoc=논현동&restLoc=역삼" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100">
 					<b class="mb-3" style="font-size: 150%">신논현역 맛집 TOP 20</b>
 					비트캠프 주변 맛집
@@ -516,21 +304,21 @@
 				</a>
 			</div>
 			
-			<div class="first_recommand m-2 p-0 " style="background-image: url('/img/테마별사진/커리.png');">
+			<div class="first_recommand m-2 p-0 " style="background-image: url('/img/테마별사진/이어폰.jpg');">
 				<a href="/review/search?type=3&digitalGroup=score&digiCategory1=0&digiCategory2=2&digiCategory3=42&digiCategory3=43" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100 text-white">
 					<b class="mb-3" style="font-size: 150%">이어폰 TOP 5</b>
 					"필수 아이템 무선이어폰"
 				</a>
 			</div>
 			
-			<div class="first_recommand m-2 p-0" style="background-image: url('/img/테마별사진/커리.png');">
+			<div class="first_recommand m-2 p-0" style="background-image: url('/img/테마별사진/성형.jpg');">
 				<a href="/review/search?type=2&medGroup=score&medCategory=12" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100 text-white">
 					<b class="mb-3" style="font-size: 150%">성형외과 TOP 10</b>
 					"나는야 호빵맨"
 				</a>
 			</div>
 			
-			<div class="first_recommand m-2 p-0 " style="background-image: url('/img/테마별사진/커리.png');">
+			<div class="first_recommand m-2 p-0 " style="background-image: url('/img/테마별사진/제주맛집.jpg');">
 				<a onclick="alert('준비중입니다')" class="recommand_box d-flex flex-column justify-content-center align-items-center h-100 w-100 text-white">
 					<b class="mb-3" style="font-size: 150%">제주도 맛집 TOP 10</b>
 					"제주도 여행가서 가볼만한 음식점"
@@ -538,5 +326,100 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="container d-flex justify-content-center" style="padding: 0 70px; padding-bottom: 20px;">
+		<div class="col-6">
+			<h5 class="w-100 font-weight-bold" style="color: red">
+				공지사항
+			</h5>
+			<table class="content w-100">
+				<c:forEach var="notice" items="${noticeList}">
+					<tr style="height: 40px;">
+						<td class="w-75">
+							<a class="boardPost" data-toggle="modal" data-target="#boardModal" value="${notice.num}">${notice.title}</a>
+						</td>
+						<td class="w-25">
+							<fmt:parseDate value="${notice.writerDate}" var="writeDate" pattern="yyyy-MM-dd" />
+							<fmt:formatDate value="${writeDate}" pattern="yyyy-MM-dd"/>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div><div class="col-6">
+			<h5 class="w-100 font-weight-bold" style="color: red">
+				이벤트
+			</h5>
+			<table class="content w-100">
+				<c:forEach var="event" items="${eventList}">
+					<tr style="height: 40px;">
+						<td class="w-75">
+							<a class="boardPost" data-toggle="modal" data-target="#boardModal" value="${event.num}">${event.title}</a>
+						</td>
+						<td class="w-25">
+							<fmt:parseDate value="${event.writerDate}" var="writeDate" pattern="yyyy-MM-dd" />
+							<fmt:formatDate value="${writeDate}" pattern="yyyy-MM-dd"/>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+	</div>
 </div>
+
+<div class="modal fade" id="boardModal" style="top: 5%; z-index: 5000">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header d-flex justify-content-between">
+				<h5 id="boardTitle" class="m-0"></h5>
+				<button type="button" data-dismiss="modal" style="border: none; background-color: white">
+	         	 	<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-content p-4">
+				<div id="boardContents">
+					
+				</div>
+				<div id="boardImg">
+					
+				</div>
+				<div id="boardDate" class="mt-3 text-right">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(function() {
+		$('.boardPost').click(function() {
+			$('#boardTitle').html('');
+			$('#boardContents').html('');
+			$('#boardImg').html('');
+			$.ajax({
+				url: '/notice/getBoard',
+				type: 'get',
+				data: {
+					num: $(this).attr('value')
+				},
+				dataType: 'json',
+				success: function(data) {
+					$('#boardTitle').html(data.TITLE);
+					data.CONTENTS === '내용없음' ? '' : $('#boardContents').html(data.CONTENTS);
+					$('#boardDate').html(data.WRITERDATE);
+					data.FILES.forEach((item, index) => {
+						var img = $('<img>');
+						img.css({
+							width: '100%'
+						});
+						img.attr({
+							src: item
+						});
+						$('#boardImg').append(img);
+					})
+				}
+			})
+		})
+	})
+</script>
 <jsp:include page="/WEB-INF/views/commons/footer.jsp"></jsp:include>

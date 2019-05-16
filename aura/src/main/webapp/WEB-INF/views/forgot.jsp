@@ -291,11 +291,13 @@
 	<script>
 		function Radio_OnOff(type) {
 			if (type == 'test1') {
+				document.getElementById('defaultGroupExample1').setAttribute('checked', 'false');
 				document.getElementById(type).style.display = '';
 				document.getElementById('test2').style.display = 'none';
 				document.getElementById('defaultGroupExample1').checked = true;
 				document.getElementById('defaultGroupExample2').checked = false;
 			} else {
+				document.getElementById('defaultGroupExample2').setAttribute('checked', 'false');
 				document.getElementById('test1').style.display = 'none';
 				document.getElementById(type).style.display = '';
 				document.getElementById('defaultGroupExample1').checked = false;
