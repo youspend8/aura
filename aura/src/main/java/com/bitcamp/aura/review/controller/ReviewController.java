@@ -134,8 +134,6 @@ public class ReviewController {
 			isStar = listService.isShare(params2);
 			params2.setReviewType(3);
 			isLike = listService.isShare(params2);
-////////////////////@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@/////////////////////////////////////////////////
-	System.out.println("@@@@@@@@@@@@@$#$~!@#!%!#@#@!$%@#%@!#$#^#$$@#");////////////////////////////////////////////////
 	ArrayList<HashMap<String, Object>> userComments = commentService.selectLikeList((String)session.getAttribute("nickname"));
 	System.out.println(userComments);
 	model.addAttribute("userComments", new Gson().toJson(userComments));

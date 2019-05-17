@@ -554,26 +554,27 @@
 		<!-- strat -->
 	
 		<c:forEach var="commentList" items="${commentList }" varStatus="status" end="4">
-			<div class="col-12 my-3 d-md-flex d-none flex-wrap fade show active" id="home_${commentList.comment_Num }">
+			<div class="w-100 d-md-none d-block" style="border-bottom: rgb(217, 217, 217) solid 1px;"></div>
+			<div class="col-12 my-3 d-flex flex-wrap fade show active" id="home_${commentList.comment_Num }">
 			
 			
-				<div class=" col-2 d-flex flex-column justify-content-center align-items-center" style="width: 100%;">
+				<div class="col-2 d-flex flex-column justify-content-center align-items-center align-self-start order-md-1 order-1">
 					
-					<div class="p-0" style="width: 45%">
+					<div class="p-0">
 					<c:choose>
 						<c:when test="${commentList.profile ne null }">
-							<img class="rounded-circle w-100" src=${commentList.profile } style="height: 75px;">
+							<img class="rounded-circle user-profile" src=${commentList.profile }>
 						</c:when>
 						<c:otherwise>
-							<img class="rounded-circle w-100" src="https://ssl.pstatic.net/static/pwe/address/img_profile.png" style="height: 75px;">
+							<img class="rounded-circle user-profile" src="https://ssl.pstatic.net/static/pwe/address/img_profile.png">
 						</c:otherwise>
 					</c:choose>
 					</div>
 	
-					<div class="w-100 text-center" style="margin-top: 0px">${commentList.nickname }</div>
+					<div class="w-100 text-center user-nickname" style="margin-top: 0px">${commentList.nickname }</div>
 					
 						
-					<div class="p-0 d-flex justify-content-center">
+					<div class="p-0 d-md-flex d-none  justify-content-center">
 						<c:forEach begin="1" end="${commentList.comment_Score }">
 							<i class="fas fa-star" style="font-size: 20px; color: rgb(255, 153, 0);"></i>
 						</c:forEach>
@@ -584,25 +585,25 @@
 					
 				</div>
 				
-				<div class="col-2 d-flex justify-content-center align-items-center p-0">
+				<div class="col-2 d-md-flex d-none justify-content-center align-items-center p-0 order-md-2 order-3">
 					<!-- 유저들이 올린리뷰 후기 사진0-->
 					<c:if test="${commentList.files[0] ne null }">
 						<div id="carouselExampleFade-${status.index }" class="carousel slide carousel-fade"
 							data-ride="carousel">
 							<div class="carousel-inner" style="width:168px; height:123px;">
-									<div class="carousel-item active sample_image">
-										<img class="d-block user-review-img" style="width:168px; height:123px;"
-												src="${commentList.files[0].comment_File}">
-									</div>
-		
-									<c:forEach var="files" items="${commentList.files }" begin="1">
-										<c:if test="${files ne null}">
-											<div class="carousel-item big sample_image">
-												<img class="d-block user-review-img" style="width:168px; height:123px;" 
-															src="${files.comment_File}">
-											</div>
-										</c:if>
-									</c:forEach>
+								<div class="carousel-item active sample_image">
+									<img class="d-block user-review-img" style="width:168px; height:123px;"
+											src="${commentList.files[0].comment_File}">
+								</div>
+	
+								<c:forEach var="files" items="${commentList.files }" begin="1">
+									<c:if test="${files ne null}">
+										<div class="carousel-item big sample_image">
+											<img class="d-block user-review-img" style="width:168px; height:123px;" 
+														src="${files.comment_File}">
+										</div>
+									</c:if>
+								</c:forEach>
 							</div>
 							
 							<a class="user-photo-button-left carousel-control-prev"
@@ -620,13 +621,42 @@
 					<!-- 유저들이 올린리뷰 후기 사진0 End-->
 				</div>
 	
-				<div class="col-6 d-flex flex-wrap flex-row align-items-center">
-					<div class>${commentList.comment_Contents }
-					 </div>
+				<div class="col-md-6 col-9 d-flex flex-wrap flex-row align-items-center order-md-3 order-2">
+					<div class="col-12 p-0 d-flex justify-content-between">
+						<div class="p-0 d-md-none d-flex">
+							<c:forEach begin="1" end="${commentList.comment_Score }">
+								<i class="fas fa-star" style="font-size: 20px; color: rgb(255, 153, 0);"></i>
+							</c:forEach>
+							<c:forEach begin="1" end="${5-commentList.comment_Score }">
+								<i class="far fa-star" style="font-size: 20px; color: rgb(255, 153, 0);"></i>
+							</c:forEach>
+						</div>
+					<div class="d-md-none d-flex"  style="font-size: 12px;">
+						<fmt:parseDate var="commentDate" value="${commentList.comment_Date}" pattern="yyyy-MM-dd" />
+						<fmt:formatDate var="originCommentDate" value="${commentDate}" pattern="yyyy-MM-dd" />
+						등록일 : ${originCommentDate}
+					</div>
 					
+					</div>
+					
+					<div class="col-md-12 p-0 my-4">
+						${commentList.comment_Contents }
+					 </div>
+					 
+					<div class="d-md-flex d-none" style="font-size: 12px;">
+						<fmt:parseDate var="commentDate" value="${commentList.comment_Date}" pattern="yyyy-MM-dd" />
+						<fmt:formatDate var="originCommentDate" value="${commentDate}" pattern="yyyy-MM-dd" />
+						등록일 : ${originCommentDate}
+					</div>
+					
+					<div class="d-md-none d-flex col-12 p-0">
+						<c:forEach var="files" items="${commentList.files}">
+							<img class="d-block user-review-img mx-1" style="width:90px; height:90px;" src="${files.comment_File}">
+						</c:forEach>
+					</div>
 				</div>
 				
-				<div class="d-flex col-2 flex-column align-items-center justify-content-center ">
+				<div class="d-flex p-md-auto p-0 col-md-2 col-1 flex-column align-items-center justify-content-center order-md-4 order-4">
 					<a class="heartCl" commentNum="${commentList.comment_Num}">
 						<i class="fas fa-heart "  style="font-size: 40px" ></i>
 					</a>
@@ -636,11 +666,11 @@
 						
 					</p>
 					<c:if test="${nickname eq commentList.nickname}">
-						<div id="session_Comment" class="w-50 d-flex mt-2 justify-content-center">
+						<div id="session_Comment" class="d-flex mt-2 justify-content-center">
 							<input type="hidden" value="" name="">
 							<input type="hidden" value="" name="">
 							
-							<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0"  data-toggle="modal" data-target="#delete_${commentList.comment_Num }" >삭제</button>
+							<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0;"  data-toggle="modal" data-target="#delete_${commentList.comment_Num }" >삭제</button>
 							
 							
 							<!-- Modal -->
@@ -673,7 +703,6 @@
 			
 		
 			</div>
-		
 		</c:forEach>
 		
 	<c:if test="${commentList.size() eq 0}">
@@ -1108,17 +1137,18 @@ $('#review_more').on('click', function(){
 			data.forEach((item, index) => {
 				var more_files = '';
 				var reviewFiles = '';
+				var mobileFiles = '';
 				
 				if (item.files.length == 0) {
 					more_files ='<div class="carousel-item active sample_image">' +
 									'<img class="d-block user-review-img" style="width:168px; height:123px; src="">' +
-								'</div>'
+								'</div>';
 				} else {
 					item.files.forEach((item, index) => {
 						more_files+='<div class="carousel-item' + (index == 0 ? ' active' : '') + ' sample_image">' +
 										'<img class="d-block user-review-img" style="width:168px; height:123px;" src="' + item.comment_File + '">' +
-									'</div>'
-						
+									'</div>';
+						mobileFiles += '<img class="d-block user-review-img mx-1" style="width:90px; height:90px;" src="' + item.comment_File + '">'
 					})
 					reviewFiles += '<div id="carouselExampleFade-' + item.comment_Num + '" class="carousel slide carousel-fade" data-ride="carousel">'
 								+ '<div class="carousel-inner" style="width:168px; height:123px;">'
@@ -1157,7 +1187,7 @@ $('#review_more').on('click', function(){
 				if (item.nickname == $('#session_nickname').text()){
 					console.log(item.comment_Num);
 					comment_delete =
-					'<div id="session_Comment" class="w-50 d-flex mt-5 justify-content-center">' +
+					'<div id="session_Comment" class="d-flex mt-2 justify-content-center">' +
 						'<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0"  data-toggle="modal" data-target="#delete_' + item.comment_Num + '">삭제</button>' +
 				   	'</div>' +
 				   	'<div class="modal fade" id="delete_' + item.comment_Num + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="top:30%" aria-hidden="true">' +
@@ -1184,23 +1214,41 @@ $('#review_more').on('click', function(){
 				}
 				
 				var reviewComment = 
-					'<div class="col-12 my-3 d-md-flex d-none flex-wrap fade show active" id="home_' + item.comment_Num + '">' +
-						'<div class=" col-2 d-flex flex-column justify-content-center align-items-center" style="width: 100%;">' +
+					'<div class="w-100 d-md-none d-block" style="border-bottom: rgb(217, 217, 217) solid 1px;"></div>' +
+					'<div class="col-12 my-3 d-flex flex-wrap fade show active" id="home_' + item.comment_Num + '">' +
+						'<div class="col-2 d-flex flex-column justify-content-center align-items-center align-self-start order-md-1 order-1">' +
 							'<div class="p-0">' +
-								'<img class="rounded-circle" src="' + profile + '" style="height: 75px;">' +
+								'<img class="rounded-circle user-profile" src="' + profile + '">' +
 							'</div>' +
-							'<div class="w-100 text-center" style="margin-top: 0px">' + item.nickname + '</div>' +
-							'<div class="p-0 d-flex justify-content-center">' +
-									score +
+							'<div class="w-100 text-center user-nickname" style="margin-top: 0px">' + item.nickname + '</div>' +
+							'<div class="p-0 d-md-flex d-none justify-content-center">' +
+								score +
 							'</div>' +
 						'</div>' +
-						'<div class="col-2 d-flex justify-content-center align-items-center p-0">' +
+						'<div class="col-2 d-md-flex d-none justify-content-center align-items-center p-0 order-md-2 order-3">' +
 							reviewFiles +
 						'</div>' +
-						'<div class="col-6 d-flex flex-wrap flex-row align-items-center">' +
-							'<div class>' + item.comment_Contents + '</div>' +
+						'<div class="col-md-6 col-9 d-flex flex-wrap flex-row align-items-center order-md-3 order-2">' +
+							'<div class="col-12 p-0 d-flex justify-content-between">' +
+								'<div class="p-0 d-md-none d-flex">' +
+									score +
+								'</div>' +
+								'<div class="d-md-none d-flex"  style="font-size: 12px;">' +
+									'등록일 : ' + item.comment_Date.substring(0, 11) +
+								'</div>' +
+							'</div>' +
+							'<div class="col-md-12 p-0 my-4">' +
+								item.comment_Contents +
+							'</div>' +
+							'<div class="d-md-flex d-none" style="font-size: 12px;">' +
+								'등록일 : ' + item.comment_Date.substring(0, 11) +
+							'</div>' +
+							
+							'<div class="d-md-none d-flex col-12 p-0">' +
+								mobileFiles + 
+							'</div>' +
 						'</div>' +
-						'<div class="d-flex col-2 flex-column align-items-center justify-content-center">' +
+						'<div class="d-flex p-md-auto p-0 col-md-2 col-1 flex-column align-items-center justify-content-center order-md-4 order-4">' +
 							'<a class="heartCl" commentNum="' + item.comment_Num + '">' +
 								'<i class="fas fa-heart" style="font-size: 40px" ></i>' +
 							'</a>' +
@@ -1435,7 +1483,10 @@ $('#review_more').on('click', function(){
 		display: none;
 		height: 0px;
 	}
-	
+	.user-profile {
+		height: 75px;
+		width: 75px;
+	}
 	@media (max-width: 767.9px) {
 		#img22 {
 			height: 100px;
@@ -1443,6 +1494,16 @@ $('#review_more').on('click', function(){
 		#write_form {
 			display: flex;
 			height: 100%;
+		}
+		.user-profile {
+			width: 45px;
+			height: 45px;
+		}
+		.user-nickname {
+			font-size: 13px;
+		}
+		#delete_Comment {
+			font-size: 10px;
 		}
 	}
 </style>
