@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,6 +44,19 @@ public class UserController {
 	@Autowired
 	private GoogleLoginAPI googleLogin;
 	
+	@RequestMapping(value="/messageCheck")
+	@ResponseBody
+	public int messageCheck(String email, String password) {
+		System.out.println("넘어옴???");
+		System.out.println(email);
+//		return true
+		if(email == null)
+		return 1;
+		else 
+		return 2;
+	}
+	
+	
 	@RequestMapping(value="/loginForm")
 	public String loginForm(Model model) {
 		model.addAttribute("state", new BigInteger(130, new SecureRandom()).toString());
@@ -60,7 +74,8 @@ public class UserController {
 		if(email == null || password == null)
 			return "redirect:/user/login";
 
-		if(userService.login(session, email,password) == true) {
+		if(userService.login(session, email, password) == true) {
+			
 			return "redirect:/main";
 		} else
 			return "redirect:/user/loginForm";
@@ -99,7 +114,12 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/withdraw_user")
-	public String withdraw_user(HttpSession session, String nickname) {
+	public String withdraw_user(HttpSession session) {
+		//del-date 넣기
+		String nickname1 = (String) session.getAttribute("nickname");
+		userService.tempWithdraw(nickname1);
+		System.out.println("삭제 날짜 추가");
+		
 		session.removeAttribute("email");
 		session.removeAttribute("nickname");
 		session.removeAttribute("regLocation");

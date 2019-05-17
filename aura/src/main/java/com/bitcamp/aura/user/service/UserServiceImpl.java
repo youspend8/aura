@@ -60,7 +60,8 @@ public class UserServiceImpl implements UserService {
 	public boolean login(HttpSession session, String email, String password) {
 		// TODO Auto-generated method stub
 		UserVO originUser = userMapper.selectOneEmail(email);
-		if (originUser != null) {
+//		System.out.println("Del Date 확인 !!!!!!!!!!!!!!: "+userMapper.selectOneEmail(email).getDelDate());
+		if ( (originUser != null) && (userMapper.selectOneEmail(email).getDelDate() == null)) {
 			if (originUser.getPassword().equals(password)) {
 				session.setAttribute("nickname", originUser.getNickname());
 				session.setAttribute("email", originUser.getEmail());
@@ -215,6 +216,8 @@ public class UserServiceImpl implements UserService {
 		return random_Num;
 	}
 
+	
+	
 	@Override
 	public List<UserVO> getWithdrawUser() {
 		// TODO Auto-generated method stub
