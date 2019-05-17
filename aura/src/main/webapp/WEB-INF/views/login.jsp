@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,6 +72,9 @@
 										<label for="remember" class="custom-control-label">아이디 저장</label>
 									</div>
 								</div>
+									<div style="display: none; color: red; font-size: 13px;" id="confirm_idpw">이메일/ 비밀번호를 확인해주세요.</div>
+									<div style="display: none; color: red; font-size: 13px;" id="donfirm_withdraw">정지되거나 탈퇴인원입니다.</div>
+								
 
 								<div class="form-group m-0">
 									<button type="submit" class="btn btn-primary w-100 m-0" id="loginBtn">
@@ -127,15 +132,48 @@
 							</form>
 						</div>
 					</div>
-					<div class="footer">
+					<div class="footer my-4">
 						Copyright &copy; 2019 &mdash; All Review
 					</div>
 				</div>
 			</div>
-		</div>
+			</div>
 	</section>
-	
-	
+<!-- 	confirm_idpw -->
+<!-- 	confirm_withdraw -->
+<script>
+
+$('#confirm_idpw').css('display','none');
+$('#confirm_idpw').css('display','inline');
+
+	$("#loginBtn").on('click',function(){
+			$.ajax({
+				url : "/user/messageCheck",
+				data : {
+					"email" : $("#email").val(),
+					"password" : $("password").val()
+				},
+				type : "get",
+				dataType : 'text',
+				success: function(data){
+					alert(data);
+					console.log(data);
+					
+						if(data == 1){
+							$('#confirm_idpw').css('display','none');
+							$('#confirm_idpw').css('display','inline');						
+						}
+						else{
+							$('#confirm_idpw').css('display','inline');
+							$('#confirm_idpw').css('display','none');			
+						}
+
+				}),
+				
+				
+		});
+
+</script>	
 <script>
 
 		$(document).ready(function(){
@@ -193,20 +231,8 @@
 		}
 		
 </script>
-	/*  끝*/
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
 	<!-- Bootstrap tooltips -->
 	<script type="text/javascript" src="/js/popper.min.js"></script>
