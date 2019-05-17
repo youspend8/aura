@@ -102,7 +102,7 @@
 										</div>
 										
 										<div style="display: none; color: green; font-size: 13px;" id="pw_regular_true"> 보안에 안전한 비밀번호 입니다. :)</div>
-										<div style="display: none; color: red; font-size: 13px;" id="pw_regular_false"> 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.</div>
+										<div style="display: none; color: red; font-size: 13px;" id="pw_regular_false"> 8~16자 길이의 비밀번호를 입력해주세요</div>
 										
 											
 									</div>
@@ -472,6 +472,7 @@
 						$("#email_none").css('display','none');
 						$("#email_true").css('display', 'inline');
 						$('#idDupCheck').click(function(e){
+							alert('인증메일을 확인하세요');
 							e.preventDefault();
 						}).prop("disabled",false);
 						e_mail();
