@@ -33,8 +33,6 @@ public class UserController {
 	@Autowired
 	UserServiceImpl userService;
 	
-	
-	
 	@Autowired
 	private NaverLoginAPI naverLogin;
 	@Autowired
@@ -46,14 +44,18 @@ public class UserController {
 	
 	@RequestMapping(value="/messageCheck")
 	@ResponseBody
-	public int messageCheck(String email, String password) {
+	public int messageCheck(HttpSession session, String email, String password) {
 		System.out.println("넘어옴???");
-		System.out.println(email);
-//		return true
-		if(email == null)
-		return 1;
-		else 
-		return 2;
+		System.out.println("email:"+ email);
+		System.out.println("password:"+ password);
+		
+		if(email.equals("") || password.equals("") || (email.equals("") && password.equals(""))){
+			return 1;
+		} else if(userService.login(session, email, password) == false) {
+		  return 2;
+		} else {
+		  return 3;
+		}
 	}
 	
 	

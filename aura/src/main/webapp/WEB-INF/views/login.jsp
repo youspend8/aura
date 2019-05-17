@@ -72,10 +72,15 @@
 										<label for="remember" class="custom-control-label">아이디 저장</label>
 									</div>
 								</div>
-									<div style="display: none; color: red; font-size: 13px;" id="confirm_idpw">이메일/ 비밀번호를 확인해주세요.</div>
-									<div style="display: none; color: red; font-size: 13px;" id="donfirm_withdraw">정지되거나 탈퇴인원입니다.</div>
 								
-
+								<div style="display: none; color: red; font-size: 13px;" id="confirm_idpw">
+									이메일/ 비밀번호를 입력해주세요.
+								</div>
+								
+								<div style="display: none; color: red; font-size: 13px;" id="confirm_withdraw">
+									로그인 실패입니다.
+								</div>
+								
 								<div class="form-group m-0">
 									<button type="submit" class="btn btn-primary w-100 m-0" id="loginBtn">
 										로그인
@@ -143,34 +148,41 @@
 <!-- 	confirm_withdraw -->
 <script>
 
-$('#confirm_idpw').css('display','none');
-$('#confirm_idpw').css('display','inline');
+// $('#confirm_idpw').css('display','none');
+// $('#confirm_idpw').css('display','inline');
+	function Check(){
+		
+	}
 
 	$("#loginBtn").on('click',function(){
 			$.ajax({
 				url : "/user/messageCheck",
 				data : {
 					"email" : $("#email").val(),
-					"password" : $("password").val()
-				},
+					"password" : $("#password").val()
+					},
 				type : "get",
 				dataType : 'text',
 				success: function(data){
-					alert(data);
-					console.log(data);
 					
-						if(data == 1){
-							$('#confirm_idpw').css('display','none');
-							$('#confirm_idpw').css('display','inline');						
-						}
-						else{
-							$('#confirm_idpw').css('display','inline');
-							$('#confirm_idpw').css('display','none');			
-						}
+// 					alert(data);
+// 					console.log(data);
+					if(data == "1"){
+						$('#confirm_idpw').css('display','inline');
+						$('#confirm_withdraw').css('display','none');
+// 						alert("이메일/ 비밀번호를 입력해주세요.")
+					
+					}else if(data == "2"){
+// 						$('#confirm_idpw').css('display','none');
+// 						$('#confirm_withdraw').css('display','inline');
+						alert("로그인실패")
+					}else{
+						$('#confirm_idpw').css('display','none');
+						$('#confirm_withdraw').css('display','none');	
 
-				}),
-				
-				
+					}
+				}
+			});
 		});
 
 </script>	
