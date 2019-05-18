@@ -218,4 +218,88 @@
 		FROM
 			USER_ACCOUNT
 	</select>
+	
+	<select id="selectGenderCount" resultType="HashMap">
+		SELECT
+			(
+				SELECT
+					COUNT(NICKNAME)
+				FROM
+					USER_ACCOUNT
+				WHERE
+					USER_ACCOUNT.GENDER = 1
+			) AS MALE,
+			(
+				SELECT
+					COUNT(NICKNAME)
+				FROM
+					USER_ACCOUNT
+				WHERE
+					USER_ACCOUNT.GENDER = 0
+			) AS FEMALE
+		FROM
+			DUAL
+	</select>
+	
+	<select id="selectUserRegCount" resultType="HashMap" parameterType="HashMap">
+		SELECT
+		    (
+		        SELECT
+		            COUNT(NICKNAME)
+		        FROM
+		            USER_ACCOUNT
+		        WHERE
+		            REG_DATE BETWEEN #{day1, jdbcType=VARCHAR} AND #{day0, jdbcType=VARCHAR}
+		    ) AS ONE,
+		    (
+		        SELECT
+		            COUNT(NICKNAME)
+		        FROM
+		            USER_ACCOUNT
+		        WHERE
+		            REG_DATE BETWEEN #{day2, jdbcType=VARCHAR} AND #{day1, jdbcType=VARCHAR}
+		    ) AS TWO,
+		    (
+		        SELECT
+		            COUNT(NICKNAME)
+		        FROM
+		            USER_ACCOUNT
+		        WHERE
+		            REG_DATE BETWEEN #{day3, jdbcType=VARCHAR} AND #{day2, jdbcType=VARCHAR}
+		    ) AS THREE,
+		    (
+		        SELECT
+		            COUNT(NICKNAME)
+		        FROM
+		            USER_ACCOUNT
+		        WHERE
+		            REG_DATE BETWEEN #{day4, jdbcType=VARCHAR} AND #{day3, jdbcType=VARCHAR}
+		    ) AS FOUR,
+		    (
+		        SELECT
+		            COUNT(NICKNAME)
+		        FROM
+		            USER_ACCOUNT
+		        WHERE
+		            REG_DATE BETWEEN #{day5, jdbcType=VARCHAR} AND #{day4, jdbcType=VARCHAR}
+		    ) AS FIVE,
+		    (
+		        SELECT
+		            COUNT(NICKNAME)
+		        FROM
+		            USER_ACCOUNT
+		        WHERE
+		            REG_DATE BETWEEN #{day6, jdbcType=VARCHAR} AND #{day5, jdbcType=VARCHAR}
+		    ) AS SIX,
+		    (
+		        SELECT
+		            COUNT(NICKNAME)
+		        FROM
+		            USER_ACCOUNT
+		        WHERE
+		            REG_DATE BETWEEN #{day7, jdbcType=VARCHAR} AND #{day6, jdbcType=VARCHAR}
+		    ) AS SEVEN
+		FROM
+		    DUAL
+	</select>
 </mapper>

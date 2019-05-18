@@ -28,7 +28,7 @@
 								style="width:150px">
 						</a>
 					</div>
-					<div class="card fat">
+					<div class="card fat p-0">
 						<div class="card-body">
 							<h4 class="card-title m-0 ">아이디/ 비밀번호 찾기</h4>
 							<hr style="border : solid 1px; color:rgb(190, 186, 186) ">

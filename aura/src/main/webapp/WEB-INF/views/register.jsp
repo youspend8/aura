@@ -235,8 +235,10 @@
 							</form>
 						</div>
 					</div>
-					<div class="footer">Copyright &copy; 2019 &mdash; Your All Review</div>
 					
+				</div>
+				<div class="footer w-100 text-center pt-4 my-4">
+					Copyright &copy; 2019 &mdash; All Review
 				</div>
 			</div>
 		</div>

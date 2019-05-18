@@ -81,4 +81,15 @@ public class UserRestApi {
 		return new Gson().toJson(list);
 	}
 	
+	@GetMapping(value="/genderStats")
+	public String gender() {
+		
+		return new Gson().toJson(userService.getGenderCount());
+	}
+	
+	@GetMapping(value="/userRegStats")
+	public String userReg() {
+		
+		return new Gson().toJson(userService.getUserRegCount());
+	}
 }

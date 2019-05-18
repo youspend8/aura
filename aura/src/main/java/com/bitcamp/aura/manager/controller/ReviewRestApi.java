@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bitcamp.aura.category.service.DigitalCategoryService;
 import com.bitcamp.aura.review.model.ReviewVO;
 import com.bitcamp.aura.review.service.ReviewService;
+import com.bitcamp.aura.reviewlist.service.ReviewListService;
 import com.google.gson.Gson;
 
 @RestController
@@ -25,29 +27,14 @@ public class ReviewRestApi {
 	@Autowired
 	private ReviewService service;
 	@Autowired
+	private ReviewListService reviewListService;
+	@Autowired
 	private DigitalCategoryService digitalCateService;
 	
 	@RequestMapping(value="/list")
 	public String list() throws ParseException {
 		List<ReviewVO> review = service.searchAll();
-//		StringBuilder sb = new StringBuilder();
-//		sb.append("[");
-//		for (int i = 0; i < review.size(); i++) {
-//			sb.append("{\"num\": \"" + review.get(i).getNum() + "\",");
-//			sb.append("\"category\": \"" + review.get(i).getType() + "\",");
-//			sb.append("\"title\": \"" + review.get(i).getTitle() + "\",");
-//			sb.append("\"addDate\": \"" + review.get(i).getAddDate() + "\",");
-//			sb.append("\"goods\": \"" + review.get(i).getGoods() + "\",");
-//			sb.append("\"bookmark\": \"" + review.get(i).getBookmark() + "\",");
-//			sb.append("\"comments\": \"" + 0 + "\",");
-//			if (i != review.size() - 1) {
-//				sb.append("\"readCount\": \"" + review.get(i).getReadCount() + "\"},");
-//			} else {
-//				sb.append("\"readCount\": \"" + review.get(i).getReadCount() + "\"}");
-//			}
-//		}
-//		sb.append("]");
-//		return sb.toString();
+		
 		return new Gson().toJson(review);
 	}
 	
@@ -92,5 +79,17 @@ public class ReviewRestApi {
 				digitalCateService.readAllCategory1(),
 				digitalCateService.readAllCategory2(),
 				digitalCateService.readAllCategory3()));
+	}
+	
+	@GetMapping(value="/todayReview")
+	public int todayReview() {
+		System.out.println(reviewListService.selectReviewCount());
+		return reviewListService.selectReviewCount();
+	}
+	
+	@GetMapping(value="/popReviewStats")
+	public String popReview() {
+		
+		return new Gson().toJson(service.searchPopular());
 	}
 }

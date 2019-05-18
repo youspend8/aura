@@ -54,7 +54,7 @@
 				</div>
 			</c:if>
 		   	<c:forEach items="${list}" var="review" varStatus="i">
-				<div class="d-flex flex-wrap" style="margin: 3% 0 3% 0;" >
+				<div class="d-flex flex-wrap" style="margin: 3% 0 3% 0;">
 					<div class="col-md-6 col-12">
 			      		<!-- 마우스 호버시 줌 이벤트 -->
 			      		<div class="view overlay zoom" style="width: 100%; height: 100%">
@@ -212,15 +212,16 @@
 						</c:if>
 					</div>
 				</div>
+				<div class="w-100 my-md-0 my-4" style="border-bottom: 1px solid rgb(217, 217, 217);"></div>
 			</c:forEach>
 	    	</c:if>
 		</div>
-		<div class="my-3" style="border-bottom: rgb(217, 217, 217) solid 1px;"></div>
+		
 		<c:if test="${list.size() == 0}">
 			<div style="height: 100px;"></div>
 		</c:if>
 		<c:if test="${list.size() != 0}">
-			<div class="text-right">
+			<div class="text-right mt-2 mr-4">
 				<span class="badge badge-pill align-middle ml-1" style="font-size: 12px; background-color: red">
 					NEW
 				</span>
@@ -560,7 +561,8 @@
 										'</div>'
 									) +
 								'</div>' +
-							'</div>'
+							'</div>' +
+							'<div class="w-100 my-md-0 my-4" style="border-bottom: 1px solid rgb(217, 217, 217);"></div>'
 							document.getElementById('content').innerHTML += list;
 						});
 						if (type == 1 || type == 2) {
