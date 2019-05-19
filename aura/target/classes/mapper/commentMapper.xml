@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.bitcamp.aura.comment.dao.CommentMapper">
+
+	<insert id="insert" parameterType="CommentVO">
+		<selectKey order="AFTER" keyProperty="comment_Num" resultType="int" >
+			SELECT USER_COMMENT_SEQ.CURRVAL FROM DUAL
+		</selectKey>
+			INSERT INTO USER_COMMENT (
+				REVIEW_POST_NUM,
+				NICKNAME,
+				COMMENT_CONTENTS,
+				COMMENT_LIKE,
+				COMMENT_SCORE,
+				COMMENT_DATE,
+				COMMENT_NUM
+			)
+			VALUES (
+				#{review_Post_Num, jdbcType=NUMERIC},
+				#{nickname, jdbcType=VARCHAR},
+				#{comment_Contents, jdbcType=VARCHAR},
+				#{comment_Like, jdbcType=NUMERIC},
+				#{comment_Score, jdbcType=NUMERIC},
+				#{comment_Date, jdbcType=VARCHAR},
+				null
+			)
+	</insert>
+	<insert id="insert_File" parameterType="CommentFileVO">
+		INSERT INTO COMMENT_FILE (
+			COMMENT_NUM,
+			COMMENT_FILE
+		)
+		VALUES (
+			#{comment_Num, jdbcType=NUMERIC},
+			#{comment_File, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<insert id="insertLike" parameterType="java.util.HashMap">
+	 insert into COMMENT_LIKE values(null, #{commentNum}, #{nickname})
+	</insert>
+	
+	<delete id="deleteLike" parameterType="java.util.HashMap">
+	delete from COMMENT_LIKE where COMMENT_NUM=#{commentNum, jdbcType=NUMERIC}
+	</delete>
+	
+	<update id="update" parameterType="CommentVO">
+		UPDATE
+			USER_COMMENT
+		SET
+			COMMENT_CONTENTS = #{comment_Contents, jdbcType=VARCHAR},
+			COMMENT_LIKE = #{comment_Like, jdbcType=NUMERIC},
+			COMMENT_SCORE = #{comment_Score, jdbcType=NUMERIC},
+			COMMENT_DATE = #{comment_Date, jdbcType=VARCHAR}
+		WHERE
+			COMMENT_NUM = #{comment_Num, jdbcType=NUMERIC}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM
+			USER_COMMENT
+		WHERE
+			COMMENT_NUM = #{comment_Num, jdbcType=NUMERIC}
+	</delete>
+	
+	<select id="selectOne" parameterType="int" resultType="CommentVO">
+		SELECT
+			*
+		FROM
+			USER_COMMENT
+		WHERE
+			COMMENT_NUM = #{comment_Num, jdbcType=NUMERIC}
+	</select>
+	<select id="selectAll" resultType="CommentVO">
+		SELECT
+			*
+		FROM
+			USER_COMMENT
+	</select>
+	<select id="moreComment" parameterType="java.util.HashMap" resultType="CommentVO">
+		SELECT
+			RESULT.*
+		FROM (
+			SELECT
+				ROWNUM AS rnum,
+				TEMP.*
+			FROM (
+				SELECT
+					USER_COMMENT.REVIEW_POST_NUM AS review_Post_Num,
+					USER_COMMENT.COMMENT_NUM AS comment_Num,
+					USER_COMMENT.NICKNAME AS nickname,
+					USER_COMMENT.COMMENT_DATE AS comment_Date,
+					USER_COMMENT.COMMENT_CONTENTS AS comment_Contents,
+					USER_COMMENT.COMMENT_LIKE AS comment_Like,
+					USER_COMMENT.COMMENT_SCORE AS comment_Score,
+					USER_ACCOUNT.PROFILE AS profile
+				FROM
+					USER_COMMENT
+				INNER JOIN
+					USER_ACCOUNT
+				ON
+					USER_COMMENT.NICKNAME = USER_ACCOUNT.NICKNAME
+                WHERE
+                    USER_COMMENT.REVIEW_POST_NUM = ${postNum}
+				ORDER BY USER_COMMENT.COMMENT_NUM DESC
+			) TEMP
+		) RESULT
+		WHERE 1 = 1
+			AND
+				rnum BETWEEN #{start} AND #{end}
+	</select>
+	<select id="selectLikeList" parameterType="String" resultType="java.util.HashMap">
+	select * from COMMENT_LIKE 	where NICKNAME=#{nickname}
+	</select>
+	
+	<select id="selectAllByNum" parameterType="int" resultType="CommentVO">
+		SELECT
+			*
+		FROM
+			USER_COMMENT
+		WHERE
+			REVIEW_POST_NUM=#{postNum} ORDER BY COMMENT_NUM DESC
+	</select>
+	<select id="selectFilesByNum" parameterType="int" resultType="CommentFileVo">
+		SELECT
+			*
+		FROM
+			COMMENT_FILE
+		WHERE
+			COMMENT_NUM = #{num}
+	</select>
+
+
+
+
+
+
+
+</mapper>

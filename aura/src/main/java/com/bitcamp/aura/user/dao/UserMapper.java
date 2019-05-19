@@ -17,4 +17,7 @@ public interface UserMapper {
 	public UserVO selectOneEmail(String email);
 	public List<UserVO> selectByParams(HashMap<String, Object> params);
 	public List<UserVO> selectAll();
+	
+	public HashMap<String, Object> selectGenderCount();
+	public HashMap<String, Object> selectUserRegCount(HashMap<String, Object> params);
 }

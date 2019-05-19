@@ -164,7 +164,7 @@
 					
 					<input class="form-control search_input" type="text" name="keyword" placeholder="Search" value="${keyword != null ? keyword : ''}" autocomplete="off">
 				
-					<button type="submit" class="fas text-white ml-2 fa-search" style="font-size: 20px; background-color: transparent; border: 0px transparent solid;"></button>
+					<button type="submit" class="fas ml-md-2 ml-0 fa-search text-dark" style="font-size: 20px; background-color: transparent; border: 0px transparent solid;"></button>
 				</form>
 			</c:if>
 		</div>

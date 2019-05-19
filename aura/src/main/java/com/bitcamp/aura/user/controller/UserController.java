@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,8 +33,6 @@ public class UserController {
 	@Autowired
 	UserServiceImpl userService;
 	
-	
-	
 	@Autowired
 	private NaverLoginAPI naverLogin;
 	@Autowired
@@ -42,6 +41,23 @@ public class UserController {
 	private KakaoLoginAPI kakaoLogin;
 	@Autowired
 	private GoogleLoginAPI googleLogin;
+	
+	@RequestMapping(value="/messageCheck")
+	@ResponseBody
+	public int messageCheck(HttpSession session, String email, String password) {
+		System.out.println("넘어옴???");
+		System.out.println("email:"+ email);
+		System.out.println("password:"+ password);
+		
+		if(email.equals("") || password.equals("") || (email.equals("") && password.equals(""))){
+			return 1;
+		} else if(userService.login(session, email, password) == false) {
+		  return 2;
+		} else {
+		  return 3;
+		}
+	}
+	
 	
 	@RequestMapping(value="/loginForm")
 	public String loginForm(Model model) {
@@ -60,7 +76,8 @@ public class UserController {
 		if(email == null || password == null)
 			return "redirect:/user/login";
 
-		if(userService.login(session, email,password) == true) {
+		if(userService.login(session, email, password) == true) {
+			
 			return "redirect:/main";
 		} else
 			return "redirect:/user/loginForm";
@@ -99,7 +116,12 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/withdraw_user")
-	public String withdraw_user(HttpSession session, String nickname) {
+	public String withdraw_user(HttpSession session) {
+		//del-date 넣기
+		String nickname1 = (String) session.getAttribute("nickname");
+		userService.tempWithdraw(nickname1);
+		System.out.println("삭제 날짜 추가");
+		
 		session.removeAttribute("email");
 		session.removeAttribute("nickname");
 		session.removeAttribute("regLocation");

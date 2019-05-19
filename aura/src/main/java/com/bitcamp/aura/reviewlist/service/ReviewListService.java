@@ -12,4 +12,5 @@ public interface ReviewListService {
 	public ReviewListVO reviewByNum(int num);
 	public List<ReviewListVO> reviewListByParams(ReviewListSelectParamsVO params);
 	public List<ReviewListVO> reviewList();
+	public int selectReviewCount();
 }

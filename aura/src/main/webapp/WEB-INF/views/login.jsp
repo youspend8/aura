@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +41,7 @@
 					</a>
 					</div>
 
-					<div class="card fat">
+					<div class="card fat p-0 m-0">
 						<div class="card-body">
 							<form method="POST" class="my-login-validation" action="/user/login" id="formtag">
 								
@@ -70,7 +72,15 @@
 										<label for="remember" class="custom-control-label">아이디 저장</label>
 									</div>
 								</div>
-
+								
+								<div style="display: none; color: red; font-size: 13px;" id="confirm_idpw">
+									이메일/ 비밀번호를 입력해주세요.
+								</div>
+								
+								<div style="display: none; color: red; font-size: 13px;" id="confirm_withdraw">
+									로그인 실패입니다.
+								</div>
+								
 								<div class="form-group m-0">
 									<button type="submit" class="btn btn-primary w-100 m-0" id="loginBtn">
 										로그인
@@ -81,7 +91,7 @@
 								<!-- API 로그인 로고 -->
 								<div class = "api_login mt-3 d-flex flex-row jusfiy-content-center">
 									<div class="view overlay col-3 p-0"
-									onclick="location.href='https://www.facebook.com/v3.2/dialog/oauth?client_id=432794210621575&redirect_uri=http://localhost:8000/user/oauth/facebook&response_type=code'">
+									onclick="location.href='https://www.facebook.com/v3.2/dialog/oauth?client_id=432794210621575&redirect_uri=http://13.209.65.90:8000/user/oauth/facebook&response_type=code'">
 										<a href="#">
 											<img src="/img/all_review_img/facebook.png" width="60px">
 										</a>									
@@ -89,7 +99,7 @@
 										</div>
 									</div>
 
-									<div class="view overlay col-3 p-0" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=4d8be14468ba52dd371e3720b6c97958&redirect_uri=http://localhost:8000/user/oauth/kakao&response_type=code&scope=account_email,age_range,birthday,gender'">
+									<div class="view overlay col-3 p-0" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=4d8be14468ba52dd371e3720b6c97958&redirect_uri=http://13.209.65.90:8000/user/oauth/kakao&response_type=code&scope=account_email,age_range,birthday,gender'">
 										<a href="">
 											
 											<img src="/img/all_review_img/kakao.png" width="60px">
@@ -98,7 +108,7 @@
 										</div>
 									</div>
 
-									<div class="view overlay col-3 p-0" onclick="location.href='https://accounts.google.com/o/oauth2/auth?client_id=965189490710-v4c0vpevad5c2m825dlombqvcv8l8evm.apps.googleusercontent.com&redirect_uri=http://localhost:8000/user/oauth/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile'">
+									<div class="view overlay col-3 p-0" onclick="location.href='https://accounts.google.com/o/oauth2/auth?client_id=965189490710-v4c0vpevad5c2m825dlombqvcv8l8evm.apps.googleusercontent.com&redirect_uri=http://13.209.65.90:8000/user/oauth/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile'">
 										<a href="#">
 											<img src="/img/all_review_img/google.png"width="60px">
 										</a>								
@@ -107,7 +117,7 @@
 									</div>
 
 									<div class="view overlay col-3 p-0"
-										onclick="location.href='https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=od8MnK4Tb6sAdnv6ZeIT&redirect_uri=http://localhost:8000/user/oauth/naver&state=${state}'">
+										onclick="location.href='https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=od8MnK4Tb6sAdnv6ZeIT&redirect_uri=http://13.209.65.90:8000/user/oauth/naver&state=${state}'">
 										<a href="">
 										<img src="/img/all_review_img/naver.PNG"width="60px">
 										</a>									
@@ -127,15 +137,55 @@
 							</form>
 						</div>
 					</div>
-					<div class="footer">
-						Copyright &copy; 2019 &mdash; All Review
-					</div>
+				</div>
+				<div class="footer w-100 text-center pt-4 my-4">
+					Copyright &copy; 2019 &mdash; All Review
 				</div>
 			</div>
-		</div>
+			</div>
 	</section>
-	
-	
+<!-- 	confirm_idpw -->
+<!-- 	confirm_withdraw -->
+<script>
+
+// $('#confirm_idpw').css('display','none');
+// $('#confirm_idpw').css('display','inline');
+	function Check(){
+		
+	}
+
+	$("#loginBtn").on('click',function(){
+			$.ajax({
+				url : "/user/messageCheck",
+				data : {
+					"email" : $("#email").val(),
+					"password" : $("#password").val()
+					},
+				type : "get",
+				dataType : 'text',
+				success: function(data){
+					
+// 					alert(data);
+// 					console.log(data);
+					if(data == "1"){
+						$('#confirm_idpw').css('display','inline');
+						$('#confirm_withdraw').css('display','none');
+// 						alert("이메일/ 비밀번호를 입력해주세요.")
+					
+					}else if(data == "2"){
+// 						$('#confirm_idpw').css('display','none');
+// 						$('#confirm_withdraw').css('display','inline');
+						alert("로그인실패")
+					}else{
+						$('#confirm_idpw').css('display','none');
+						$('#confirm_withdraw').css('display','none');	
+
+					}
+				}
+			});
+		});
+
+</script>	
 <script>
 
 		$(document).ready(function(){
@@ -193,20 +243,8 @@
 		}
 		
 </script>
-	/*  끝*/
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
 	<!-- Bootstrap tooltips -->
 	<script type="text/javascript" src="/js/popper.min.js"></script>

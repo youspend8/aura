@@ -1,5 +1,7 @@
 package com.bitcamp.aura.user.service;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -29,4 +31,6 @@ public interface UserService {
 	public List<UserVO> getWithdrawUser();
 	public void apiSession(HttpSession session, String userid);
 
+	public HashMap<String, Object> getGenderCount();
+	public HashMap<String, Object> getUserRegCount();
 }

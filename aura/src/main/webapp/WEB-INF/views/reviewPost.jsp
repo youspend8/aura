@@ -6,11 +6,49 @@
 <jsp:include page="/WEB-INF/views/commons/header.jsp" />
 <title>${reviewInfo.TITLE} - All Review</title>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<style>
+	#review_title {
+		font-size: 35px;
+	}
+	#review_category {
+		font-size: 20px; 
+	}
+	#review_tel *, 
+	#review_time *,
+	#review_menu *,
+	#review_contents *,
+	#review_addr *,
+	#digital_option * {
+		font-size: 20px;
+	}
+	.heartCl * {
+		font-size: 40px;
+	}
+	@media screen and (max-width: 576px) {
+		#review_title {
+			font-size: 25px;
+		}
+		#review_category {
+			font-size: 15px; 
+		}
+		#review_tel *, 
+		#review_time *,
+		#review_menu *,
+		#review_contents *,
+		#review_addr *,
+		#digital_option * {
+			font-size: 15px;
+		}
+		.heartCl * {
+			font-size: 25px;
+		}
+	}
+</style>
 <!-- 리뷰 항목 설명 및 사진, 지도 -->
 <div class="container d-flex flex-wrap p-md-2 px-1">
-	<div class="col-12 text-center font-weight-bold my-3 d-flex flex-row align-items-center justify-content-center" style="font-size: 40px; padding: 25px 0; border-bottom: 2px solid orange">
+	<div id="review_title" class="col-12 text-center font-weight-bold my-3 d-flex flex-row align-items-center justify-content-center" style="padding: 25px 0; border-bottom: 2px solid orange">
 		${reviewInfo.TITLE}
-		<span class="badge badge-pill badge-success" style="font-size: 20px; margin-left: 3px;">
+		<span id="review_category" class="badge badge-pill badge-success" style="margin-left: 3px;">
 			<c:if test="${type eq 1}">
 				${reviewInfo.CATEGORY}
 			</c:if>
@@ -20,52 +58,73 @@
 		</span>
 	</div>
 	<div class="col-12 p-0 d-flex justify-content-center align-items-start flex-wrap">
-		<c:if test="${reviewInfo.FILES.size() == 0}">
-			<div class="card-body p-1 col-12 text-center">
-				<img src="/img/NoImg.jpg" style="width: 10%; height: 250px;">
-			</div>
-		</c:if>
 		<c:if test="${reviewInfo.FILES.size() != 0}">
-			<!-- 리뷰 사진 캐러셀 -->
-			<div id="carousel-example-2" class="carousel slide col-12 mb-3" data-ride="carousel">
-				<div class="carousel-inner" role="listbox">
-					<c:forEach var="index" begin="0" end="${reviewInfo.FILES.size() / 3}">
-						<div class="carousel-item ${index == 0 ? 'active' : ''}">
-							<div class="d-flex">
-								<c:forEach var="j" begin="${index}" end="${index + 2}">
-									<div class="card-body text-center p-1 col-4">
-										<c:if test="${reviewInfo.FILES[j] != null}">
-											<img class="w-100" src="${reviewInfo.FILES[j]}" style="width: 100%; height: 300px">
-										</c:if>
-										<c:if test="${reviewInfo.FILES[j] == null}">
-											<img src="/img/NoImg.jpg" style="width: 30%; height: 300px">
-										</c:if>
-									</div>
-								</c:forEach>
+			<div class="d-sm-flex d-none p-1 col-12 text-center">
+				<!-- 리뷰 사진 캐러셀 -->
+				<div id="carousel-example-2" class="carousel slide col-12 mb-3" data-ride="carousel">
+					<div class="carousel-inner" role="listbox">
+						<c:forEach var="index" begin="0" end="${reviewInfo.FILES.size() / 3}">
+							<div class="carousel-item ${index == 0 ? 'active' : ''}">
+								<div class="d-flex">
+									<c:forEach var="j" begin="${index}" end="${index + 2}">
+										<div class="card-body text-center p-1 col-4">
+											<c:if test="${reviewInfo.FILES[j] != null}">
+												<img class="w-100" src="${reviewInfo.FILES[j]}" style="width: 100%; height: 300px">
+											</c:if>
+											<c:if test="${reviewInfo.FILES[j] == null}">
+												<img src="/img/NoImg.jpg" style="width: 30%; height: 300px">
+											</c:if>
+										</div>
+									</c:forEach>
+								</div>
 							</div>
-						</div>
-					</c:forEach>
+						</c:forEach>
+					</div>
+					<c:if test="o.FILES.size() > 3}">
+						<!--Controls-->
+						<a class="carousel-control-prev" href="#carousel-example-2"
+							role="button" data-slide="prev"> <span
+							class="carousel-control-prev-icon" aria-hidden="true"
+							style="color: white;"></span>
+						</a> <a class="carousel-control-next review-photo-button-right"
+							href="#carousel-example-2" role="button" data-slide="next"> <span
+							class="carousel-control-next-icon" aria-hidden="true"
+							style="color: white;"></span>
+						</a>
+					</c:if>
 				</div>
-				<c:if test="o.FILES.size() > 3}">
+			</div>
+			
+			<div class="d-sm-none d-flex p-1 col-12 text-center">
+				<!-- 리뷰 사진 캐러셀 -->
+				<div id="carousel-example-3" class="carousel slide col-12 mb-3" data-ride="carousel">
+					<div class="carousel-inner" role="listbox">
+						<c:forEach var="file" items="${reviewInfo.FILES}" varStatus="i">
+							<div class="carousel-item ${i.index == 0 ? 'active' : ''}">
+								<img class="w-100" src="${file}" style="width: 100%; height: 300px">
+							</div>
+						</c:forEach>
+					</div>
 					<!--Controls-->
-					<a class="carousel-control-prev" href="#carousel-example-2"
+					<a class="carousel-control-prev" href="#carousel-example-3"
 						role="button" data-slide="prev"> <span
 						class="carousel-control-prev-icon" aria-hidden="true"
 						style="color: white;"></span>
-					</a> <a class="carousel-control-next review-photo-button-right"
-						href="#carousel-example-2" role="button" data-slide="next"> <span
+					</a>
+					<a class="carousel-control-next review-photo-button-right"
+						href="#carousel-example-3" role="button" data-slide="next"> <span
 						class="carousel-control-next-icon" aria-hidden="true"
 						style="color: white;"></span>
 					</a>
-				</c:if>
+				</div>
 			</div>
 		</c:if>
 		
 		<div class="col-md-4 col-12 p-0 d-flex flex-wrap align-items-start justify-content-center order-2 ${type eq 3 ? 'order-md-2' : 'order-md-1'}">
 			<c:if test="${type eq 1 || type eq 2}">
-				<div class="col-md-12 col-8">
+				<div id="review_addr" class="col-md-12 col-8">
 					<div id="map" class="my-4" style="width:100%; height:250px;"></div>
-					<div class="font-weight-bold text-center" style="font-size: 20px"> ${reviewInfo.ADDR} </div>
+					<div class="font-weight-bold text-center"> ${reviewInfo.ADDR} </div>
 				</div>
 			</c:if>
 			<div class="col-12 d-flex justify-content-center my-4">
@@ -145,17 +204,17 @@
 		<!-- 리뷰 상세 설명 -->
 		<div class="d-flex flex-wrap col-md-8 col-12 order-1 ${type eq 3 ? 'order-md-1' : 'order-md-2'} mx-auto">
 			<c:if test="${type eq 1 || type eq 2}">
-				<div class="col-12 p-0 my-1">
+				<div id="review_tel" class="col-12 p-0 my-1">
 					<i class="col-1 fas fa-phone"></i>
-					<span class="col-11 p-0 font-weight-bold" style="font-size: 20px;">${reviewInfo.TEL}</span>
+					<span class="col-11 p-0 font-weight-bold">${reviewInfo.TEL}</span>
 				</div>
-				<div class="col-12 p-0 my-1">
+				<div id="review_time" class="col-12 p-0 my-1">
 					<i class="col-1 far fa-clock"></i>
-					<span class="col-11 p-0 font-weight-bold" style="font-size: 20px;">${reviewInfo.SERVICETIME}</span>
+					<span class="col-11 p-0 font-weight-bold">${reviewInfo.SERVICETIME}</span>
 				</div>
-				<div class="col-12 d-flex flex-row p-0 my-1">
+				<div id="review_menu" class="col-12 d-flex flex-row p-0 my-1">
 					<i class="col-1 pt-1 fas fa-utensils"></i>
-					<div class="col-11 pl-1 d-flex flex-wrap font-weight-bold" style="font-size: 20px;">
+					<div class="col-11 pl-1 d-flex flex-wrap font-weight-bold">
 						<c:if test="${type eq 1}">
 							<c:forEach var="menu" items="${menu}"  varStatus="num">
 								<c:if test="${menu.name ne ''}">
@@ -181,7 +240,7 @@
 				</div>
 			</c:if>
 			<c:if test="${reviewInfo.CONTENTS ne '내용없음'}">
-				<div class="col-12 d-flex flex-row p-0 my-1">
+				<div id="review_contents" class="col-12 d-flex flex-row p-0 my-1">
 					<i class="col-1 pt-1 far fa-comment-alt"></i> 
 					<div class="col-11 pl-1 font-weight-bold review-explanation-2">
 						${reviewInfo.CONTENTS}				
@@ -189,7 +248,7 @@
 				</div>
 			</c:if>
 			<c:if test="${type eq 3}">
-				<div class="col-12 d-flex flex-row p-0 my-1">
+				<div id="digital_option" class="col-12 d-flex flex-row p-0 my-1">
 					<i class="col-1 pt-1 far fa-comment-alt"></i> 
 					<div class="col-11 pl-1 font-weight-bold review-explanation-2">
 						<c:forEach var="option" items="${options}" varStatus="num">
@@ -256,324 +315,31 @@
 					
 				</div>
 			</form>
-			
 		</div>
 	</div>
-
-	<!-- 모바일 댓글 목록 -->
-<!-- 	<div class="d-flex col-12 flex-md-row flex-wrap my-3"> -->
-<!-- 		<div class="card col-12 my-3 d-md-none d-block"> -->
-<!-- 			<div -->
-<!-- 				class="card-header px-2 d-flex justify-content-start align-items-center bg-white border-0"> -->
-<!-- 				<div style="width: 13%"> -->
-<!-- 					<img class="rounded-circle w-100" -->
-<!-- 						src="https://picsum.photos/50/50?image=1081"> -->
-<!-- 				</div> -->
-
-<!-- 				<div class="ml-3" style="width: 80%">유저 닉네임2</div> -->
-<!-- 			</div> -->
-
-<!-- 			<div class="card-body p-2"> -->
-<!-- 				<div -->
-<!-- 					class="col-12 d-flex justify-content-center align-items-center p-0 my-3"> -->
-<!-- 					유저들이 올린리뷰 후기 사진0 -->
-<!-- 					<div id="carouselExampleFade" class="carousel slide w-100" -->
-<!-- 						data-ride="carousel"> -->
-<!-- 						<div class="carousel-inner"> -->
-<!-- 							<div class="carousel-item active"> -->
-<!-- 								<div class="d-flex justify-content-around flex-row"> -->
-<!-- 									<img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=230" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0 mx-2" -->
-<!-- 										src="https://picsum.photos/200/200?image=240" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=280" -->
-<!-- 										style="width: 30%"> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<div class="carousel-item"> -->
-<!-- 								<div class="d-flex justify-content-around flex-row"> -->
-<!-- 									<img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=230" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0 mx-2" -->
-<!-- 										src="https://picsum.photos/200/200?image=240" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=280" -->
-<!-- 										style="width: 30%"> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<div class="carousel-item"> -->
-<!-- 								<div class="d-flex justify-content-around flex-row"> -->
-<!-- 									<img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=230" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0 mx-2" -->
-<!-- 										src="https://picsum.photos/200/200?image=240" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=280" -->
-<!-- 										style="width: 30%"> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 						<a class="user-photo-button-left carousel-control-prev pr-5" -->
-<!-- 							href="#carouselExampleFade" role="button" data-slide="prev"> -->
-<!-- 							<span class="carousel-control-prev-icon bg-dark" -->
-<!-- 							aria-hidden="true"></span> <span class="sr-only">Previous</span> -->
-<!-- 						</a> <a class="user-photo-button-right carousel-control-next pl-5" -->
-<!-- 							href="#carouselExampleFade" role="button" data-slide="next"> -->
-<!-- 							<span class="carousel-control-next-icon bg-dark" -->
-<!-- 							aria-hidden="true"></span> <span class="sr-only">Next</span> -->
-<!-- 						</a> -->
-<!-- 					</div> -->
-<!-- 					유저들이 올린리뷰 후기 사진0 End -->
-<!-- 				</div> -->
-<!-- 				<div class="col-12 p-0 my-3">Lorem ipsum dolor sit amet -->
-<!-- 					consectetur adipisicing elit. Maiores, quam ipsum! Expedita -->
-<!-- 					nesciunt repellat officia deserunt incidunt libero sequi possimus -->
-<!-- 					pariatur, fugiat magnam, repellendus ipsa mollitia in explicabo -->
-<!-- 					vitae quos.</div> -->
-<!-- 			</div> -->
-
-<!-- 			<div class="card-footer d-flex justify-content-between bg-white"> -->
-<!-- 				<div -->
-<!-- 					class="col-6 p-0 d-flex flex-wrap align-items-center justify-content-center"> -->
-<!-- 					<div class="col-12 d-flex justify-content-center"> -->
-<!-- 						<i class="far fa-star" style="font-size: 20px;"></i> <i -->
-<!-- 							class="far fa-star" style="font-size: 20px;"></i> <i -->
-<!-- 							class="far fa-star" style="font-size: 20px;"></i> <i -->
-<!-- 							class="far fa-star" style="font-size: 20px;"></i> <i -->
-<!-- 							class="far fa-star" style="font-size: 20px;"></i> -->
-<!-- 					</div> -->
-<!-- 					<p class="text-center">4.5</p> -->
-<!-- 				</div> -->
-
-<!-- 				<div -->
-<!-- 					class="d-flex col-5 flex-column align-items-center justify-content-center"> -->
-<!-- 					<i class="fas fa-heart" style="font-size: 30px"></i> -->
-<!-- 					<p>87.451</p> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 				<div -->
-<!-- 					class="d-flex col-5 flex-column align-items-center justify-content-center"> -->
-<!-- 					<i class="far fa-heart" style="font-size: 30px"></i> -->
-<!-- 					<p>87.451</p> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-
-<!-- 		<div class="card col-12 my-3 d-md-none d-block"> -->
-<!-- 			<div -->
-<!-- 				class="card-header px-2 d-flex justify-content-start align-items-center bg-white border-0"> -->
-<!-- 				<div style="width: 13%"> -->
-<!-- 					<img class="rounded-circle w-100" -->
-<!-- 						src="https://picsum.photos/50/50?image=1081"> -->
-<!-- 				</div> -->
-
-<!-- 				<div class="ml-3" style="width: 80%">유저 닉네임2</div> -->
-<!-- 			</div> -->
-
-<!-- 			<div class="card-body p-2"> -->
-<!-- 				<div -->
-<!-- 					class="col-12 d-flex justify-content-center align-items-center p-0 my-3"> -->
-<!-- 					유저들이 올린리뷰 후기 사진0 -->
-<!-- 					<div id="carouselExampleFade" class="carousel slide w-100" -->
-<!-- 						data-ride="carousel"> -->
-<!-- 						<div class="carousel-inner"> -->
-<!-- 							<div class="carousel-item active"> -->
-<!-- 								<div class="d-flex justify-content-around flex-row"> -->
-<!-- 									<img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=230" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0 mx-2" -->
-<!-- 										src="https://picsum.photos/200/200?image=240" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=280" -->
-<!-- 										style="width: 30%"> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<div class="carousel-item"> -->
-<!-- 								<div class="d-flex justify-content-around flex-row"> -->
-<!-- 									<img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=230" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0 mx-2" -->
-<!-- 										src="https://picsum.photos/200/200?image=240" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=280" -->
-<!-- 										style="width: 30%"> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<div class="carousel-item"> -->
-<!-- 								<div class="d-flex justify-content-around flex-row"> -->
-<!-- 									<img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=230" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0 mx-2" -->
-<!-- 										src="https://picsum.photos/200/200?image=240" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=280" -->
-<!-- 										style="width: 30%"> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 						<a class="user-photo-button-left carousel-control-prev pr-5" -->
-<!-- 							href="#carouselExampleFade" role="button" data-slide="prev"> -->
-<!-- 							<span class="carousel-control-prev-icon bg-dark" -->
-<!-- 							aria-hidden="true"></span> <span class="sr-only">Previous</span> -->
-<!-- 						</a> <a class="user-photo-button-right carousel-control-next pl-5" -->
-<!-- 							href="#carouselExampleFade" role="button" data-slide="next"> -->
-<!-- 							<span class="carousel-control-next-icon bg-dark" -->
-<!-- 							aria-hidden="true"></span> <span class="sr-only">Next</span> -->
-<!-- 						</a> -->
-<!-- 					</div> -->
-<!-- 					유저들이 올린리뷰 후기 사진0 End -->
-<!-- 				</div> -->
-<!-- 				<div class="col-12 p-0 my-3">Lorem ipsum dolor sit amet -->
-<!-- 					consectetur adipisicing elit. Maiores, quam ipsum! Expedita -->
-<!-- 					nesciunt repellat officia deserunt incidunt libero sequi possimus -->
-<!-- 					pariatur, fugiat magnam, repellendus ipsa mollitia in explicabo -->
-<!-- 					vitae quos.</div> -->
-<!-- 			</div> -->
-
-<!-- 			<div class="card-footer d-flex justify-content-between bg-white"> -->
-<!-- 				<div -->
-<!-- 					class="col-6 p-0 d-flex flex-wrap align-items-center justify-content-center"> -->
-<!-- 					<div class="col-12 d-flex justify-content-center"> -->
-<!-- 						<i class="far fa-star" style="font-size: 20px;"></i> <i -->
-<!-- 							class="far fa-star" style="font-size: 20px;"></i> <i -->
-<!-- 							class="far fa-star" style="font-size: 20px;"></i> <i -->
-<!-- 							class="far fa-star" style="font-size: 20px;"></i> <i -->
-<!-- 							class="far fa-star" style="font-size: 20px;"></i> -->
-<!-- 					</div> -->
-<!-- 					<p class="text-center">4.5</p> -->
-<!-- 				</div> -->
-
-<!-- 				<div -->
-<!-- 					class="d-flex col-5 flex-column align-items-center justify-content-center"> -->
-<!-- 					<i class="far fa-heart" style="font-size: 30px"></i> -->
-<!-- 					<p>87.451</p> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-
-<!-- 		<div class="card col-12 my-3 d-md-none d-block"> -->
-<!-- 			<div -->
-<!-- 				class="card-header px-2 d-flex justify-content-start align-items-center bg-white border-0"> -->
-<!-- 				<div style="width: 13%"> -->
-<!-- 					<img class="rounded-circle w-100" -->
-<!-- 						src="https://picsum.photos/50/50?image=1081"> -->
-<!-- 				</div> -->
-
-<!-- 				<div class="ml-3" style="width: 80%">유저 닉네임2</div> -->
-<!-- 			</div> -->
-
-<!-- 			<div class="card-body p-2"> -->
-<!-- 				<div -->
-<!-- 					class="col-12 d-flex justify-content-center align-items-center p-0 my-3"> -->
-<!-- 					유저들이 올린리뷰 후기 사진0 -->
-<!-- 					<div id="carouselExampleFade" class="carousel slide w-100" -->
-<!-- 						data-ride="carousel"> -->
-<!-- 						<div class="carousel-inner"> -->
-<!-- 							<div class="carousel-item active"> -->
-<!-- 								<div class="d-flex justify-content-around flex-row"> -->
-<!-- 									<img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=230" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0 mx-2" -->
-<!-- 										src="https://picsum.photos/200/200?image=240" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=280" -->
-<!-- 										style="width: 30%"> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<div class="carousel-item"> -->
-<!-- 								<div class="d-flex justify-content-around flex-row"> -->
-<!-- 									<img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=230" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0 mx-2" -->
-<!-- 										src="https://picsum.photos/200/200?image=240" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=280" -->
-<!-- 										style="width: 30%"> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<div class="carousel-item"> -->
-<!-- 								<div class="d-flex justify-content-around flex-row"> -->
-<!-- 									<img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=230" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0 mx-2" -->
-<!-- 										src="https://picsum.photos/200/200?image=240" -->
-<!-- 										style="width: 30%"> <img class="col-4 p-0" -->
-<!-- 										src="https://picsum.photos/200/200?image=280" -->
-<!-- 										style="width: 30%"> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 						<a class="user-photo-button-left carousel-control-prev pr-5" -->
-<!-- 							href="#carouselExampleFade" role="button" data-slide="prev"> -->
-<!-- 							<span class="carousel-control-prev-icon bg-dark" -->
-<!-- 							aria-hidden="true"></span> <span class="sr-only">Previous</span> -->
-<!-- 						</a> <a class="user-photo-button-right carousel-control-next pl-5" -->
-<!-- 							href="#carouselExampleFade" role="button" data-slide="next"> -->
-<!-- 							<span class="carousel-control-next-icon bg-dark" -->
-<!-- 							aria-hidden="true"></span> <span class="sr-only">Next</span> -->
-<!-- 						</a> -->
-<!-- 					</div> -->
-<!-- 					유저들이 올린리뷰 후기 사진0 End -->
-<!-- 				</div> -->
-<!-- 				<div class="col-12 p-0 my-3">Lorem ipsum dolor sit amet -->
-<!-- 					consectetur adipisicing elit. Maiores, quam ipsum! Expedita -->
-<!-- 					nesciunt repellat officia deserunt incidunt libero sequi possimus -->
-<!-- 					pariatur, fugiat magnam, repellendus ipsa mollitia in explicabo -->
-<!-- 					vitae quos.</div> -->
-<!-- 			</div> -->
-
-<!-- 			<div class="card-footer d-flex justify-content-between bg-white"> -->
-<!-- 				<div -->
-<!-- 					class="col-6 p-0 d-flex flex-wrap align-items-center justify-content-center"> -->
-<!-- 					<div class="col-12 d-flex justify-content-center"> -->
-<!-- 						<i class="far fa-star" style="font-size: 20px;"></i> <i -->
-<!-- 							class="far fa-star" style="font-size: 20px;"></i> <i -->
-<!-- 							class="far fa-star" style="font-size: 20px;"></i> <i -->
-<!-- 							class="far fa-star" style="font-size: 20px;"></i> <i -->
-<!-- 							class="far fa-star" style="font-size: 20px;"></i> -->
-<!-- 					</div> -->
-<!-- 					<p class="text-center">4.5</p> -->
-<!-- 				</div> -->
-
-<!-- 				<div class="d-flex col-5 flex-column align-items-center justify-content-center"> -->
-<!-- 					<i class="far fa-heart" style="font-size: 30px"></i> -->
-<!-- 					<p>87.451</p> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 				<div -->
-<!-- 					class="d-flex col-5 flex-column align-items-center justify-content-center"> -->
-<!-- 					<i class="far fa-heart" style="font-size: 30px"></i> -->
-<!-- 					<p>87.451</p> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-
-		<!-- strat -->
 	
 		<c:forEach var="commentList" items="${commentList }" varStatus="status" end="4">
-			<div class="col-12 my-3 d-md-flex d-none flex-wrap fade show active" id="home_${commentList.comment_Num }">
+			<div class="w-100 d-md-none d-block" style="border-bottom: rgb(217, 217, 217) solid 1px;"></div>
+			<div class="col-12 my-3 d-flex flex-wrap fade show active" id="home_${commentList.comment_Num }">
 			
 			
-				<div class=" col-2 d-flex flex-column justify-content-center align-items-center" style="width: 100%;">
+				<div class="col-2 d-flex flex-column justify-content-center align-items-center align-self-start order-md-1 order-1">
 					
-					<div class="p-0" style="width: 45%">
+					<div class="p-0">
 					<c:choose>
 						<c:when test="${commentList.profile ne null }">
-							<img class="rounded-circle w-100" src=${commentList.profile } style="height: 75px;">
+							<img class="rounded-circle user-profile" src=${commentList.profile }>
 						</c:when>
 						<c:otherwise>
-							<img class="rounded-circle w-100" src="https://ssl.pstatic.net/static/pwe/address/img_profile.png" style="height: 75px;">
+							<img class="rounded-circle user-profile" src="https://ssl.pstatic.net/static/pwe/address/img_profile.png">
 						</c:otherwise>
 					</c:choose>
 					</div>
 	
-					<div class="w-100 text-center" style="margin-top: 0px">${commentList.nickname }</div>
+					<div class="w-100 text-center user-nickname" style="margin-top: 0px">${commentList.nickname }</div>
 					
 						
-					<div class="p-0 d-flex justify-content-center">
+					<div class="p-0 d-md-flex d-none  justify-content-center">
 						<c:forEach begin="1" end="${commentList.comment_Score }">
 							<i class="fas fa-star" style="font-size: 20px; color: rgb(255, 153, 0);"></i>
 						</c:forEach>
@@ -584,25 +350,25 @@
 					
 				</div>
 				
-				<div class="col-2 d-flex justify-content-center align-items-center p-0">
+				<div class="col-2 d-md-flex d-none justify-content-center align-items-center p-0 order-md-2 order-3">
 					<!-- 유저들이 올린리뷰 후기 사진0-->
 					<c:if test="${commentList.files[0] ne null }">
 						<div id="carouselExampleFade-${status.index }" class="carousel slide carousel-fade"
 							data-ride="carousel">
 							<div class="carousel-inner" style="width:168px; height:123px;">
-									<div class="carousel-item active sample_image">
-										<img class="d-block user-review-img" style="width:168px; height:123px;"
-												src="${commentList.files[0].comment_File}">
-									</div>
-		
-									<c:forEach var="files" items="${commentList.files }" begin="1">
-										<c:if test="${files ne null}">
-											<div class="carousel-item big sample_image">
-												<img class="d-block user-review-img" style="width:168px; height:123px;" 
-															src="${files.comment_File}">
-											</div>
-										</c:if>
-									</c:forEach>
+								<div class="carousel-item active sample_image">
+									<img class="d-block user-review-img" style="width:168px; height:123px;"
+											src="${commentList.files[0].comment_File}">
+								</div>
+	
+								<c:forEach var="files" items="${commentList.files }" begin="1">
+									<c:if test="${files ne null}">
+										<div class="carousel-item big sample_image">
+											<img class="d-block user-review-img" style="width:168px; height:123px;" 
+														src="${files.comment_File}">
+										</div>
+									</c:if>
+								</c:forEach>
 							</div>
 							
 							<a class="user-photo-button-left carousel-control-prev"
@@ -620,15 +386,44 @@
 					<!-- 유저들이 올린리뷰 후기 사진0 End-->
 				</div>
 	
-				<div class="col-6 d-flex flex-wrap flex-row align-items-center">
-					<div class>${commentList.comment_Contents }
-					 </div>
+				<div class="col-md-6 col-9 d-flex flex-wrap flex-row align-items-center order-md-3 order-2">
+					<div class="col-12 p-0 d-flex justify-content-between flex-wrap">
+						<div class="d-md-none d-flex w-100"  style="font-size: 12px;">
+							<fmt:parseDate var="commentDate" value="${commentList.comment_Date}" pattern="yyyy-MM-dd" />
+							<fmt:formatDate var="originCommentDate" value="${commentDate}" pattern="yyyy-MM-dd" />
+							등록일 : ${originCommentDate}
+						</div>
+						<div class="p-0 d-md-none d-flex">
+							<c:forEach begin="1" end="${commentList.comment_Score }">
+								<i class="fas fa-star" style="font-size: 20px; color: rgb(255, 153, 0);"></i>
+							</c:forEach>
+							<c:forEach begin="1" end="${5-commentList.comment_Score }">
+								<i class="far fa-star" style="font-size: 20px; color: rgb(255, 153, 0);"></i>
+							</c:forEach>
+						</div>
 					
+					</div>
+					
+					<div class="col-md-12 p-0 my-4">
+						${commentList.comment_Contents }
+					 </div>
+					 
+					<div class="d-md-flex d-none" style="font-size: 12px;">
+						<fmt:parseDate var="commentDate" value="${commentList.comment_Date}" pattern="yyyy-MM-dd" />
+						<fmt:formatDate var="originCommentDate" value="${commentDate}" pattern="yyyy-MM-dd" />
+						등록일 : ${originCommentDate}
+					</div>
+					
+					<div class="d-md-none d-flex col-12 p-0 flex-wrap">
+						<c:forEach var="files" items="${commentList.files}">
+							<img class="d-block user-review-img mx-1" style="width:90px; height:90px;" src="${files.comment_File}">
+						</c:forEach>
+					</div>
 				</div>
 				
-				<div class="d-flex col-2 flex-column align-items-center justify-content-center ">
+				<div class="d-flex p-md-auto p-0 col-md-2 col-1 flex-column align-items-center justify-content-center order-md-4 order-4">
 					<a class="heartCl" commentNum="${commentList.comment_Num}">
-						<i class="fas fa-heart "  style="font-size: 40px" ></i>
+						<i class="fas fa-heart"></i>
 					</a>
 					<p value="${commentList.comment_Like }" nickname="${nickname}">
 				
@@ -636,11 +431,11 @@
 						
 					</p>
 					<c:if test="${nickname eq commentList.nickname}">
-						<div id="session_Comment" class="w-50 d-flex mt-2 justify-content-center">
+						<div id="session_Comment" class="d-flex mt-2 justify-content-center">
 							<input type="hidden" value="" name="">
 							<input type="hidden" value="" name="">
 							
-							<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0"  data-toggle="modal" data-target="#delete_${commentList.comment_Num }" >삭제</button>
+							<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0;"  data-toggle="modal" data-target="#delete_${commentList.comment_Num }" >삭제</button>
 							
 							
 							<!-- Modal -->
@@ -673,7 +468,6 @@
 			
 		
 			</div>
-		
 		</c:forEach>
 		
 	<c:if test="${commentList.size() eq 0}">
@@ -1108,17 +902,18 @@ $('#review_more').on('click', function(){
 			data.forEach((item, index) => {
 				var more_files = '';
 				var reviewFiles = '';
+				var mobileFiles = '';
 				
 				if (item.files.length == 0) {
 					more_files ='<div class="carousel-item active sample_image">' +
 									'<img class="d-block user-review-img" style="width:168px; height:123px; src="">' +
-								'</div>'
+								'</div>';
 				} else {
 					item.files.forEach((item, index) => {
 						more_files+='<div class="carousel-item' + (index == 0 ? ' active' : '') + ' sample_image">' +
 										'<img class="d-block user-review-img" style="width:168px; height:123px;" src="' + item.comment_File + '">' +
-									'</div>'
-						
+									'</div>';
+						mobileFiles += '<img class="d-block user-review-img mx-1" style="width:90px; height:90px;" src="' + item.comment_File + '">'
 					})
 					reviewFiles += '<div id="carouselExampleFade-' + item.comment_Num + '" class="carousel slide carousel-fade" data-ride="carousel">'
 								+ '<div class="carousel-inner" style="width:168px; height:123px;">'
@@ -1157,7 +952,7 @@ $('#review_more').on('click', function(){
 				if (item.nickname == $('#session_nickname').text()){
 					console.log(item.comment_Num);
 					comment_delete =
-					'<div id="session_Comment" class="w-50 d-flex mt-5 justify-content-center">' +
+					'<div id="session_Comment" class="d-flex mt-2 justify-content-center">' +
 						'<button id="delete_Comment" style="border:0; outline:0; opacity: 0.3; padding: 0"  data-toggle="modal" data-target="#delete_' + item.comment_Num + '">삭제</button>' +
 				   	'</div>' +
 				   	'<div class="modal fade" id="delete_' + item.comment_Num + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="top:30%" aria-hidden="true">' +
@@ -1184,25 +979,43 @@ $('#review_more').on('click', function(){
 				}
 				
 				var reviewComment = 
-					'<div class="col-12 my-3 d-md-flex d-none flex-wrap fade show active" id="home_' + item.comment_Num + '">' +
-						'<div class=" col-2 d-flex flex-column justify-content-center align-items-center" style="width: 100%;">' +
+					'<div class="w-100 d-md-none d-block" style="border-bottom: rgb(217, 217, 217) solid 1px;"></div>' +
+					'<div class="col-12 my-3 d-flex flex-wrap fade show active" id="home_' + item.comment_Num + '">' +
+						'<div class="col-2 d-flex flex-column justify-content-center align-items-center align-self-start order-md-1 order-1">' +
 							'<div class="p-0">' +
-								'<img class="rounded-circle" src="' + profile + '" style="height: 75px;">' +
+								'<img class="rounded-circle user-profile" src="' + profile + '">' +
 							'</div>' +
-							'<div class="w-100 text-center" style="margin-top: 0px">' + item.nickname + '</div>' +
-							'<div class="p-0 d-flex justify-content-center">' +
-									score +
+							'<div class="w-100 text-center user-nickname" style="margin-top: 0px">' + item.nickname + '</div>' +
+							'<div class="p-0 d-md-flex d-none justify-content-center">' +
+								score +
 							'</div>' +
 						'</div>' +
-						'<div class="col-2 d-flex justify-content-center align-items-center p-0">' +
+						'<div class="col-2 d-md-flex d-none justify-content-center align-items-center p-0 order-md-2 order-3">' +
 							reviewFiles +
 						'</div>' +
-						'<div class="col-6 d-flex flex-wrap flex-row align-items-center">' +
-							'<div class>' + item.comment_Contents + '</div>' +
+						'<div class="col-md-6 col-9 d-flex flex-wrap flex-row align-items-center order-md-3 order-2">' +
+							'<div class="col-12 p-0 d-flex justify-content-between flex-wrap">' +
+								'<div class="d-md-none d-flex w-100" style="font-size: 12px;">' +
+									'등록일 : ' + item.comment_Date.substring(0, 11) +
+								'</div>' +
+								'<div class="p-0 d-md-none d-flex">' +
+									score +
+								'</div>' +
+							'</div>' +
+							'<div class="col-md-12 p-0 my-4">' +
+								item.comment_Contents +
+							'</div>' +
+							'<div class="d-md-flex d-none" style="font-size: 12px;">' +
+								'등록일 : ' + item.comment_Date.substring(0, 11) +
+							'</div>' +
+							
+							'<div class="d-md-none d-flex col-12 p-0 flex-wrap">' +
+								mobileFiles + 
+							'</div>' +
 						'</div>' +
-						'<div class="d-flex col-2 flex-column align-items-center justify-content-center">' +
+						'<div class="d-flex p-md-auto p-0 col-md-2 col-1 flex-column align-items-center justify-content-center order-md-4 order-4">' +
 							'<a class="heartCl" commentNum="' + item.comment_Num + '">' +
-								'<i class="fas fa-heart" style="font-size: 40px" ></i>' +
+								'<i class="fas fa-heart"></i>' +
 							'</a>' +
 							'<p value="' + item.comment_Like + '" nickname="' + item.nickname + '">' +
 								addComma(item.comment_Like) +
@@ -1435,7 +1248,10 @@ $('#review_more').on('click', function(){
 		display: none;
 		height: 0px;
 	}
-	
+	.user-profile {
+		height: 75px;
+		width: 75px;
+	}
 	@media (max-width: 767.9px) {
 		#img22 {
 			height: 100px;
@@ -1443,6 +1259,16 @@ $('#review_more').on('click', function(){
 		#write_form {
 			display: flex;
 			height: 100%;
+		}
+		.user-profile {
+			width: 45px;
+			height: 45px;
+		}
+		.user-nickname {
+			font-size: 13px;
+		}
+		#delete_Comment {
+			font-size: 10px;
 		}
 	}
 </style>

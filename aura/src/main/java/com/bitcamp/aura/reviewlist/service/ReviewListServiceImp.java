@@ -1,9 +1,11 @@
 package com.bitcamp.aura.reviewlist.service;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.spi.CalendarNameProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -109,6 +111,18 @@ public class ReviewListServiceImp implements ReviewListService{
 			return false;
 		}
 	}
-	
+
+	@Override
+	public int selectReviewCount() {
+		// TODO Auto-generated method stub
+		Calendar today = Calendar.getInstance();
+		Calendar tomorrow = Calendar.getInstance();
+		tomorrow.add(tomorrow.DATE, 1);
+		
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("today", new SimpleDateFormat("yyyy-MM-dd").format(today.getTime()));
+		params.put("tomorrow", new SimpleDateFormat("yyyy-MM-dd").format(tomorrow.getTime()));
+		return reviewMapper.selectReviewListCount(params);
+	}
 	
 }

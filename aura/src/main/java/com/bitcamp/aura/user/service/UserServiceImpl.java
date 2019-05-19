@@ -3,6 +3,7 @@ package com.bitcamp.aura.user.service;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,13 +16,11 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.print.attribute.HashAttributeSet;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.bitcamp.aura.user.dao.UserMapper;
 import com.bitcamp.aura.user.model.UserDelVO;
@@ -60,7 +59,8 @@ public class UserServiceImpl implements UserService {
 	public boolean login(HttpSession session, String email, String password) {
 		// TODO Auto-generated method stub
 		UserVO originUser = userMapper.selectOneEmail(email);
-		if (originUser != null) {
+//		System.out.println("Del Date 확인 !!!!!!!!!!!!!!: "+userMapper.selectOneEmail(email).getDelDate());
+		if ( (originUser != null) && (userMapper.selectOneEmail(email).getDelDate() == null)) {
 			if (originUser.getPassword().equals(password)) {
 				session.setAttribute("nickname", originUser.getNickname());
 				session.setAttribute("email", originUser.getEmail());
@@ -215,12 +215,34 @@ public class UserServiceImpl implements UserService {
 		return random_Num;
 	}
 
+	
+	
 	@Override
 	public List<UserVO> getWithdrawUser() {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> params = new HashMap<>();
 		params.put("isDel", true);
 		return userMapper.selectByParams(params);
+	}
+
+	@Override
+	public HashMap<String, Object> getGenderCount() {
+		// TODO Auto-generated method stub
+		return userMapper.selectGenderCount();
+	}
+
+	@Override
+	public HashMap<String, Object> getUserRegCount() {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> params = new HashMap<>();
+		
+		for (int i = 0; i < 7; i++) {
+			Calendar cal = Calendar.getInstance();
+			cal.add(cal.DATE, -i + 1);
+			params.put("day" + i, new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime()));
+		}
+		
+		return userMapper.selectUserRegCount(params);
 	}
 
 }
