@@ -21,7 +21,7 @@
 			null,
 			#{title, jdbcType=VARCHAR},
 			#{contents, jdbcType=VARCHAR},
-			#{writerDate, jdbcType=VARCHAR},
+			SYSTIMESTAMP + 1/24 * 9,
 			#{isNotice, jdbcType=NUMERIC}
  		)
  	</insert>

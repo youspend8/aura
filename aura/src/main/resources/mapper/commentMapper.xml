@@ -24,7 +24,7 @@
 				#{comment_Contents, jdbcType=VARCHAR},
 				#{comment_Like, jdbcType=NUMERIC},
 				#{comment_Score, jdbcType=NUMERIC},
-				#{comment_Date, jdbcType=VARCHAR},
+				SYSTIMESTAMP + 1/24 * 9,
 				null
 			)
 	</insert>

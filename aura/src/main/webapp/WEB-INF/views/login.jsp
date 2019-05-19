@@ -104,7 +104,7 @@
 										</div>
 									</div>
 
-									<div class="view overlay col-3 p-0" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=4d8be14468ba52dd371e3720b6c97958&redirect_uri=http://13.209.65.90:8000/user/oauth/kakao&response_type=code&scope=account_email,age_range,birthday,gender'">
+									<div class="view overlay col-3 p-0" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=4d8be14468ba52dd371e3720b6c97958&redirect_uri=http://13.209.65.90/user/oauth/kakao&response_type=code&scope=account_email,age_range,birthday,gender'">
 										<a href="">
 											
 											<img src="/img/all_review_img/kakao.png" width="60px">
@@ -113,7 +113,7 @@
 										</div>
 									</div>
 
-									<div class="view overlay col-3 p-0" onclick="location.href='https://accounts.google.com/o/oauth2/auth?client_id=965189490710-v4c0vpevad5c2m825dlombqvcv8l8evm.apps.googleusercontent.com&redirect_uri=http://13.209.65.90:8000/user/oauth/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile'">
+									<div class="view overlay col-3 p-0" onclick="location.href='https://accounts.google.com/o/oauth2/auth?client_id=965189490710-v4c0vpevad5c2m825dlombqvcv8l8evm.apps.googleusercontent.com&redirect_uri=http://ec2-13-209-65-90.ap-northeast-2.compute.amazonaws.com/user/oauth/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile'">
 										<a href="#">
 											<img src="/img/all_review_img/google.png"width="60px">
 										</a>								

@@ -45,7 +45,7 @@ public class GoogleLoginAPI implements GoogleLogin{
 	        sb.append("grant_type=authorization_code");
 	        sb.append("&client_id=965189490710-v4c0vpevad5c2m825dlombqvcv8l8evm.apps.googleusercontent.com");
 	        sb.append("&client_secret=00FT0R0DraT3vNHQZTb7b3DQ");
-	        sb.append("&redirect_uri=http://localhost:8000/user/oauth/google");
+	        sb.append("&redirect_uri=http://ec2-13-209-65-90.ap-northeast-2.compute.amazonaws.com/user/oauth/google");
 	        sb.append("&scope=openid%20email%20profile");
 	        sb.append("&code=" + code);
 	        bw.write(sb.toString());
