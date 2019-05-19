@@ -48,14 +48,16 @@
 <div class="container d-flex flex-wrap p-md-2 px-1">
 	<div id="review_title" class="col-12 text-center font-weight-bold my-3 d-flex flex-row align-items-center justify-content-center" style="padding: 25px 0; border-bottom: 2px solid orange">
 		${reviewInfo.TITLE}
-		<span id="review_category" class="badge badge-pill badge-success" style="margin-left: 3px;">
-			<c:if test="${type eq 1}">
-				${reviewInfo.CATEGORY}
-			</c:if>
-			<c:if test="${type eq 2}">
-				${reviewInfo.HOSPITALCATEGORY}
-			</c:if>
-		</span>
+		<c:if test="${type ne 3}">
+			<span id="review_category" class="badge badge-pill badge-success" style="margin-left: 3px;">
+				<c:if test="${type eq 1}">
+					${reviewInfo.CATEGORY}
+				</c:if>
+				<c:if test="${type eq 2}">
+					${reviewInfo.HOSPITALCATEGORY}
+				</c:if>
+			</span>
+		</c:if>
 	</div>
 	<div class="col-12 p-0 d-flex justify-content-center align-items-start flex-wrap">
 		<c:if test="${reviewInfo.FILES.size() != 0}">
@@ -201,8 +203,37 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
+		
 		<!-- 리뷰 상세 설명 -->
 		<div class="d-flex flex-wrap col-md-8 col-12 order-1 ${type eq 3 ? 'order-md-1' : 'order-md-2'} mx-auto">
+			<div id="review_tel" class="col-12 p-0 my-1">
+				<i class="col-1 fas fa-star" style="background-color: white"></i>
+				<span class="col-11 p-0 font-weight-bold">
+			    	<c:forEach var="i" begin="0" end="4">
+			    		<c:if test="${reviewInfo.STARS - i >= 1}">
+				    		<i style="color: rgb(255, 153, 0);" class="fas fa-star"></i>
+		    			</c:if>
+		    			<c:if test="${reviewInfo.STARS - i < 1 && reviewInfo.STARS - i > 0}">
+			    			<i style="color: rgb(255, 153, 0);" class="fas fa-star-half-alt"></i>
+			    		</c:if>
+			    		<c:if test="${reviewInfo.STARS - i <= 0}">
+				    		<i style="color: rgb(255, 153, 0);" class="far fa-star"></i>
+			    		</c:if>
+			    	</c:forEach>
+				</span>
+			    <span style="font-weight:bolder; font-size: 14px;">
+			    	<c:if test="${reviewInfo.STARS != 0}">
+			    		<fmt:formatNumber value="${reviewInfo.STARS}" pattern=".0" />
+			    	</c:if>
+			    	<c:if test="${reviewInfo.STARS == 0}">
+			    		<fmt:formatNumber value="${reviewInfo.STARS}" pattern="0" />
+			    	</c:if>
+			    </span>
+			    <span class="ml-2" style="font-size:80%;">
+			    	${reviewInfo.STARCOUNT}
+			    	Reviews
+			    </span>
+			</div>
 			<c:if test="${type eq 1 || type eq 2}">
 				<div id="review_tel" class="col-12 p-0 my-1">
 					<i class="col-1 fas fa-phone"></i>

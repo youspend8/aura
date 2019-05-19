@@ -127,7 +127,6 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<ReviewVO> searchNew() {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> params = new HashMap<>();
-		params.put("order", "new");
 		return setSearchFile(mapper.selectAll(params));
 	}
 
