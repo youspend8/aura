@@ -234,15 +234,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public HashMap<String, Object> getUserRegCount() {
 		// TODO Auto-generated method stub
-		HashMap<String, Object> params = new HashMap<>();
 		
-		for (int i = 0; i < 7; i++) {
-			Calendar cal = Calendar.getInstance();
-			cal.add(cal.DATE, -i + 1);
-			params.put("day" + i, new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime()));
-		}
-		
-		return userMapper.selectUserRegCount(params);
+		return userMapper.selectUserRegCount();
 	}
 
 }

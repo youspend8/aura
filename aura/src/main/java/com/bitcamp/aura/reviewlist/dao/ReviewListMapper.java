@@ -1,6 +1,5 @@
 package com.bitcamp.aura.reviewlist.dao;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -19,5 +18,5 @@ public interface ReviewListMapper {
 	public List<ReviewListVO> selectAllByParams(ReviewListSelectParamsVO params);
 	public List<ReviewListVO> selectAll();
 	
-	public int selectReviewListCount(HashMap<String, Object> params);
+	public int selectReviewListCount();
 }

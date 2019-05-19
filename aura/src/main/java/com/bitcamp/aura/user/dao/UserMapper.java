@@ -19,5 +19,5 @@ public interface UserMapper {
 	public List<UserVO> selectAll();
 	
 	public HashMap<String, Object> selectGenderCount();
-	public HashMap<String, Object> selectUserRegCount(HashMap<String, Object> params);
+	public HashMap<String, Object> selectUserRegCount();
 }

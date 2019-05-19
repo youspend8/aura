@@ -61,6 +61,9 @@
 			GENDER = #{gender, jdbcType=NUMERIC},
 			ADDRESS = #{address, jdbcType=VARCHAR},
 			REG_LOCATION = #{regLocation, jdbcType=NUMERIC},
+			<if test="delDate == null">
+				DEL_DATE = null,
+			</if>
 			<if test="delDate != null">
 				DEL_DATE = SYSTIMESTAMP + 1/24 * 9,
 			</if>
@@ -242,7 +245,7 @@
 			DUAL
 	</select>
 	
-	<select id="selectUserRegCount" resultType="HashMap" parameterType="HashMap">
+	<select id="selectUserRegCount" resultType="HashMap">
 		SELECT
 		    (
 		        SELECT
@@ -250,7 +253,7 @@
 		        FROM
 		            USER_ACCOUNT
 		        WHERE
-		            REG_DATE BETWEEN #{day1, jdbcType=VARCHAR} AND #{day0, jdbcType=VARCHAR}
+		            REG_DATE BETWEEN SYSDATE AND SYSDATE + 1
 		    ) AS ONE,
 		    (
 		        SELECT
@@ -258,7 +261,7 @@
 		        FROM
 		            USER_ACCOUNT
 		        WHERE
-		            REG_DATE BETWEEN #{day2, jdbcType=VARCHAR} AND #{day1, jdbcType=VARCHAR}
+		            REG_DATE BETWEEN SYSDATE - 1 AND SYSDATE
 		    ) AS TWO,
 		    (
 		        SELECT
@@ -266,7 +269,7 @@
 		        FROM
 		            USER_ACCOUNT
 		        WHERE
-		            REG_DATE BETWEEN #{day3, jdbcType=VARCHAR} AND #{day2, jdbcType=VARCHAR}
+		            REG_DATE BETWEEN SYSDATE - 2 AND SYSDATE - 1
 		    ) AS THREE,
 		    (
 		        SELECT
@@ -274,7 +277,7 @@
 		        FROM
 		            USER_ACCOUNT
 		        WHERE
-		            REG_DATE BETWEEN #{day4, jdbcType=VARCHAR} AND #{day3, jdbcType=VARCHAR}
+		            REG_DATE BETWEEN SYSDATE - 3 AND SYSDATE - 2
 		    ) AS FOUR,
 		    (
 		        SELECT
@@ -282,7 +285,7 @@
 		        FROM
 		            USER_ACCOUNT
 		        WHERE
-		            REG_DATE BETWEEN #{day5, jdbcType=VARCHAR} AND #{day4, jdbcType=VARCHAR}
+		            REG_DATE BETWEEN SYSDATE - 4 AND SYSDATE - 3
 		    ) AS FIVE,
 		    (
 		        SELECT
@@ -290,7 +293,7 @@
 		        FROM
 		            USER_ACCOUNT
 		        WHERE
-		            REG_DATE BETWEEN #{day6, jdbcType=VARCHAR} AND #{day5, jdbcType=VARCHAR}
+		            REG_DATE BETWEEN SYSDATE - 5 AND SYSDATE - 4
 		    ) AS SIX,
 		    (
 		        SELECT
@@ -298,7 +301,7 @@
 		        FROM
 		            USER_ACCOUNT
 		        WHERE
-		            REG_DATE BETWEEN #{day7, jdbcType=VARCHAR} AND #{day6, jdbcType=VARCHAR}
+		            REG_DATE BETWEEN SYSDATE - 6 AND SYSDATE - 5
 		    ) AS SEVEN
 		FROM
 		    DUAL

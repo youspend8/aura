@@ -529,32 +529,65 @@
 		WHERE
 		    REVIEW.NUM = #{num}
 	</select>
+	<select id="selectCount" resultType="int" parameterType="HashMap">
+		SELECT
+		(
+			SELECT
+				COUNT(REVIEW.NUM)
+			FROM
+				REVIEW
+			WHERE
+				1 = 1
+			<if test="keyword != null">
+				AND
+					REVIEW.TITLE LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+			</if>
+		)
+		FROM
+			DUAL
+	</select>
 	<select id="selectAll" parameterType="HashMap" resultMap="selectAllMap">
 		SELECT
-		    REVIEW.NUM,
-		    REVIEW.TITLE,
-		    REVIEW.CONTENTS,
-		    NVL((
-			    SELECT
-			        AVG(COMMENT_SCORE)
-			    FROM
-			        USER_COMMENT
-			    WHERE
-			        USER_COMMENT.REVIEW_POST_NUM = REVIEW.NUM
-		    ), 0) AS STARS,
-		    REVIEW.GOODS,
-		    REVIEW.BOOKMARK,
-		    REVIEW.SHARES,
-		    REVIEW.READ_COUNT,
-		    REVIEW.ADD_DATE,
-		    REVIEW.TYPE
-		FROM 
-		    REVIEW
-		<if test="order != null and order.equals('pop')">
-			ORDER BY STARS DESC
-		</if>
-		<if test="order != null and order.equals('new')">
-			ORDER BY NUM DESC
+			*
+		FROM (
+			SELECT
+				ROWNUM rnum,
+				REVIEW.*
+			FROM (
+				SELECT
+				    REVIEW.NUM,
+				    REVIEW.TITLE,
+				    REVIEW.CONTENTS,
+				    NVL((
+					    SELECT
+					        AVG(COMMENT_SCORE)
+					    FROM
+					        USER_COMMENT
+					    WHERE
+					        USER_COMMENT.REVIEW_POST_NUM = REVIEW.NUM
+				    ), 0) AS STARS,
+				    REVIEW.GOODS,
+				    REVIEW.BOOKMARK,
+				    REVIEW.SHARES,
+				    REVIEW.READ_COUNT,
+				    REVIEW.ADD_DATE,
+				    REVIEW.TYPE
+				FROM 
+				    REVIEW
+				WHERE
+					1 = 1
+				<if test="keyword != null">
+					AND
+						REVIEW.TITLE LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+				</if>
+				ORDER BY NUM DESC
+			) REVIEW
+		)
+		WHERE 
+			1 = 1
+		<if test="start != null">
+		AND
+			rnum BETWEEN #{start, jdbcType=NUMERIC} AND #{end, jdbcType=NUMERIC}
 		</if>
 	</select>
 	<resultMap type="ReviewVO" id="selectAllMap">

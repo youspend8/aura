@@ -32,17 +32,21 @@ public class ReviewRestApi {
 	private DigitalCategoryService digitalCateService;
 	
 	@RequestMapping(value="/list")
-	public String list() throws ParseException {
-		List<ReviewVO> review = service.searchAll();
+	public String list(
+			@RequestParam HashMap<String, Object> params) throws ParseException {
+		HashMap<String, Object> result = new HashMap<>();
 		
-		return new Gson().toJson(review);
+		result.put("total", service.getCount(params));
+		result.put("result", service.searchAll(params));
+		
+		return new Gson().toJson(result);
 	}
 	
 	@PostMapping(value="/")
 	public boolean write(
 			@RequestParam HashMap<String, Object> params,
 			@RequestParam("file") MultipartFile[] multipartFiles) {
-		System.out.println(params);
+		
 		service.writeReview(params, multipartFiles);
 		return true;
 	}
@@ -83,7 +87,7 @@ public class ReviewRestApi {
 	
 	@GetMapping(value="/todayReview")
 	public int todayReview() {
-		System.out.println(reviewListService.selectReviewCount());
+		
 		return reviewListService.selectReviewCount();
 	}
 	

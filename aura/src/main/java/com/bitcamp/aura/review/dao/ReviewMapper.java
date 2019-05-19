@@ -22,4 +22,5 @@ public interface ReviewMapper {
 	public List<ReviewVO> selectDigitalsByParams(SearchParams params);
 	public HashMap<String, Object> selectByNum(HashMap<String, Object> params);
 	public List<ReviewVO> selectAll(HashMap<String, Object> params);
+	public int selectCount(HashMap<String, Object> params);
 }

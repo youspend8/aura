@@ -109,9 +109,8 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<ReviewVO> searchAll() {
+	public List<ReviewVO> searchAll(HashMap<String, Object> params) {
 		// TODO Auto-generated method stub
-		HashMap<String, Object> params = new HashMap<>();
 		params.put("order", "new");
 		return setSearchFile(mapper.selectAll(params));
 	}
@@ -143,6 +142,12 @@ public class ReviewServiceImpl implements ReviewService {
 			((ReviewVO) review).setFiles(files);
 		});
 		return list;
+	}
+
+	@Override
+	public int getCount(HashMap<String, Object> params) {
+		// TODO Auto-generated method stub
+		return mapper.selectCount(params);
 	}
 
 }

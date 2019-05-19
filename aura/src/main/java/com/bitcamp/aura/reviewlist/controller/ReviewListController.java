@@ -72,7 +72,7 @@ public class ReviewListController {
 //		List<ReviewFileVO> reviewFileVo = reviewFileMapper.selectByPostNum(postNum);
 //		System.out.println("type:" + type);
 		
-		List<ReviewVO> reviewList = reviewService.searchAll();
+		List<ReviewVO> reviewList = reviewService.searchAll(new HashMap<>());
 		
 		reviewListVo.forEach(item -> {
 			item.setTitle(reviewService.searchOne(item.getPostNum()).getTitle());
