@@ -34,7 +34,7 @@ public class CommentServicelmpl implements CommentService {
 		
 		for (MultipartFile check : fileList) {
 			if (!isValidExtension(check.getOriginalFilename())) {
-				return ".gif, .jpg, .png 확장자만 가능합니다.";
+				return ".gif, .jpg, .png, .jpeg, .bmp 확장자만 가능합니다.";
 			}
 		}
 		
@@ -164,6 +164,8 @@ public class CommentServicelmpl implements CommentService {
         case "jpg":
         case "png":
         case "gif":
+        case "jpeg":
+        case "bmp":
             return true;
         }
         return false;

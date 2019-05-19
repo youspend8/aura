@@ -27,7 +27,7 @@ public class FacebookLoginAPI implements FacebookLogin{
 		// TODO Auto-generated method stub
 		String reqURL = "https://graph.facebook.com/v3.2/oauth/access_token?"
 				   + "client_id=432794210621575"
-				   + "&redirect_uri=http://localhost:8000/user/oauth/facebook"
+				   + "&redirect_uri=http://ec2-13-209-65-90.ap-northeast-2.compute.amazonaws.com/user/oauth/facebook"
 				   + "&client_secret=6e5b5fe02179fee017ee778ca4b67d6a"
 				   + "&code=" + code;
 		

@@ -36,7 +36,7 @@
 			#{ssn, jdbcType=VARCHAR},
 			#{gender, jdbcType=NUMERIC},
 			#{address, jdbcType=VARCHAR},
-			#{regDate, jdbcType=VARCHAR},
+			SYSTIMESTAMP + 1/24 * 9,
 			#{regLocation, jdbcType=NUMERIC},
 			#{delDate, jdbcType=VARCHAR},
 			#{isAdmin, jdbcType=NUMERIC},
