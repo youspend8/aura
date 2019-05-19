@@ -87,7 +87,12 @@
 									</button>
 								</div>
 								
-								
+								<div
+								  class="fb-like"
+								  data-share="true"
+								  data-width="450"
+								  data-show-faces="true">
+								</div>
 								<!-- API 로그인 로고 -->
 								<div class = "api_login mt-3 d-flex flex-row jusfiy-content-center">
 									<div class="view overlay col-3 p-0"
