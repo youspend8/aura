@@ -8,17 +8,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 
 @Configuration
-@MapperScan(
-	basePackages={
-		"com.bitcamp.aura.user.dao",
-		"com.bitcamp.aura.review.dao",
-		"com.bitcamp.aura.notice.dao",
-		"com.bitcamp.aura.reviewlist.dao",
-		"com.bitcamp.aura.comment.dao"
-	}
-)
 public class MybatisConfig {
 	
 	@Bean
@@ -26,6 +19,7 @@ public class MybatisConfig {
 		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 		sqlSessionFactory.setDataSource(dataSource);
 		sqlSessionFactory.setTypeAliasesPackage("com.bitcamp.aura");
+		sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:/mapper/*.xml"));
 		return sqlSessionFactory.getObject();
 	}
 	

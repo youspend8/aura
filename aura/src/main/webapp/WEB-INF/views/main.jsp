@@ -47,7 +47,7 @@
 				
 				<input class="form-control search_input" type="text" name="keyword" placeholder="Search" autocomplete="off">
 			
-				<button type="submit" class="fas text-white ml-2 fa-search" style="font-size: 20px; background-color: transparent; border: 0px transparent solid;"></button>
+				<button type="submit" class="fas text-dark ml-md-2 ml-0 fa-search" style="font-size: 20px; background-color: transparent; border: 0px transparent solid;"></button>
 			</form>
 		</div>
 		<div style="height: 100px;"></div>
@@ -327,10 +327,10 @@
 		</div>
 	</div>
 	
-	<div class="container d-flex justify-content-center" style="padding: 0 70px; padding-bottom: 20px;">
-		<div class="col-6">
+	<div class="container d-flex flex-wrap justify-content-center board-section" style="padding: 0 10%; padding-bottom: 20px;">
+		<div class="col-md-6 col-12 p-0">
 			<h5 class="w-100 font-weight-bold" style="color: red">
-				공지사항
+				NOTICE
 			</h5>
 			<table class="content w-100">
 				<c:forEach var="notice" items="${noticeList}">
@@ -345,9 +345,10 @@
 					</tr>
 				</c:forEach>
 			</table>
-		</div><div class="col-6">
+		</div>
+		<div class="col-md-6 col-12 p-0 mt-md-0 mt-5">
 			<h5 class="w-100 font-weight-bold" style="color: red">
-				이벤트
+				EVENT
 			</h5>
 			<table class="content w-100">
 				<c:forEach var="event" items="${eventList}">
@@ -375,7 +376,7 @@
 	         	 	<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-content p-4">
+			<div class="modal-body p-4" style="height: 400px; overflow-y: scroll">
 				<div id="boardContents">
 					
 				</div>
@@ -422,4 +423,20 @@
 		})
 	})
 </script>
+<style>
+	@media screen and (max-width: 375px) {
+		* {
+			font-size: 13px;
+		}
+		.thema-flex {
+			height: 100%;
+		}
+		.first_recommand  {
+			width: 80%;
+		}
+		.board-section {
+			margin: 20px 0;
+		}
+	}
+</style>
 <jsp:include page="/WEB-INF/views/commons/footer.jsp"></jsp:include>

@@ -33,6 +33,14 @@
 		select * from REVIEW_LIST
 	</select>
 	
+	<select id="selectReviewListCount" resultType="int" parameterType="HashMap">
+		SELECT
+			COUNT(REVIEW_NUM)
+		FROM
+			REVIEW_LIST
+		WHERE
+			REVIEW_DATE BETWEEN #{today, jdbcType=VARCHAR} AND #{tomorrow, jdbcType=VARCHAR}
+	</select>
 	<resultMap type="ReviewListVO" id="ReviewListVOMap">
 	 <result property="postNum" column="REVIEW_POST_NUM"/>
 	 <result property="num" column="REVIEW_NUM"/>
