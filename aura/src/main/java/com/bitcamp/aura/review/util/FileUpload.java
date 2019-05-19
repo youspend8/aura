@@ -20,7 +20,7 @@ import com.bitcamp.aura.review.model.ReviewFileVO;
 @Service
 @Transactional
 public class FileUpload {
-	public static final String PATH = "/src/main/resources/static";
+	public static final String PATH = "/static";
 
 	@Autowired
 	private ReviewFileMapper mapper;

@@ -53,8 +53,7 @@
 		SET
 			COMMENT_CONTENTS = #{comment_Contents, jdbcType=VARCHAR},
 			COMMENT_LIKE = #{comment_Like, jdbcType=NUMERIC},
-			COMMENT_SCORE = #{comment_Score, jdbcType=NUMERIC},
-			COMMENT_DATE = #{comment_Date, jdbcType=VARCHAR}
+			COMMENT_SCORE = #{comment_Score, jdbcType=NUMERIC}
 		WHERE
 			COMMENT_NUM = #{comment_Num, jdbcType=NUMERIC}
 	</update>

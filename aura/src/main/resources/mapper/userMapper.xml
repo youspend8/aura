@@ -60,9 +60,10 @@
 			SSN = #{ssn, jdbcType=VARCHAR},
 			GENDER = #{gender, jdbcType=NUMERIC},
 			ADDRESS = #{address, jdbcType=VARCHAR},
-			REG_DATE = #{regDate, jdbcType=VARCHAR},
 			REG_LOCATION = #{regLocation, jdbcType=NUMERIC},
-			DEL_DATE = #{delDate, jdbcType=VARCHAR},
+			<if test="delDate != null">
+				DEL_DATE = SYSTIMESTAMP + 1/24 * 9,
+			</if>
 			ISADMIN = #{isAdmin, jdbcType=NUMERIC},
 			ACCESS_TOKEN = #{accessToken, jdbcType=VARCHAR},
 			REFRESH_TOKEN = #{refreshToken, jdbcType=VARCHAR},

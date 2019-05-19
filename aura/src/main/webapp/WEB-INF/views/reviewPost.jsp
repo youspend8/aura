@@ -652,7 +652,7 @@ geocoder.addressSearch('${reviewInfo.ADDR}', function(result, status) {
       content: {  // 여기부터 실제 내용이 들어갑니다. 
         title: '${reviewInfo.TITLE}', // 본문 제목
         description: '${reviewInfo.CONTENTS}',  // 본문 바로 아래 들어가는 영역?
-        imageUrl: 'http://13.209.65.90${reviewInfo.files[0]}', // 이미지
+        imageUrl: 'http://13.209.65.90${reviewInfo.FILES[0]}', // 이미지
         link: {
           mobileWebUrl: 'http://13.209.65.90/review/post?num=${reviewInfo.NUM}&type=${reviewInfo.TYPE}',
           webUrl: 'http://13.209.65.90/review/post?num=${reviewInfo.NUM}&type=${reviewInfo.TYPE}'
@@ -675,7 +675,7 @@ geocoder.addressSearch('${reviewInfo.ADDR}', function(result, status) {
       ]
     });
     function shareFB() {
-    	window.open('http://www.facebook.com/sharer/sharer.php?u=' + location.href + ',"zzzzzzzz",
+    	window.open('http://www.facebook.com/sharer/sharer.php?u=' + location.href,"zzzzzzzz",
     			"width=700, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes")
     }
     function shareNaver() {
