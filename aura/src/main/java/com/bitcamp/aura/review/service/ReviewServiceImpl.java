@@ -79,6 +79,8 @@ public class ReviewServiceImpl implements ReviewService {
 			HashMap<String, Object> review = new HashMap<>();
 			review.put("addr", ((PlaceVO)item).getAddr());
 			review.put("title", item.getTitle());
+			review.put("num", item.getNum());
+			review.put("type", item.getType());
 			reviewList.add(review);		
 		});
 		

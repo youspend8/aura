@@ -682,7 +682,11 @@
 					    });
 					    
 					    var infowindow = new daum.maps.InfoWindow({
-						    content : '<div style="width: 150px; text-align: center; padding: 5px 0; font-weight: 800">' + item.title + '</div>' // 인포윈도우에 표시할 내용
+						    content : '<div style="width: 150px; text-align: center; padding: 5px 0; font-weight: 800">' + 
+										'<a href="/review/post?type=' + item.type + '&num=' + item.num + '">' + 	    	
+						   					item.title + 
+						    			'</a>' +
+								      '</div>' // 인포윈도우에 표시할 내용
 						});
 
 						marker.setMap(map);
