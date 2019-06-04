@@ -69,11 +69,6 @@
 			    <version>1.6.1</version>
 			</dependency>
 
-			
-
-
-
-		
 		<!-- WEB MVC, MVC -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
